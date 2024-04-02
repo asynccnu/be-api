@@ -1,13 +1,9 @@
 version: v1
 managed:
   enabled: true
-  go_package_prefix:
-    default: github.com/MuxiKeStack/be-api/gen
 plugins:
   # 默认用最新版本
-  - plugin: buf.build/protocolbuffers/go
-    # 指定版本 buf.build/protocolbuffers/go:v1.28.1
-    # protoc-gen-go 插件
+  - plugin: buf.build/protocolbuffers/go:v1.28.1
     out: gen
     opt: paths=source_relative
 
@@ -17,7 +13,7 @@ plugins:
     opt:
       - paths=source_relative
 
-  - plugin: go-errors
-    out: gen
-    opt:
-      - paths=source_relative
+#  - plugin: go-errors
+#    out: gen
+#    opt:
+#      - paths=source_relative
