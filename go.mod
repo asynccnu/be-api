@@ -3,6 +3,8 @@ module github.com/MuxiKeStack/be-api
 go 1.22.0
 
 require (
+	github.com/go-kratos/kratos/v2 v2.7.3
+	github.com/ringsaturn/protoc-gen-go-errors v0.1.0
 	google.golang.org/grpc v1.62.1
 	google.golang.org/protobuf v1.33.0
 )

@@ -5,8 +5,13 @@ option go_package="user/v1;userv1";
 
 message User {
   int64 id = 1;
-  int64 status = 2; // 判断是否为新用户
-  
+  string student_id = 2;
+  string password = 3;
+  string avatar = 4;
+  string nickname = 5;
+  int64 utime = 6;
+  int64 ctime = 7;
+  bool new = 8; // 判断是否为新用户
 }
 
 service UserService {
