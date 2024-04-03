@@ -16,9 +16,9 @@ func IsInvalidSidOrPwd(err error) bool {
 		return false
 	}
 	e := errors.FromError(err)
-	return e.Reason == UserErrorReason_INVALID_SID_OR_PWD.String() && e.Code == 200
+	return e.Reason == UserErrorReason_INVALID_SID_OR_PWD.String() && e.Code == 401
 }
 
 func ErrorInvalidSidOrPwd(format string, args ...interface{}) *errors.Error {
-	return errors.New(200, UserErrorReason_INVALID_SID_OR_PWD.String(), fmt.Sprintf(format, args...))
+	return errors.New(401, UserErrorReason_INVALID_SID_OR_PWD.String(), fmt.Sprintf(format, args...))
 }

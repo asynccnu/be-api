@@ -9,5 +9,5 @@ enum UserErrorReason {
   // 设置缺省错误码
   option (errors.default_code) = 500;
 
-  INVALID_SID_OR_PWD = 0 [(errors.code) = 200];
+  INVALID_SID_OR_PWD = 0 [(errors.code) = 401];
 }
