@@ -13,7 +13,7 @@ plugins:
     opt:
       - paths=source_relative
 
-#  - plugin: go-errors
-#    out: gen
-#    opt:
-#      - paths=source_relative
+  - plugin: go-errors
+    out: gen
+    opt:
+      - paths=source_relative
