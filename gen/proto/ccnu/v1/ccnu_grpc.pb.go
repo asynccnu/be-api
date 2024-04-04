@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: proto/ccnu/ccnu.proto
+// source: proto/ccnu/v1/ccnu.proto
 
 package ccnuv1
 
@@ -142,5 +142,5 @@ var CCNUService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/ccnu/ccnu.proto",
+	Metadata: "proto/ccnu/v1/ccnu.proto",
 }
