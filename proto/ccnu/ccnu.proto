@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package ccnu.v1;
+option go_package="proto/ccnu/v1;ccnuv1";
+
+service CCNUService {
+  rpc Login(LoginRequest)returns(LoginResponse);
+}
+
+message LoginRequest {
+  string student_id = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  bool success = 1;
+}
