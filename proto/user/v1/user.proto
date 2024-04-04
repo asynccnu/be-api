@@ -30,7 +30,9 @@ message LoginByCCNUResponse {
 }
 
 message UpdateNonSensitiveInfoRequest {
-  User user = 1;
+  int64 uid = 1;
+  string avatar = 2;
+  string nickname = 3;
 }
 
 message UpdateNonSensitiveInfoResponse {
