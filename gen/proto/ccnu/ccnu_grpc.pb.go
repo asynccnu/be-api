@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CCNUService_Login_FullMethodName = "/ccnu.v1.CCNUService/Login"
+	CCNUService_Login_FullMethodName      = "/ccnu.v1.CCNUService/Login"
+	CCNUService_CourseList_FullMethodName = "/ccnu.v1.CCNUService/CourseList"
 )
 
 // CCNUServiceClient is the client API for CCNUService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CCNUServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	CourseList(ctx context.Context, in *CourseListRequest, opts ...grpc.CallOption) (*CourseListResponse, error)
 }
 
 type cCNUServiceClient struct {
@@ -46,11 +48,21 @@ func (c *cCNUServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 	return out, nil
 }
 
+func (c *cCNUServiceClient) CourseList(ctx context.Context, in *CourseListRequest, opts ...grpc.CallOption) (*CourseListResponse, error) {
+	out := new(CourseListResponse)
+	err := c.cc.Invoke(ctx, CCNUService_CourseList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CCNUServiceServer is the server API for CCNUService service.
 // All implementations must embed UnimplementedCCNUServiceServer
 // for forward compatibility
 type CCNUServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	CourseList(context.Context, *CourseListRequest) (*CourseListResponse, error)
 	mustEmbedUnimplementedCCNUServiceServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedCCNUServiceServer struct {
 
 func (UnimplementedCCNUServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedCCNUServiceServer) CourseList(context.Context, *CourseListRequest) (*CourseListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CourseList not implemented")
 }
 func (UnimplementedCCNUServiceServer) mustEmbedUnimplementedCCNUServiceServer() {}
 
@@ -92,6 +107,24 @@ func _CCNUService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CCNUService_CourseList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CourseListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CCNUServiceServer).CourseList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CCNUService_CourseList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CCNUServiceServer).CourseList(ctx, req.(*CourseListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CCNUService_ServiceDesc is the grpc.ServiceDesc for CCNUService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var CCNUService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _CCNUService_Login_Handler,
+		},
+		{
+			MethodName: "CourseList",
+			Handler:    _CCNUService_CourseList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -5,6 +5,7 @@ option go_package="proto/ccnu/v1;ccnuv1";
 
 service CCNUService {
   rpc Login(LoginRequest)returns(LoginResponse);
+  rpc CourseList(CourseListRequest)returns(CourseListResponse);
 }
 
 message LoginRequest {
@@ -14,4 +15,23 @@ message LoginRequest {
 
 message LoginResponse {
   bool success = 1;
+}
+
+message CourseListRequest {
+  string student_id = 1;
+  string password = 2;
+  string year = 3;
+  string term = 4;
+}
+
+message Course {
+  string course_id = 1;
+  string name = 2;
+  string teacher = 3;
+  string year = 5;
+  string term = 6;
+}
+
+message CourseListResponse {
+  repeated Course Courses = 1;
 }
