@@ -15,17 +15,16 @@ message User {
 }
 
 service UserService {
-  rpc LoginByCCNU (LoginByCCNURequest) returns(LoginByCCNUResponse);
+  rpc FindOrCreateByStudentId (FindOrCreateByStudentIdRequest) returns(FindOrCreateByStudentIdResponse);
   rpc UpdateNonSensitiveInfo (UpdateNonSensitiveInfoRequest) returns (UpdateNonSensitiveInfoResponse);
   rpc Profile (ProfileRequest) returns (ProfileResponse);
 }
 
-message LoginByCCNURequest {
+message FindOrCreateByStudentIdRequest {
   string student_id = 1;
-  string password = 2;
 }
 
-message LoginByCCNUResponse {
+message FindOrCreateByStudentIdResponse {
   User user = 1;
 }
 

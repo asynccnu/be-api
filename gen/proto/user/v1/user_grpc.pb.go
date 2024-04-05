@@ -19,16 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_LoginByCCNU_FullMethodName            = "/user.v1.UserService/LoginByCCNU"
-	UserService_UpdateNonSensitiveInfo_FullMethodName = "/user.v1.UserService/UpdateNonSensitiveInfo"
-	UserService_Profile_FullMethodName                = "/user.v1.UserService/Profile"
+	UserService_FindOrCreateByStudentId_FullMethodName = "/user.v1.UserService/FindOrCreateByStudentId"
+	UserService_UpdateNonSensitiveInfo_FullMethodName  = "/user.v1.UserService/UpdateNonSensitiveInfo"
+	UserService_Profile_FullMethodName                 = "/user.v1.UserService/Profile"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	LoginByCCNU(ctx context.Context, in *LoginByCCNURequest, opts ...grpc.CallOption) (*LoginByCCNUResponse, error)
+	FindOrCreateByStudentId(ctx context.Context, in *FindOrCreateByStudentIdRequest, opts ...grpc.CallOption) (*FindOrCreateByStudentIdResponse, error)
 	UpdateNonSensitiveInfo(ctx context.Context, in *UpdateNonSensitiveInfoRequest, opts ...grpc.CallOption) (*UpdateNonSensitiveInfoResponse, error)
 	Profile(ctx context.Context, in *ProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
 }
@@ -41,9 +41,9 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) LoginByCCNU(ctx context.Context, in *LoginByCCNURequest, opts ...grpc.CallOption) (*LoginByCCNUResponse, error) {
-	out := new(LoginByCCNUResponse)
-	err := c.cc.Invoke(ctx, UserService_LoginByCCNU_FullMethodName, in, out, opts...)
+func (c *userServiceClient) FindOrCreateByStudentId(ctx context.Context, in *FindOrCreateByStudentIdRequest, opts ...grpc.CallOption) (*FindOrCreateByStudentIdResponse, error) {
+	out := new(FindOrCreateByStudentIdResponse)
+	err := c.cc.Invoke(ctx, UserService_FindOrCreateByStudentId_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (c *userServiceClient) Profile(ctx context.Context, in *ProfileRequest, opt
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
-	LoginByCCNU(context.Context, *LoginByCCNURequest) (*LoginByCCNUResponse, error)
+	FindOrCreateByStudentId(context.Context, *FindOrCreateByStudentIdRequest) (*FindOrCreateByStudentIdResponse, error)
 	UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error)
 	Profile(context.Context, *ProfileRequest) (*ProfileResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
@@ -82,8 +82,8 @@ type UserServiceServer interface {
 type UnimplementedUserServiceServer struct {
 }
 
-func (UnimplementedUserServiceServer) LoginByCCNU(context.Context, *LoginByCCNURequest) (*LoginByCCNUResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoginByCCNU not implemented")
+func (UnimplementedUserServiceServer) FindOrCreateByStudentId(context.Context, *FindOrCreateByStudentIdRequest) (*FindOrCreateByStudentIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindOrCreateByStudentId not implemented")
 }
 func (UnimplementedUserServiceServer) UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateNonSensitiveInfo not implemented")
@@ -104,20 +104,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_LoginByCCNU_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LoginByCCNURequest)
+func _UserService_FindOrCreateByStudentId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindOrCreateByStudentIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).LoginByCCNU(ctx, in)
+		return srv.(UserServiceServer).FindOrCreateByStudentId(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_LoginByCCNU_FullMethodName,
+		FullMethod: UserService_FindOrCreateByStudentId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).LoginByCCNU(ctx, req.(*LoginByCCNURequest))
+		return srv.(UserServiceServer).FindOrCreateByStudentId(ctx, req.(*FindOrCreateByStudentIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -166,8 +166,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "LoginByCCNU",
-			Handler:    _UserService_LoginByCCNU_Handler,
+			MethodName: "FindOrCreateByStudentId",
+			Handler:    _UserService_FindOrCreateByStudentId_Handler,
 		},
 		{
 			MethodName: "UpdateNonSensitiveInfo",
