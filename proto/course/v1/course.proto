@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package course.v1;
+option go_package="proto/course/v1;coursev1";
+
+service CourseService {
+  rpc List(ListRequest)returns(ListResponse);
+}
+
+message ListRequest {
+  string student_id = 1;
+  string password = 2;
+  string year = 3;
+  string term = 4;
+}
+
+message Course {
+  string course_id = 1;
+  string name = 2;
+  string teacher = 3;
+  string year = 5;
+  string term = 6;
+}
+
+message ListResponse {
+  repeated Course courses = 1;
+}
