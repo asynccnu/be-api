@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package evaluation.v1;
+option go_package="proto/evaluation/v1;evaluationv1";
+
+service EvaluationService {
+  rpc Evaluated(EvaluatedRequest)returns(EvaluatedResponse);
+}
+
+message EvaluatedRequest {
+  string student_id = 1;
+  string course_id = 2;
+  string name  = 3;
+  string teacher = 4;
+}
+
+message EvaluatedResponse {
+  bool evaluated = 1;
+}
