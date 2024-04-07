@@ -5,23 +5,58 @@ option go_package="proto/course/v1;coursev1";
 
 service CourseService {
   rpc List(ListRequest)returns(ListResponse);
-}
-
-message ListRequest {
-  string student_id = 1;
-  string password = 2;
-  string year = 3;
-  string term = 4;
+  rpc GetDetailById(GetDetailByIdRequest)returns(GetDetailByIdResponse);
+  rpc GetGradesById(GetGradesByIdRequest)returns(GetGradesByIdResponse);
 }
 
 message Course {
-  string course_id = 1;
-  string name = 2;
-  string teacher = 3;
-  string year = 5;
-  string term = 6;
+  int64 id = 1;
+  string course_code = 2;
+  string name = 3;
+  string teacher = 5;
+  string school = 6;    // 学院
+  string property = 7;  // 课程性质
+  float credit = 8;    // 学分
+}
+
+message ListRequest {
+  // 这里uid和下面的学号密码是两种查询方式所需的参数
+  // uid 是从数据查， 学号密码是从教务系统查
+  // 其实这里用了强制参数携带uid，其实就是向上游显式暴露了自己的一部分实现
+  // 也就是除了从教务系统查询，还做了容错，教务系统没查到可以去自己系统数据查旧的数据
+  // 我觉得这部分的显式暴露是不得已的做法，而且这个容错我认为也是必须有的
+  // 不适合下游自己来觉得要不要使用容错策略
+  int64 uid = 1;
+  string student_id = 2;
+  string password = 3;
+  string year = 4;
+  string term = 5;
 }
 
 message ListResponse {
   repeated Course courses = 1;
+}
+
+message GetDetailByIdRequest {
+  int64 course_id = 1;
+}
+
+message GetDetailByIdResponse {
+  Course course = 1;
+}
+
+message GetGradesByIdRequest {
+  int64 course_id = 1;
+}
+
+message Grade {
+  float regular = 1; // 平时
+  float final = 2;   // 期末
+  float total = 3;   // 总评
+  string year = 4;
+  string term = 5;
+}
+
+message GetGradesByIdResponse {
+  repeated Grade grades = 1;
 }
