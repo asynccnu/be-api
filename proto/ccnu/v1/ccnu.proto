@@ -25,13 +25,14 @@ message CourseListRequest {
 }
 
 message Course {
-  string course_id = 1;
+  string course_code = 1;
   string name = 2;
   string teacher = 3;
-  string year = 5;
-  string term = 6;
+  string school = 4;
+  string property = 5;  // 课程性质
+  float credit = 6;
 }
 
 message CourseListResponse {
-  repeated Course Courses = 1;
+  repeated Course courses = 1;
 }
