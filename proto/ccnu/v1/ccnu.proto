@@ -22,6 +22,12 @@ message CourseListRequest {
   string password = 2;
   string year = 3;
   string term = 4;
+  Source source = 5;
+}
+
+enum Source{
+  GradeApi = 0; // 来源于成绩查询接口，这里的信息很准确
+  OldXkApi = 1; // 来源于老的教务系统接口，这里有的课程信息是不全的
 }
 
 message Course {
