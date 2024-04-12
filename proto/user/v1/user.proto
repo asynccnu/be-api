@@ -28,10 +28,9 @@ message FindOrCreateByStudentIdResponse {
   User user = 1;
 }
 
+// 昵称和头像
 message UpdateNonSensitiveInfoRequest {
-  int64 uid = 1;
-  string avatar = 2;
-  string nickname = 3;
+  User user = 1;
 }
 
 message UpdateNonSensitiveInfoResponse {
