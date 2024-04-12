@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	TagService_AttachAssessmentTags_FullMethodName = "/tag.v1.TagService/AttachAssessmentTags"
-	TagService_AttachFeaturesTags_FullMethodName   = "/tag.v1.TagService/AttachFeaturesTags"
+	TagService_AttachFeatureTags_FullMethodName    = "/tag.v1.TagService/AttachFeatureTags"
 )
 
 // TagServiceClient is the client API for TagService service.
@@ -28,7 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TagServiceClient interface {
 	AttachAssessmentTags(ctx context.Context, in *AttachAssessmentTagsRequest, opts ...grpc.CallOption) (*AttachAssessmentTagsResponse, error)
-	AttachFeaturesTags(ctx context.Context, in *AttachFeaturesTagsRequest, opts ...grpc.CallOption) (*AttachFeaturesTagsResponse, error)
+	AttachFeatureTags(ctx context.Context, in *AttachFeatureTagsRequest, opts ...grpc.CallOption) (*AttachFeatureTagsResponse, error)
 }
 
 type tagServiceClient struct {
@@ -48,9 +48,9 @@ func (c *tagServiceClient) AttachAssessmentTags(ctx context.Context, in *AttachA
 	return out, nil
 }
 
-func (c *tagServiceClient) AttachFeaturesTags(ctx context.Context, in *AttachFeaturesTagsRequest, opts ...grpc.CallOption) (*AttachFeaturesTagsResponse, error) {
-	out := new(AttachFeaturesTagsResponse)
-	err := c.cc.Invoke(ctx, TagService_AttachFeaturesTags_FullMethodName, in, out, opts...)
+func (c *tagServiceClient) AttachFeatureTags(ctx context.Context, in *AttachFeatureTagsRequest, opts ...grpc.CallOption) (*AttachFeatureTagsResponse, error) {
+	out := new(AttachFeatureTagsResponse)
+	err := c.cc.Invoke(ctx, TagService_AttachFeatureTags_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (c *tagServiceClient) AttachFeaturesTags(ctx context.Context, in *AttachFea
 // for forward compatibility
 type TagServiceServer interface {
 	AttachAssessmentTags(context.Context, *AttachAssessmentTagsRequest) (*AttachAssessmentTagsResponse, error)
-	AttachFeaturesTags(context.Context, *AttachFeaturesTagsRequest) (*AttachFeaturesTagsResponse, error)
+	AttachFeatureTags(context.Context, *AttachFeatureTagsRequest) (*AttachFeatureTagsResponse, error)
 	mustEmbedUnimplementedTagServiceServer()
 }
 
@@ -73,8 +73,8 @@ type UnimplementedTagServiceServer struct {
 func (UnimplementedTagServiceServer) AttachAssessmentTags(context.Context, *AttachAssessmentTagsRequest) (*AttachAssessmentTagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AttachAssessmentTags not implemented")
 }
-func (UnimplementedTagServiceServer) AttachFeaturesTags(context.Context, *AttachFeaturesTagsRequest) (*AttachFeaturesTagsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AttachFeaturesTags not implemented")
+func (UnimplementedTagServiceServer) AttachFeatureTags(context.Context, *AttachFeatureTagsRequest) (*AttachFeatureTagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AttachFeatureTags not implemented")
 }
 func (UnimplementedTagServiceServer) mustEmbedUnimplementedTagServiceServer() {}
 
@@ -107,20 +107,20 @@ func _TagService_AttachAssessmentTags_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TagService_AttachFeaturesTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AttachFeaturesTagsRequest)
+func _TagService_AttachFeatureTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AttachFeatureTagsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TagServiceServer).AttachFeaturesTags(ctx, in)
+		return srv.(TagServiceServer).AttachFeatureTags(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: TagService_AttachFeaturesTags_FullMethodName,
+		FullMethod: TagService_AttachFeatureTags_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TagServiceServer).AttachFeaturesTags(ctx, req.(*AttachFeaturesTagsRequest))
+		return srv.(TagServiceServer).AttachFeatureTags(ctx, req.(*AttachFeatureTagsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -137,8 +137,8 @@ var TagService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _TagService_AttachAssessmentTags_Handler,
 		},
 		{
-			MethodName: "AttachFeaturesTags",
-			Handler:    _TagService_AttachFeaturesTags_Handler,
+			MethodName: "AttachFeatureTags",
+			Handler:    _TagService_AttachFeatureTags_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
