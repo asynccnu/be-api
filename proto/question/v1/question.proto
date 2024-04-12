@@ -21,6 +21,8 @@ message Question {
   Biz    biz = 3;
   int64  biz_id = 4;
   string content = 5;
+  int64 utime = 6;
+  int64 ctime = 7;
 }
 
 message PublishRequest {
