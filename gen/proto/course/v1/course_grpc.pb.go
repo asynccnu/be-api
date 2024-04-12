@@ -19,18 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CourseService_List_FullMethodName          = "/course.v1.CourseService/List"
-	CourseService_GetDetailById_FullMethodName = "/course.v1.CourseService/GetDetailById"
-	CourseService_GetGradesById_FullMethodName = "/course.v1.CourseService/GetGradesById"
+	CourseService_SubscriptionList_FullMethodName      = "/course.v1.CourseService/SubscriptionList"
+	CourseService_GetDetailById_FullMethodName         = "/course.v1.CourseService/GetDetailById"
+	CourseService_GetSubscriberUidsById_FullMethodName = "/course.v1.CourseService/GetSubscriberUidsById"
 )
 
 // CourseServiceClient is the client API for CourseService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CourseServiceClient interface {
-	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
+	SubscriptionList(ctx context.Context, in *SubscriptionListRequest, opts ...grpc.CallOption) (*SubscriptionListResponse, error)
 	GetDetailById(ctx context.Context, in *GetDetailByIdRequest, opts ...grpc.CallOption) (*GetDetailByIdResponse, error)
-	GetGradesById(ctx context.Context, in *GetGradesByIdRequest, opts ...grpc.CallOption) (*GetGradesByIdResponse, error)
+	GetSubscriberUidsById(ctx context.Context, in *GetSubscriberUidsByIdRequest, opts ...grpc.CallOption) (*GetSubscriberUidsByIdResponse, error)
 }
 
 type courseServiceClient struct {
@@ -41,9 +41,9 @@ func NewCourseServiceClient(cc grpc.ClientConnInterface) CourseServiceClient {
 	return &courseServiceClient{cc}
 }
 
-func (c *courseServiceClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
-	out := new(ListResponse)
-	err := c.cc.Invoke(ctx, CourseService_List_FullMethodName, in, out, opts...)
+func (c *courseServiceClient) SubscriptionList(ctx context.Context, in *SubscriptionListRequest, opts ...grpc.CallOption) (*SubscriptionListResponse, error) {
+	out := new(SubscriptionListResponse)
+	err := c.cc.Invoke(ctx, CourseService_SubscriptionList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,9 +59,9 @@ func (c *courseServiceClient) GetDetailById(ctx context.Context, in *GetDetailBy
 	return out, nil
 }
 
-func (c *courseServiceClient) GetGradesById(ctx context.Context, in *GetGradesByIdRequest, opts ...grpc.CallOption) (*GetGradesByIdResponse, error) {
-	out := new(GetGradesByIdResponse)
-	err := c.cc.Invoke(ctx, CourseService_GetGradesById_FullMethodName, in, out, opts...)
+func (c *courseServiceClient) GetSubscriberUidsById(ctx context.Context, in *GetSubscriberUidsByIdRequest, opts ...grpc.CallOption) (*GetSubscriberUidsByIdResponse, error) {
+	out := new(GetSubscriberUidsByIdResponse)
+	err := c.cc.Invoke(ctx, CourseService_GetSubscriberUidsById_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,9 +72,9 @@ func (c *courseServiceClient) GetGradesById(ctx context.Context, in *GetGradesBy
 // All implementations must embed UnimplementedCourseServiceServer
 // for forward compatibility
 type CourseServiceServer interface {
-	List(context.Context, *ListRequest) (*ListResponse, error)
+	SubscriptionList(context.Context, *SubscriptionListRequest) (*SubscriptionListResponse, error)
 	GetDetailById(context.Context, *GetDetailByIdRequest) (*GetDetailByIdResponse, error)
-	GetGradesById(context.Context, *GetGradesByIdRequest) (*GetGradesByIdResponse, error)
+	GetSubscriberUidsById(context.Context, *GetSubscriberUidsByIdRequest) (*GetSubscriberUidsByIdResponse, error)
 	mustEmbedUnimplementedCourseServiceServer()
 }
 
@@ -82,14 +82,14 @@ type CourseServiceServer interface {
 type UnimplementedCourseServiceServer struct {
 }
 
-func (UnimplementedCourseServiceServer) List(context.Context, *ListRequest) (*ListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+func (UnimplementedCourseServiceServer) SubscriptionList(context.Context, *SubscriptionListRequest) (*SubscriptionListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubscriptionList not implemented")
 }
 func (UnimplementedCourseServiceServer) GetDetailById(context.Context, *GetDetailByIdRequest) (*GetDetailByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDetailById not implemented")
 }
-func (UnimplementedCourseServiceServer) GetGradesById(context.Context, *GetGradesByIdRequest) (*GetGradesByIdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGradesById not implemented")
+func (UnimplementedCourseServiceServer) GetSubscriberUidsById(context.Context, *GetSubscriberUidsByIdRequest) (*GetSubscriberUidsByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSubscriberUidsById not implemented")
 }
 func (UnimplementedCourseServiceServer) mustEmbedUnimplementedCourseServiceServer() {}
 
@@ -104,20 +104,20 @@ func RegisterCourseServiceServer(s grpc.ServiceRegistrar, srv CourseServiceServe
 	s.RegisterService(&CourseService_ServiceDesc, srv)
 }
 
-func _CourseService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRequest)
+func _CourseService_SubscriptionList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscriptionListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CourseServiceServer).List(ctx, in)
+		return srv.(CourseServiceServer).SubscriptionList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CourseService_List_FullMethodName,
+		FullMethod: CourseService_SubscriptionList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CourseServiceServer).List(ctx, req.(*ListRequest))
+		return srv.(CourseServiceServer).SubscriptionList(ctx, req.(*SubscriptionListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -140,20 +140,20 @@ func _CourseService_GetDetailById_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CourseService_GetGradesById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetGradesByIdRequest)
+func _CourseService_GetSubscriberUidsById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSubscriberUidsByIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CourseServiceServer).GetGradesById(ctx, in)
+		return srv.(CourseServiceServer).GetSubscriberUidsById(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CourseService_GetGradesById_FullMethodName,
+		FullMethod: CourseService_GetSubscriberUidsById_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CourseServiceServer).GetGradesById(ctx, req.(*GetGradesByIdRequest))
+		return srv.(CourseServiceServer).GetSubscriberUidsById(ctx, req.(*GetSubscriberUidsByIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -166,16 +166,16 @@ var CourseService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*CourseServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "List",
-			Handler:    _CourseService_List_Handler,
+			MethodName: "SubscriptionList",
+			Handler:    _CourseService_SubscriptionList_Handler,
 		},
 		{
 			MethodName: "GetDetailById",
 			Handler:    _CourseService_GetDetailById_Handler,
 		},
 		{
-			MethodName: "GetGradesById",
-			Handler:    _CourseService_GetGradesById_Handler,
+			MethodName: "GetSubscriberUidsById",
+			Handler:    _CourseService_GetSubscriberUidsById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
