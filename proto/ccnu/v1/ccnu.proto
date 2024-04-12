@@ -37,6 +37,8 @@ message Course {
   string school = 4;
   string property = 5;  // 课程性质
   float credit = 6;
+  string year = 7;
+  string term = 8;
 }
 
 message CourseListResponse {
