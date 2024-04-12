@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	EvaluationService_Evaluated_FullMethodName = "/evaluation.v1.EvaluationService/Evaluated"
+	EvaluationService_Publish_FullMethodName   = "/evaluation.v1.EvaluationService/Publish"
 )
 
 // EvaluationServiceClient is the client API for EvaluationService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EvaluationServiceClient interface {
 	Evaluated(ctx context.Context, in *EvaluatedRequest, opts ...grpc.CallOption) (*EvaluatedResponse, error)
+	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error)
 }
 
 type evaluationServiceClient struct {
@@ -46,11 +48,21 @@ func (c *evaluationServiceClient) Evaluated(ctx context.Context, in *EvaluatedRe
 	return out, nil
 }
 
+func (c *evaluationServiceClient) Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error) {
+	out := new(PublishResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_Publish_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EvaluationServiceServer is the server API for EvaluationService service.
 // All implementations must embed UnimplementedEvaluationServiceServer
 // for forward compatibility
 type EvaluationServiceServer interface {
 	Evaluated(context.Context, *EvaluatedRequest) (*EvaluatedResponse, error)
+	Publish(context.Context, *PublishRequest) (*PublishResponse, error)
 	mustEmbedUnimplementedEvaluationServiceServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedEvaluationServiceServer struct {
 
 func (UnimplementedEvaluationServiceServer) Evaluated(context.Context, *EvaluatedRequest) (*EvaluatedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Evaluated not implemented")
+}
+func (UnimplementedEvaluationServiceServer) Publish(context.Context, *PublishRequest) (*PublishResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
 }
 func (UnimplementedEvaluationServiceServer) mustEmbedUnimplementedEvaluationServiceServer() {}
 
@@ -92,6 +107,24 @@ func _EvaluationService_Evaluated_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EvaluationService_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).Publish(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_Publish_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).Publish(ctx, req.(*PublishRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EvaluationService_ServiceDesc is the grpc.ServiceDesc for EvaluationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var EvaluationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Evaluated",
 			Handler:    _EvaluationService_Evaluated_Handler,
+		},
+		{
+			MethodName: "Publish",
+			Handler:    _EvaluationService_Publish_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
