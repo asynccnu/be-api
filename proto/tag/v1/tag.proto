@@ -6,21 +6,21 @@ option go_package="proto/tag/v1;tagv1";
 service TagService {
   rpc AttachAssessmentTags(AttachAssessmentTagsRequest)returns(AttachAssessmentTagsResponse);
   rpc AttachFeatureTags(AttachFeatureTagsRequest)returns(AttachFeatureTagsResponse);
+//  rpc GetAssessmentTags;
+//  rpc GetFeatureTags;
 }
-
+// 这个标签再加status的话感觉真的多余...,status的话就从evaluation服务聚合吧
 // 因为标签是固定的，写死，所以枚举，规范来讲应该都大写吧，但是难读...
 enum AssessmentTag {
-  UnknownAssessment = 0;           // 未知考核
-  OpenBookExamination = 1;         // 开卷考试
-  ClosedBookExamination = 2;       // 闭卷考试
-  ThesisExamination = 3;           // 论文考核
-  GroupReporting = 4;              // 小组汇报
-  NoAssessment = 5;                // 无考核
+  OpenBookExamination = 0;         // 开卷考试
+  ClosedBookExamination = 1;       // 闭卷考试
+  ThesisExamination = 2;           // 论文考核
+  GroupReporting = 3;              // 小组汇报
+  NoAssessment = 4;                // 无考核
 }
 
 enum Biz {
-  Unknown = 0;
-  Course = 1;
+  Course = 0;
 }
 
 message AttachAssessmentTagsRequest {
@@ -34,16 +34,15 @@ message AttachAssessmentTagsResponse {
 }
 
 enum FeatureTag {
-  UnknownFeature = 0;               // 未知特点
-  EasyToLearn = 1;                  // 课程简单易学
-  RichInContent = 2;                // 课程干货满满
-  Challenging = 3;                  // 课程很有挑战
-  RigorousAndResponsible = 4;       // 老师严谨负责
-  KindAndEasygoing = 5;             // 老师温柔随和
-  Humorous = 6;                     // 老师风趣幽默
-  LessHomework = 7;                 // 平时作业少
-  KeyPointsForFinal = 8;            // 期末划重点
-  ComprehensiveOnlineMaterials = 9; // 云课堂资料全
+  EasyToLearn = 0;                  // 课程简单易学
+  RichInContent = 1;                // 课程干货满满
+  Challenging = 2;                  // 课程很有挑战
+  RigorousAndResponsible = 3;       // 老师严谨负责
+  KindAndEasygoing = 4;             // 老师温柔随和
+  Humorous = 5;                     // 老师风趣幽默
+  LessHomework = 6;                 // 平时作业少
+  KeyPointsForFinal = 7;            // 期末划重点
+  ComprehensiveOnlineMaterials = 8; // 云课堂资料全
 }
 
 message AttachFeatureTagsRequest {
