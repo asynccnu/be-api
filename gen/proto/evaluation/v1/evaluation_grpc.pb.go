@@ -19,8 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	EvaluationService_Evaluated_FullMethodName = "/evaluation.v1.EvaluationService/Evaluated"
-	EvaluationService_Publish_FullMethodName   = "/evaluation.v1.EvaluationService/Publish"
+	EvaluationService_Evaluated_FullMethodName            = "/evaluation.v1.EvaluationService/Evaluated"
+	EvaluationService_Save_FullMethodName                 = "/evaluation.v1.EvaluationService/Save"
+	EvaluationService_UpdateStatus_FullMethodName         = "/evaluation.v1.EvaluationService/UpdateStatus"
+	EvaluationService_ListRecent_FullMethodName           = "/evaluation.v1.EvaluationService/ListRecent"
+	EvaluationService_ListCourse_FullMethodName           = "/evaluation.v1.EvaluationService/ListCourse"
+	EvaluationService_ListMine_FullMethodName             = "/evaluation.v1.EvaluationService/ListMine"
+	EvaluationService_CountCourseInvisible_FullMethodName = "/evaluation.v1.EvaluationService/CountCourseInvisible"
+	EvaluationService_CountMine_FullMethodName            = "/evaluation.v1.EvaluationService/CountMine"
+	EvaluationService_Detail_FullMethodName               = "/evaluation.v1.EvaluationService/Detail"
 )
 
 // EvaluationServiceClient is the client API for EvaluationService service.
@@ -28,7 +35,14 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type EvaluationServiceClient interface {
 	Evaluated(ctx context.Context, in *EvaluatedRequest, opts ...grpc.CallOption) (*EvaluatedResponse, error)
-	Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error)
+	Save(ctx context.Context, in *SaveRequest, opts ...grpc.CallOption) (*SaveResponse, error)
+	UpdateStatus(ctx context.Context, in *UpdateStatusRequest, opts ...grpc.CallOption) (*UpdateStatusResponse, error)
+	ListRecent(ctx context.Context, in *ListRecentRequest, opts ...grpc.CallOption) (*ListRecentResponse, error)
+	ListCourse(ctx context.Context, in *ListCourseRequest, opts ...grpc.CallOption) (*ListCourseResponse, error)
+	ListMine(ctx context.Context, in *ListMineRequest, opts ...grpc.CallOption) (*ListMineResponse, error)
+	CountCourseInvisible(ctx context.Context, in *CountCourseInvisibleRequest, opts ...grpc.CallOption) (*CountCourseInvisibleResponse, error)
+	CountMine(ctx context.Context, in *CountMineRequest, opts ...grpc.CallOption) (*CountMineResponse, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
 }
 
 type evaluationServiceClient struct {
@@ -48,9 +62,72 @@ func (c *evaluationServiceClient) Evaluated(ctx context.Context, in *EvaluatedRe
 	return out, nil
 }
 
-func (c *evaluationServiceClient) Publish(ctx context.Context, in *PublishRequest, opts ...grpc.CallOption) (*PublishResponse, error) {
-	out := new(PublishResponse)
-	err := c.cc.Invoke(ctx, EvaluationService_Publish_FullMethodName, in, out, opts...)
+func (c *evaluationServiceClient) Save(ctx context.Context, in *SaveRequest, opts ...grpc.CallOption) (*SaveResponse, error) {
+	out := new(SaveResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_Save_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) UpdateStatus(ctx context.Context, in *UpdateStatusRequest, opts ...grpc.CallOption) (*UpdateStatusResponse, error) {
+	out := new(UpdateStatusResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_UpdateStatus_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) ListRecent(ctx context.Context, in *ListRecentRequest, opts ...grpc.CallOption) (*ListRecentResponse, error) {
+	out := new(ListRecentResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_ListRecent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) ListCourse(ctx context.Context, in *ListCourseRequest, opts ...grpc.CallOption) (*ListCourseResponse, error) {
+	out := new(ListCourseResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_ListCourse_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) ListMine(ctx context.Context, in *ListMineRequest, opts ...grpc.CallOption) (*ListMineResponse, error) {
+	out := new(ListMineResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_ListMine_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) CountCourseInvisible(ctx context.Context, in *CountCourseInvisibleRequest, opts ...grpc.CallOption) (*CountCourseInvisibleResponse, error) {
+	out := new(CountCourseInvisibleResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_CountCourseInvisible_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) CountMine(ctx context.Context, in *CountMineRequest, opts ...grpc.CallOption) (*CountMineResponse, error) {
+	out := new(CountMineResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_CountMine_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *evaluationServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error) {
+	out := new(DetailResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_Detail_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +139,14 @@ func (c *evaluationServiceClient) Publish(ctx context.Context, in *PublishReques
 // for forward compatibility
 type EvaluationServiceServer interface {
 	Evaluated(context.Context, *EvaluatedRequest) (*EvaluatedResponse, error)
-	Publish(context.Context, *PublishRequest) (*PublishResponse, error)
+	Save(context.Context, *SaveRequest) (*SaveResponse, error)
+	UpdateStatus(context.Context, *UpdateStatusRequest) (*UpdateStatusResponse, error)
+	ListRecent(context.Context, *ListRecentRequest) (*ListRecentResponse, error)
+	ListCourse(context.Context, *ListCourseRequest) (*ListCourseResponse, error)
+	ListMine(context.Context, *ListMineRequest) (*ListMineResponse, error)
+	CountCourseInvisible(context.Context, *CountCourseInvisibleRequest) (*CountCourseInvisibleResponse, error)
+	CountMine(context.Context, *CountMineRequest) (*CountMineResponse, error)
+	Detail(context.Context, *DetailRequest) (*DetailResponse, error)
 	mustEmbedUnimplementedEvaluationServiceServer()
 }
 
@@ -73,8 +157,29 @@ type UnimplementedEvaluationServiceServer struct {
 func (UnimplementedEvaluationServiceServer) Evaluated(context.Context, *EvaluatedRequest) (*EvaluatedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Evaluated not implemented")
 }
-func (UnimplementedEvaluationServiceServer) Publish(context.Context, *PublishRequest) (*PublishResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Publish not implemented")
+func (UnimplementedEvaluationServiceServer) Save(context.Context, *SaveRequest) (*SaveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
+}
+func (UnimplementedEvaluationServiceServer) UpdateStatus(context.Context, *UpdateStatusRequest) (*UpdateStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStatus not implemented")
+}
+func (UnimplementedEvaluationServiceServer) ListRecent(context.Context, *ListRecentRequest) (*ListRecentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRecent not implemented")
+}
+func (UnimplementedEvaluationServiceServer) ListCourse(context.Context, *ListCourseRequest) (*ListCourseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCourse not implemented")
+}
+func (UnimplementedEvaluationServiceServer) ListMine(context.Context, *ListMineRequest) (*ListMineResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMine not implemented")
+}
+func (UnimplementedEvaluationServiceServer) CountCourseInvisible(context.Context, *CountCourseInvisibleRequest) (*CountCourseInvisibleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountCourseInvisible not implemented")
+}
+func (UnimplementedEvaluationServiceServer) CountMine(context.Context, *CountMineRequest) (*CountMineResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountMine not implemented")
+}
+func (UnimplementedEvaluationServiceServer) Detail(context.Context, *DetailRequest) (*DetailResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
 }
 func (UnimplementedEvaluationServiceServer) mustEmbedUnimplementedEvaluationServiceServer() {}
 
@@ -107,20 +212,146 @@ func _EvaluationService_Evaluated_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EvaluationService_Publish_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PublishRequest)
+func _EvaluationService_Save_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(EvaluationServiceServer).Publish(ctx, in)
+		return srv.(EvaluationServiceServer).Save(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: EvaluationService_Publish_FullMethodName,
+		FullMethod: EvaluationService_Save_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EvaluationServiceServer).Publish(ctx, req.(*PublishRequest))
+		return srv.(EvaluationServiceServer).Save(ctx, req.(*SaveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_UpdateStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).UpdateStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_UpdateStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).UpdateStatus(ctx, req.(*UpdateStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_ListRecent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRecentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).ListRecent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_ListRecent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).ListRecent(ctx, req.(*ListRecentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_ListCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).ListCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_ListCourse_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).ListCourse(ctx, req.(*ListCourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_ListMine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListMineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).ListMine(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_ListMine_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).ListMine(ctx, req.(*ListMineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_CountCourseInvisible_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountCourseInvisibleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).CountCourseInvisible(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_CountCourseInvisible_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).CountCourseInvisible(ctx, req.(*CountCourseInvisibleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_CountMine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountMineRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).CountMine(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_CountMine_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).CountMine(ctx, req.(*CountMineRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EvaluationService_Detail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DetailRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).Detail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_Detail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).Detail(ctx, req.(*DetailRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -137,8 +368,36 @@ var EvaluationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _EvaluationService_Evaluated_Handler,
 		},
 		{
-			MethodName: "Publish",
-			Handler:    _EvaluationService_Publish_Handler,
+			MethodName: "Save",
+			Handler:    _EvaluationService_Save_Handler,
+		},
+		{
+			MethodName: "UpdateStatus",
+			Handler:    _EvaluationService_UpdateStatus_Handler,
+		},
+		{
+			MethodName: "ListRecent",
+			Handler:    _EvaluationService_ListRecent_Handler,
+		},
+		{
+			MethodName: "ListCourse",
+			Handler:    _EvaluationService_ListCourse_Handler,
+		},
+		{
+			MethodName: "ListMine",
+			Handler:    _EvaluationService_ListMine_Handler,
+		},
+		{
+			MethodName: "CountCourseInvisible",
+			Handler:    _EvaluationService_CountCourseInvisible_Handler,
+		},
+		{
+			MethodName: "CountMine",
+			Handler:    _EvaluationService_CountMine_Handler,
+		},
+		{
+			MethodName: "Detail",
+			Handler:    _EvaluationService_Detail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
