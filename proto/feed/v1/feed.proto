@@ -4,6 +4,5 @@ package feed.v1;
 option go_package="proto/feed/v1;feedv1";
 
 enum EventType {
-  UnknownType = 0;
-  InviteToAnswer = 1;
+  InviteToAnswer = 0;
 }
