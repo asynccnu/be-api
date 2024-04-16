@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package course.v1;
-option go_package="proto/course/v1;coursev1";
+option go_package="github.com/MuxiKeStack/be-api/gen/proto/course/v1;coursev1";
 
 service CourseService {
   rpc SubscriptionList(SubscriptionListRequest)returns(SubscriptionListResponse);
@@ -17,13 +17,24 @@ message Grade {
   string term = 5;
 }
 
+// 因为Property，不仅仅要在内部使用，所以改为在proto里面定义枚举类型
+enum CourseProperty {
+    CoursePropertyAny = 0;
+    CoursePropertyUnknown = 1;
+    CoursePropertyGeneralCore = 2;                    // 通识核心课
+    CoursePropertyGeneralElective  = 3;               // 通识选修课
+    CoursePropertyGeneralRequired  = 4;               // 通识必修课
+    CoursePropertyMajorCore = 5;                      // 专业主干课程
+    CoursePropertyMajorElective = 6;                 // 个性发展课程
+}
+
 message Course {
   int64 id = 1;
   string course_code = 2;
   string name = 3;
   string teacher = 5;
   string school = 6;    // 学院
-  string property = 7;  // 课程性质
+  CourseProperty property = 7;  // 课程性质
   float credit = 8;    // 学分
   repeated Grade grades = 4;
 }
