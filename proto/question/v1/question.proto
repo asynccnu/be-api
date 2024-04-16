@@ -11,8 +11,7 @@ service QuestionService {
 }
 
 enum Biz {
-  Unknown = 0;
-  Course = 1;
+  Course = 0;
 }
 
 message Question {
