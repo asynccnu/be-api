@@ -19,15 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	EvaluationService_Evaluated_FullMethodName            = "/evaluation.v1.EvaluationService/Evaluated"
-	EvaluationService_Save_FullMethodName                 = "/evaluation.v1.EvaluationService/Save"
-	EvaluationService_UpdateStatus_FullMethodName         = "/evaluation.v1.EvaluationService/UpdateStatus"
-	EvaluationService_ListRecent_FullMethodName           = "/evaluation.v1.EvaluationService/ListRecent"
-	EvaluationService_ListCourse_FullMethodName           = "/evaluation.v1.EvaluationService/ListCourse"
-	EvaluationService_ListMine_FullMethodName             = "/evaluation.v1.EvaluationService/ListMine"
-	EvaluationService_CountCourseInvisible_FullMethodName = "/evaluation.v1.EvaluationService/CountCourseInvisible"
-	EvaluationService_CountMine_FullMethodName            = "/evaluation.v1.EvaluationService/CountMine"
-	EvaluationService_Detail_FullMethodName               = "/evaluation.v1.EvaluationService/Detail"
+	EvaluationService_Evaluated_FullMethodName               = "/evaluation.v1.EvaluationService/Evaluated"
+	EvaluationService_Save_FullMethodName                    = "/evaluation.v1.EvaluationService/Save"
+	EvaluationService_UpdateStatus_FullMethodName            = "/evaluation.v1.EvaluationService/UpdateStatus"
+	EvaluationService_ListRecent_FullMethodName              = "/evaluation.v1.EvaluationService/ListRecent"
+	EvaluationService_ListCourse_FullMethodName              = "/evaluation.v1.EvaluationService/ListCourse"
+	EvaluationService_ListMine_FullMethodName                = "/evaluation.v1.EvaluationService/ListMine"
+	EvaluationService_CountCourseInvisible_FullMethodName    = "/evaluation.v1.EvaluationService/CountCourseInvisible"
+	EvaluationService_CountMine_FullMethodName               = "/evaluation.v1.EvaluationService/CountMine"
+	EvaluationService_Detail_FullMethodName                  = "/evaluation.v1.EvaluationService/Detail"
+	EvaluationService_VisiblePublishersCourse_FullMethodName = "/evaluation.v1.EvaluationService/VisiblePublishersCourse"
 )
 
 // EvaluationServiceClient is the client API for EvaluationService service.
@@ -43,6 +44,7 @@ type EvaluationServiceClient interface {
 	CountCourseInvisible(ctx context.Context, in *CountCourseInvisibleRequest, opts ...grpc.CallOption) (*CountCourseInvisibleResponse, error)
 	CountMine(ctx context.Context, in *CountMineRequest, opts ...grpc.CallOption) (*CountMineResponse, error)
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
+	VisiblePublishersCourse(ctx context.Context, in *VisiblePublishersCourseRequest, opts ...grpc.CallOption) (*VisiblePublishersCourseResponse, error)
 }
 
 type evaluationServiceClient struct {
@@ -134,6 +136,15 @@ func (c *evaluationServiceClient) Detail(ctx context.Context, in *DetailRequest,
 	return out, nil
 }
 
+func (c *evaluationServiceClient) VisiblePublishersCourse(ctx context.Context, in *VisiblePublishersCourseRequest, opts ...grpc.CallOption) (*VisiblePublishersCourseResponse, error) {
+	out := new(VisiblePublishersCourseResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_VisiblePublishersCourse_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EvaluationServiceServer is the server API for EvaluationService service.
 // All implementations must embed UnimplementedEvaluationServiceServer
 // for forward compatibility
@@ -147,6 +158,7 @@ type EvaluationServiceServer interface {
 	CountCourseInvisible(context.Context, *CountCourseInvisibleRequest) (*CountCourseInvisibleResponse, error)
 	CountMine(context.Context, *CountMineRequest) (*CountMineResponse, error)
 	Detail(context.Context, *DetailRequest) (*DetailResponse, error)
+	VisiblePublishersCourse(context.Context, *VisiblePublishersCourseRequest) (*VisiblePublishersCourseResponse, error)
 	mustEmbedUnimplementedEvaluationServiceServer()
 }
 
@@ -180,6 +192,9 @@ func (UnimplementedEvaluationServiceServer) CountMine(context.Context, *CountMin
 }
 func (UnimplementedEvaluationServiceServer) Detail(context.Context, *DetailRequest) (*DetailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
+}
+func (UnimplementedEvaluationServiceServer) VisiblePublishersCourse(context.Context, *VisiblePublishersCourseRequest) (*VisiblePublishersCourseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method VisiblePublishersCourse not implemented")
 }
 func (UnimplementedEvaluationServiceServer) mustEmbedUnimplementedEvaluationServiceServer() {}
 
@@ -356,6 +371,24 @@ func _EvaluationService_Detail_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EvaluationService_VisiblePublishersCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(VisiblePublishersCourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).VisiblePublishersCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_VisiblePublishersCourse_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).VisiblePublishersCourse(ctx, req.(*VisiblePublishersCourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EvaluationService_ServiceDesc is the grpc.ServiceDesc for EvaluationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -398,6 +431,10 @@ var EvaluationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Detail",
 			Handler:    _EvaluationService_Detail_Handler,
+		},
+		{
+			MethodName: "VisiblePublishersCourse",
+			Handler:    _EvaluationService_VisiblePublishersCourse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
