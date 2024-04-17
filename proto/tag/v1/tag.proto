@@ -6,8 +6,10 @@ option go_package="proto/tag/v1;tagv1";
 service TagService {
   rpc AttachAssessmentTags(AttachAssessmentTagsRequest)returns(AttachAssessmentTagsResponse);
   rpc AttachFeatureTags(AttachFeatureTagsRequest)returns(AttachFeatureTagsResponse);
-//  rpc GetAssessmentTags;
-//  rpc GetFeatureTags;
+  rpc GetAssessmentTagsByTaggerBiz(GetAssessmentTagsByTaggerBizRequest)returns(GetAssessmentTagsByTaggerBizResponse);
+  rpc GetFeatureTagsByTaggerBiz(GetFeatureTagsByTaggerBizRequest)returns(GetFeatureTagsByTaggerBizResponse);
+  rpc CountAssessmentTagsByCourseTagger(CountAssessmentTagsByCourseTaggerRequest)returns(CountAssessmentTagsByCourseTaggerResponse);
+  rpc CountFeatureTagsByCourseTagger(CountFeatureTagsByCourseTaggerRequest)returns(CountFeatureTagsByCourseTaggerResponse);
 }
 // 这个标签再加status的话感觉真的多余...,status的话就从evaluation服务聚合吧
 // 因为标签是固定的，写死，所以枚举，规范来讲应该都大写吧，但是难读...
@@ -53,4 +55,52 @@ message AttachFeatureTagsRequest {
 }
 
 message AttachFeatureTagsResponse {
+}
+
+message GetAssessmentTagsByTaggerBizRequest {
+  int64 tagger_id = 1;
+  Biz biz = 2;
+  int64 biz_id = 3;
+}
+
+message GetAssessmentTagsByTaggerBizResponse {
+  repeated AssessmentTag tags = 1;
+}
+
+message GetFeatureTagsByTaggerBizRequest {
+  int64 tagger_id = 1;
+  Biz biz = 2;
+  int64 biz_id = 3;
+}
+
+message GetFeatureTagsByTaggerBizResponse {
+  repeated FeatureTag tags = 1;
+}
+
+message CountAssessmentTagsByCourseTaggerRequest {
+  int64 course_id = 1;
+  repeated int64 tagger_ids = 3;
+}
+
+message CountAssessmentItem {
+  AssessmentTag tag = 1;
+  int64 count = 2;
+}
+
+message CountAssessmentTagsByCourseTaggerResponse {
+  repeated CountAssessmentItem items = 1;
+}
+
+message CountFeatureTagsByCourseTaggerRequest {
+  int64 course_id = 1;
+  repeated int64 tagger_ids = 3;
+}
+
+message CountFeatureItem {
+  FeatureTag tag = 1;
+  int64 count = 2;
+}
+
+message CountFeatureTagsByCourseTaggerResponse {
+  repeated CountFeatureItem items  = 1;
 }

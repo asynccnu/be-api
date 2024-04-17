@@ -19,8 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	TagService_AttachAssessmentTags_FullMethodName = "/tag.v1.TagService/AttachAssessmentTags"
-	TagService_AttachFeatureTags_FullMethodName    = "/tag.v1.TagService/AttachFeatureTags"
+	TagService_AttachAssessmentTags_FullMethodName              = "/tag.v1.TagService/AttachAssessmentTags"
+	TagService_AttachFeatureTags_FullMethodName                 = "/tag.v1.TagService/AttachFeatureTags"
+	TagService_GetAssessmentTagsByTaggerBiz_FullMethodName      = "/tag.v1.TagService/GetAssessmentTagsByTaggerBiz"
+	TagService_GetFeatureTagsByTaggerBiz_FullMethodName         = "/tag.v1.TagService/GetFeatureTagsByTaggerBiz"
+	TagService_CountAssessmentTagsByCourseTagger_FullMethodName = "/tag.v1.TagService/CountAssessmentTagsByCourseTagger"
+	TagService_CountFeatureTagsByCourseTagger_FullMethodName    = "/tag.v1.TagService/CountFeatureTagsByCourseTagger"
 )
 
 // TagServiceClient is the client API for TagService service.
@@ -29,6 +33,10 @@ const (
 type TagServiceClient interface {
 	AttachAssessmentTags(ctx context.Context, in *AttachAssessmentTagsRequest, opts ...grpc.CallOption) (*AttachAssessmentTagsResponse, error)
 	AttachFeatureTags(ctx context.Context, in *AttachFeatureTagsRequest, opts ...grpc.CallOption) (*AttachFeatureTagsResponse, error)
+	GetAssessmentTagsByTaggerBiz(ctx context.Context, in *GetAssessmentTagsByTaggerBizRequest, opts ...grpc.CallOption) (*GetAssessmentTagsByTaggerBizResponse, error)
+	GetFeatureTagsByTaggerBiz(ctx context.Context, in *GetFeatureTagsByTaggerBizRequest, opts ...grpc.CallOption) (*GetFeatureTagsByTaggerBizResponse, error)
+	CountAssessmentTagsByCourseTagger(ctx context.Context, in *CountAssessmentTagsByCourseTaggerRequest, opts ...grpc.CallOption) (*CountAssessmentTagsByCourseTaggerResponse, error)
+	CountFeatureTagsByCourseTagger(ctx context.Context, in *CountFeatureTagsByCourseTaggerRequest, opts ...grpc.CallOption) (*CountFeatureTagsByCourseTaggerResponse, error)
 }
 
 type tagServiceClient struct {
@@ -57,12 +65,52 @@ func (c *tagServiceClient) AttachFeatureTags(ctx context.Context, in *AttachFeat
 	return out, nil
 }
 
+func (c *tagServiceClient) GetAssessmentTagsByTaggerBiz(ctx context.Context, in *GetAssessmentTagsByTaggerBizRequest, opts ...grpc.CallOption) (*GetAssessmentTagsByTaggerBizResponse, error) {
+	out := new(GetAssessmentTagsByTaggerBizResponse)
+	err := c.cc.Invoke(ctx, TagService_GetAssessmentTagsByTaggerBiz_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tagServiceClient) GetFeatureTagsByTaggerBiz(ctx context.Context, in *GetFeatureTagsByTaggerBizRequest, opts ...grpc.CallOption) (*GetFeatureTagsByTaggerBizResponse, error) {
+	out := new(GetFeatureTagsByTaggerBizResponse)
+	err := c.cc.Invoke(ctx, TagService_GetFeatureTagsByTaggerBiz_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tagServiceClient) CountAssessmentTagsByCourseTagger(ctx context.Context, in *CountAssessmentTagsByCourseTaggerRequest, opts ...grpc.CallOption) (*CountAssessmentTagsByCourseTaggerResponse, error) {
+	out := new(CountAssessmentTagsByCourseTaggerResponse)
+	err := c.cc.Invoke(ctx, TagService_CountAssessmentTagsByCourseTagger_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *tagServiceClient) CountFeatureTagsByCourseTagger(ctx context.Context, in *CountFeatureTagsByCourseTaggerRequest, opts ...grpc.CallOption) (*CountFeatureTagsByCourseTaggerResponse, error) {
+	out := new(CountFeatureTagsByCourseTaggerResponse)
+	err := c.cc.Invoke(ctx, TagService_CountFeatureTagsByCourseTagger_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TagServiceServer is the server API for TagService service.
 // All implementations must embed UnimplementedTagServiceServer
 // for forward compatibility
 type TagServiceServer interface {
 	AttachAssessmentTags(context.Context, *AttachAssessmentTagsRequest) (*AttachAssessmentTagsResponse, error)
 	AttachFeatureTags(context.Context, *AttachFeatureTagsRequest) (*AttachFeatureTagsResponse, error)
+	GetAssessmentTagsByTaggerBiz(context.Context, *GetAssessmentTagsByTaggerBizRequest) (*GetAssessmentTagsByTaggerBizResponse, error)
+	GetFeatureTagsByTaggerBiz(context.Context, *GetFeatureTagsByTaggerBizRequest) (*GetFeatureTagsByTaggerBizResponse, error)
+	CountAssessmentTagsByCourseTagger(context.Context, *CountAssessmentTagsByCourseTaggerRequest) (*CountAssessmentTagsByCourseTaggerResponse, error)
+	CountFeatureTagsByCourseTagger(context.Context, *CountFeatureTagsByCourseTaggerRequest) (*CountFeatureTagsByCourseTaggerResponse, error)
 	mustEmbedUnimplementedTagServiceServer()
 }
 
@@ -75,6 +123,18 @@ func (UnimplementedTagServiceServer) AttachAssessmentTags(context.Context, *Atta
 }
 func (UnimplementedTagServiceServer) AttachFeatureTags(context.Context, *AttachFeatureTagsRequest) (*AttachFeatureTagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AttachFeatureTags not implemented")
+}
+func (UnimplementedTagServiceServer) GetAssessmentTagsByTaggerBiz(context.Context, *GetAssessmentTagsByTaggerBizRequest) (*GetAssessmentTagsByTaggerBizResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAssessmentTagsByTaggerBiz not implemented")
+}
+func (UnimplementedTagServiceServer) GetFeatureTagsByTaggerBiz(context.Context, *GetFeatureTagsByTaggerBizRequest) (*GetFeatureTagsByTaggerBizResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFeatureTagsByTaggerBiz not implemented")
+}
+func (UnimplementedTagServiceServer) CountAssessmentTagsByCourseTagger(context.Context, *CountAssessmentTagsByCourseTaggerRequest) (*CountAssessmentTagsByCourseTaggerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountAssessmentTagsByCourseTagger not implemented")
+}
+func (UnimplementedTagServiceServer) CountFeatureTagsByCourseTagger(context.Context, *CountFeatureTagsByCourseTaggerRequest) (*CountFeatureTagsByCourseTaggerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountFeatureTagsByCourseTagger not implemented")
 }
 func (UnimplementedTagServiceServer) mustEmbedUnimplementedTagServiceServer() {}
 
@@ -125,6 +185,78 @@ func _TagService_AttachFeatureTags_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TagService_GetAssessmentTagsByTaggerBiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAssessmentTagsByTaggerBizRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServiceServer).GetAssessmentTagsByTaggerBiz(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TagService_GetAssessmentTagsByTaggerBiz_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServiceServer).GetAssessmentTagsByTaggerBiz(ctx, req.(*GetAssessmentTagsByTaggerBizRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TagService_GetFeatureTagsByTaggerBiz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetFeatureTagsByTaggerBizRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServiceServer).GetFeatureTagsByTaggerBiz(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TagService_GetFeatureTagsByTaggerBiz_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServiceServer).GetFeatureTagsByTaggerBiz(ctx, req.(*GetFeatureTagsByTaggerBizRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TagService_CountAssessmentTagsByCourseTagger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountAssessmentTagsByCourseTaggerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServiceServer).CountAssessmentTagsByCourseTagger(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TagService_CountAssessmentTagsByCourseTagger_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServiceServer).CountAssessmentTagsByCourseTagger(ctx, req.(*CountAssessmentTagsByCourseTaggerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _TagService_CountFeatureTagsByCourseTagger_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountFeatureTagsByCourseTaggerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagServiceServer).CountFeatureTagsByCourseTagger(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TagService_CountFeatureTagsByCourseTagger_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagServiceServer).CountFeatureTagsByCourseTagger(ctx, req.(*CountFeatureTagsByCourseTaggerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TagService_ServiceDesc is the grpc.ServiceDesc for TagService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +271,22 @@ var TagService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AttachFeatureTags",
 			Handler:    _TagService_AttachFeatureTags_Handler,
+		},
+		{
+			MethodName: "GetAssessmentTagsByTaggerBiz",
+			Handler:    _TagService_GetAssessmentTagsByTaggerBiz_Handler,
+		},
+		{
+			MethodName: "GetFeatureTagsByTaggerBiz",
+			Handler:    _TagService_GetFeatureTagsByTaggerBiz_Handler,
+		},
+		{
+			MethodName: "CountAssessmentTagsByCourseTagger",
+			Handler:    _TagService_CountAssessmentTagsByCourseTagger_Handler,
+		},
+		{
+			MethodName: "CountFeatureTagsByCourseTagger",
+			Handler:    _TagService_CountFeatureTagsByCourseTagger_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
