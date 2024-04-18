@@ -22,6 +22,7 @@ const (
 	CourseService_SubscriptionList_FullMethodName      = "/course.v1.CourseService/SubscriptionList"
 	CourseService_GetDetailById_FullMethodName         = "/course.v1.CourseService/GetDetailById"
 	CourseService_GetSubscriberUidsById_FullMethodName = "/course.v1.CourseService/GetSubscriberUidsById"
+	CourseService_Subscribed_FullMethodName            = "/course.v1.CourseService/Subscribed"
 )
 
 // CourseServiceClient is the client API for CourseService service.
@@ -31,6 +32,7 @@ type CourseServiceClient interface {
 	SubscriptionList(ctx context.Context, in *SubscriptionListRequest, opts ...grpc.CallOption) (*SubscriptionListResponse, error)
 	GetDetailById(ctx context.Context, in *GetDetailByIdRequest, opts ...grpc.CallOption) (*GetDetailByIdResponse, error)
 	GetSubscriberUidsById(ctx context.Context, in *GetSubscriberUidsByIdRequest, opts ...grpc.CallOption) (*GetSubscriberUidsByIdResponse, error)
+	Subscribed(ctx context.Context, in *SubscribedRequest, opts ...grpc.CallOption) (*SubscribedResponse, error)
 }
 
 type courseServiceClient struct {
@@ -68,6 +70,15 @@ func (c *courseServiceClient) GetSubscriberUidsById(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *courseServiceClient) Subscribed(ctx context.Context, in *SubscribedRequest, opts ...grpc.CallOption) (*SubscribedResponse, error) {
+	out := new(SubscribedResponse)
+	err := c.cc.Invoke(ctx, CourseService_Subscribed_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourseServiceServer is the server API for CourseService service.
 // All implementations must embed UnimplementedCourseServiceServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type CourseServiceServer interface {
 	SubscriptionList(context.Context, *SubscriptionListRequest) (*SubscriptionListResponse, error)
 	GetDetailById(context.Context, *GetDetailByIdRequest) (*GetDetailByIdResponse, error)
 	GetSubscriberUidsById(context.Context, *GetSubscriberUidsByIdRequest) (*GetSubscriberUidsByIdResponse, error)
+	Subscribed(context.Context, *SubscribedRequest) (*SubscribedResponse, error)
 	mustEmbedUnimplementedCourseServiceServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedCourseServiceServer) GetDetailById(context.Context, *GetDetai
 }
 func (UnimplementedCourseServiceServer) GetSubscriberUidsById(context.Context, *GetSubscriberUidsByIdRequest) (*GetSubscriberUidsByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSubscriberUidsById not implemented")
+}
+func (UnimplementedCourseServiceServer) Subscribed(context.Context, *SubscribedRequest) (*SubscribedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Subscribed not implemented")
 }
 func (UnimplementedCourseServiceServer) mustEmbedUnimplementedCourseServiceServer() {}
 
@@ -158,6 +173,24 @@ func _CourseService_GetSubscriberUidsById_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourseService_Subscribed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscribedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).Subscribed(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CourseService_Subscribed_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).Subscribed(ctx, req.(*SubscribedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourseService_ServiceDesc is the grpc.ServiceDesc for CourseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var CourseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSubscriberUidsById",
 			Handler:    _CourseService_GetSubscriberUidsById_Handler,
+		},
+		{
+			MethodName: "Subscribed",
+			Handler:    _CourseService_Subscribed_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

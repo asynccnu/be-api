@@ -7,6 +7,7 @@ service CourseService {
   rpc SubscriptionList(SubscriptionListRequest)returns(SubscriptionListResponse);
   rpc GetDetailById(GetDetailByIdRequest)returns(GetDetailByIdResponse);
   rpc GetSubscriberUidsById(GetSubscriberUidsByIdRequest)returns(GetSubscriberUidsByIdResponse);
+  rpc Subscribed (SubscribedRequest) returns (SubscribedResponse);
 }
 
 message Grade {
@@ -79,4 +80,13 @@ message GetSubscriberUidsByIdRequest {
 
 message GetSubscriberUidsByIdResponse {
   repeated int64 invitee_uids = 1;
+}
+
+message SubscribedRequest {
+  int64 uid = 1;
+  int64 course_id = 2;
+}
+
+message SubscribedResponse {
+  bool subscribed = 1;
 }

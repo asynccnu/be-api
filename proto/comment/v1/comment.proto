@@ -31,6 +31,7 @@ message CommentListResponse {
 
 message DeleteCommentRequest {
   int64 comment_id = 1;
+  int64 uid = 2;
 }
 
 message DeleteCommentResponse {
@@ -40,8 +41,8 @@ message CreateCommentRequest {
   Comment comment = 1;
 }
 
+// 异步执行，不返回commentId
 message CreateCommentResponse {
-  int64 comment_id = 1;
 }
 
 message GetMoreRepliesRequest {
@@ -67,7 +68,7 @@ message Comment {
   string content = 5;
   Comment root_comment = 6;
   Comment parent_comment = 7;
-  int64 reply_to_user_id = 8;
+  int64 reply_to_uid = 8;
   // 正常来说，你在时间传递上，如果不想用 int64 之类的
   // 就可以考虑使用这个 Timestamp
   int64 ctime = 9;
