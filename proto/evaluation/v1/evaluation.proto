@@ -15,6 +15,7 @@ service EvaluationService {
   rpc CountMine(CountMineRequest)returns(CountMineResponse);
   rpc Detail(DetailRequest)returns(DetailResponse);
   rpc VisiblePublishersCourse(VisiblePublishersCourseRequest)returns(VisiblePublishersCourseResponse);
+  rpc CompositeScoreCourse(CompositeScoreCourseRequest)returns(CompositeScoreCourseResponse);
 }
 
 message EvaluatedRequest {
@@ -122,4 +123,12 @@ message VisiblePublishersCourseRequest {
 
 message VisiblePublishersCourseResponse {
   repeated int64 publishers = 1;
+}
+
+message CompositeScoreCourseRequest {
+  int64 course_id = 1;
+}
+
+message CompositeScoreCourseResponse {
+  double score = 1;
 }

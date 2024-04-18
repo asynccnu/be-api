@@ -29,6 +29,7 @@ const (
 	EvaluationService_CountMine_FullMethodName               = "/evaluation.v1.EvaluationService/CountMine"
 	EvaluationService_Detail_FullMethodName                  = "/evaluation.v1.EvaluationService/Detail"
 	EvaluationService_VisiblePublishersCourse_FullMethodName = "/evaluation.v1.EvaluationService/VisiblePublishersCourse"
+	EvaluationService_CompositeScoreCourse_FullMethodName    = "/evaluation.v1.EvaluationService/CompositeScoreCourse"
 )
 
 // EvaluationServiceClient is the client API for EvaluationService service.
@@ -45,6 +46,7 @@ type EvaluationServiceClient interface {
 	CountMine(ctx context.Context, in *CountMineRequest, opts ...grpc.CallOption) (*CountMineResponse, error)
 	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
 	VisiblePublishersCourse(ctx context.Context, in *VisiblePublishersCourseRequest, opts ...grpc.CallOption) (*VisiblePublishersCourseResponse, error)
+	CompositeScoreCourse(ctx context.Context, in *CompositeScoreCourseRequest, opts ...grpc.CallOption) (*CompositeScoreCourseResponse, error)
 }
 
 type evaluationServiceClient struct {
@@ -145,6 +147,15 @@ func (c *evaluationServiceClient) VisiblePublishersCourse(ctx context.Context, i
 	return out, nil
 }
 
+func (c *evaluationServiceClient) CompositeScoreCourse(ctx context.Context, in *CompositeScoreCourseRequest, opts ...grpc.CallOption) (*CompositeScoreCourseResponse, error) {
+	out := new(CompositeScoreCourseResponse)
+	err := c.cc.Invoke(ctx, EvaluationService_CompositeScoreCourse_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EvaluationServiceServer is the server API for EvaluationService service.
 // All implementations must embed UnimplementedEvaluationServiceServer
 // for forward compatibility
@@ -159,6 +170,7 @@ type EvaluationServiceServer interface {
 	CountMine(context.Context, *CountMineRequest) (*CountMineResponse, error)
 	Detail(context.Context, *DetailRequest) (*DetailResponse, error)
 	VisiblePublishersCourse(context.Context, *VisiblePublishersCourseRequest) (*VisiblePublishersCourseResponse, error)
+	CompositeScoreCourse(context.Context, *CompositeScoreCourseRequest) (*CompositeScoreCourseResponse, error)
 	mustEmbedUnimplementedEvaluationServiceServer()
 }
 
@@ -195,6 +207,9 @@ func (UnimplementedEvaluationServiceServer) Detail(context.Context, *DetailReque
 }
 func (UnimplementedEvaluationServiceServer) VisiblePublishersCourse(context.Context, *VisiblePublishersCourseRequest) (*VisiblePublishersCourseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VisiblePublishersCourse not implemented")
+}
+func (UnimplementedEvaluationServiceServer) CompositeScoreCourse(context.Context, *CompositeScoreCourseRequest) (*CompositeScoreCourseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompositeScoreCourse not implemented")
 }
 func (UnimplementedEvaluationServiceServer) mustEmbedUnimplementedEvaluationServiceServer() {}
 
@@ -389,6 +404,24 @@ func _EvaluationService_VisiblePublishersCourse_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EvaluationService_CompositeScoreCourse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CompositeScoreCourseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EvaluationServiceServer).CompositeScoreCourse(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: EvaluationService_CompositeScoreCourse_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EvaluationServiceServer).CompositeScoreCourse(ctx, req.(*CompositeScoreCourseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EvaluationService_ServiceDesc is the grpc.ServiceDesc for EvaluationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -435,6 +468,10 @@ var EvaluationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VisiblePublishersCourse",
 			Handler:    _EvaluationService_VisiblePublishersCourse_Handler,
+		},
+		{
+			MethodName: "CompositeScoreCourse",
+			Handler:    _EvaluationService_CompositeScoreCourse_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
