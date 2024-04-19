@@ -324,7 +324,9 @@ func (x *CreateCommentRequest) GetComment() *Comment {
 	return nil
 }
 
-// 异步执行，不返回commentId
+// TODO 没有返回commentId，因为我不想让前端依赖于这个commentId，
+// 现在同步执行的时候虽然能拿到commentId，之后可能会转为异步执行就拿不到了
+// 这是为之后异步执行做准备
 type CreateCommentResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
