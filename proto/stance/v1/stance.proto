@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package stance.v1;
+option go_package = "github.com/MuxiKeStack/be-api/gen/proto/stance/v1;stancev1";
+
+enum Biz {
+  Evaluation = 0;
+}
+
+enum Stance {
+  None = 0; // 中立或未表态
+  Support = 1; // 支持
+  Oppose = 2; // 反对
+}
+
+service StanceService {
+  rpc Endorse (EndorseRequest) returns (EndorseResponse);
+  rpc GetUserStance (GetUserStanceRequest) returns (GetUserStanceResponse);
+}
+
+// 表态请求
+message EndorseRequest {
+  int64 uid = 1; // 用户 ID
+  Biz biz = 2; // 业务类型
+  int64 biz_id = 3; // 业务 ID
+  Stance stance = 4; // 用户的立场选择
+}
+
+// 表态响应
+message EndorseResponse {
+}
+
+// 查询用户表态请求
+message GetUserStanceRequest {
+  int64 uid = 1;
+  Biz biz = 2;
+  int64 biz_id = 3;
+}
+
+// 查询用户表态响应
+message GetUserStanceResponse {
+  Stance stance = 1; // 用户当前的表态
+  int64 total_supports = 2; // 总支持数
+  int64 total_opposes = 3; // 总反对数
+}
