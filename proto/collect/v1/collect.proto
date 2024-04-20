@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package collect.v1;
+option go_package = "github.com/MuxiKeStack/be-api/gen/proto/collect/v1;collectv1";
+
+enum Biz {
+  Course = 0;
+}
+
+service CollectService {
+  rpc AddCollection (AddCollectionRequest) returns (AddCollectionResponse);
+  rpc RemoveCollection (RemoveCollectionRequest) returns (RemoveCollectionResponse);
+  rpc ListCollections (ListCollectionsRequest) returns (ListCollectionsResponse);
+  rpc CountCollections (CountCollectionsRequest) returns (CountCollectionsResponse);
+  rpc CheckCollection (CheckCollectionRequest) returns (CheckCollectionResponse);
+}
+
+// 添加收藏请求
+message AddCollectionRequest {
+  Collection collection = 1;
+}
+
+// 添加收藏响应
+message AddCollectionResponse {
+}
+
+// 取消收藏请求
+message RemoveCollectionRequest {
+  int64 uid = 1;
+  Biz biz = 2;
+  int64 biz_id = 3;
+}
+
+// 取消收藏响应
+message RemoveCollectionResponse {
+}
+
+// 列出用户的收藏请求
+message ListCollectionsRequest {
+  int64 uid = 1;
+  Biz biz = 2;
+  int64 cur_collection_id = 3;
+  int64 limit = 4;
+}
+
+// 列出用户的收藏响应
+message ListCollectionsResponse {
+  repeated Collection collections = 1;
+}
+
+// 收藏项
+message Collection {
+  int64 id = 1;
+  int64 uid = 2;
+  Biz biz = 3;
+  int64 biz_id = 4;
+}
+
+// 收藏总数请求
+message CountCollectionsRequest {
+  int64 uid = 2;
+  Biz biz = 3;
+}
+
+// 收藏总数响应
+message CountCollectionsResponse {
+  int64 total_count = 1;
+}
+
+// 检查收藏状态请求
+message CheckCollectionRequest {
+  int64 uid = 1;
+  Biz biz = 2;
+  int64 biz_id = 3;
+}
+
+// 检查收藏状态响应
+message CheckCollectionResponse {
+  bool is_collected = 1; // 用户是否已收藏此项
+}

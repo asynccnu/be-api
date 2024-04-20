@@ -71,8 +71,6 @@ message Comment {
   Comment root_comment = 6;
   Comment parent_comment = 7;
   int64 reply_to_uid = 8;
-  // 正常来说，你在时间传递上，如果不想用 int64 之类的
-  // 就可以考虑使用这个 Timestamp
   int64 ctime = 9;
   int64 utime = 10;
 }
