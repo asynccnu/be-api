@@ -131,4 +131,5 @@ message CompositeScoreCourseRequest {
 
 message CompositeScoreCourseResponse {
   double score = 1;
+  int64 rater_count = 2;
 }
