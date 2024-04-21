@@ -488,10 +488,8 @@ type Comment struct {
 	RootComment   *Comment `protobuf:"bytes,6,opt,name=root_comment,json=rootComment,proto3" json:"root_comment,omitempty"`
 	ParentComment *Comment `protobuf:"bytes,7,opt,name=parent_comment,json=parentComment,proto3" json:"parent_comment,omitempty"`
 	ReplyToUid    int64    `protobuf:"varint,8,opt,name=reply_to_uid,json=replyToUid,proto3" json:"reply_to_uid,omitempty"`
-	// 正常来说，你在时间传递上，如果不想用 int64 之类的
-	// 就可以考虑使用这个 Timestamp
-	Ctime int64 `protobuf:"varint,9,opt,name=ctime,proto3" json:"ctime,omitempty"`
-	Utime int64 `protobuf:"varint,10,opt,name=utime,proto3" json:"utime,omitempty"`
+	Ctime         int64    `protobuf:"varint,9,opt,name=ctime,proto3" json:"ctime,omitempty"`
+	Utime         int64    `protobuf:"varint,10,opt,name=utime,proto3" json:"utime,omitempty"`
 }
 
 func (x *Comment) Reset() {
