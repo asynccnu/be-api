@@ -10,7 +10,7 @@ enum Biz {
 enum Stance {
   None = 0; // 中立或未表态
   Support = 1; // 支持
-  Oppose = 2; // 反对
+  Oppose = -1; // 反对
 }
 
 service StanceService {
