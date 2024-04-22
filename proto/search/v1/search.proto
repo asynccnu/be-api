@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package search.v1;
+option go_package = "github.com/MuxiKeStack/be-api/gen/proto/search/v1;searchv1";
+
+enum SearchLocation {
+  Home = 0;
+  Collections = 1;
+}
+
+enum VisibilityStatus {
+  Visible = 0;
+  Hidden = 1;
+}
+
+service SearchService {
+  rpc SearchCourse (SearchCourseRequest) returns (SearchCourseResponse);
+  rpc GetUserSearchHistories (GetUserHistoryRequest) returns (GetUserHistoryResponse);
+  rpc HideUserSearchHistories (HideUserSearchHistoriesRequest) returns (HideUserSearchHistoriesResponse);
+}
+
+message SearchCourseRequest {
+  string keyword = 1;
+  int64 uid = 2;
+  SearchLocation location = 3;
+}
+
+message Course {
+  int64 id = 1;
+  string name = 2;
+  string teacher = 3;
+  uint32 star_rating = 4;
+}
+
+message SearchCourseResponse {
+  repeated Course courses = 1;
+}
+
+message GetUserHistoryRequest {
+  int64 uid = 1;
+  SearchLocation location = 2;
+  int64 offset = 3;
+  int64 limit = 4;
+}
+
+message SearchHistory {
+  int64 id = 1;
+  string keyword = 2;
+  VisibilityStatus status = 3;
+}
+
+message GetUserHistoryResponse {
+  repeated SearchHistory histories = 1;
+}
+
+message HideUserSearchHistoriesRequest {
+  int64 uid = 1;
+  SearchLocation location = 2;
+  bool remove_all = 3;
+  repeated int64 history_ids = 4;
+}
+
+message HideUserSearchHistoriesResponse {
+}
