@@ -29,7 +29,7 @@ message Course {
   int64 id = 1;
   string name = 2;
   string teacher = 3;
-  uint32 star_rating = 4;
+  double composite_score = 4;
 }
 
 message SearchCourseResponse {
