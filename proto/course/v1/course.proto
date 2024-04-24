@@ -10,14 +10,6 @@ service CourseService {
   rpc Subscribed (SubscribedRequest) returns (SubscribedResponse);
 }
 
-message Grade {
-  float regular = 1; // 平时
-  float final = 2;   // 期末
-  float total = 3;   // 总评
-  string year = 4;
-  string term = 5;
-}
-
 // 因为Property，不仅仅要在内部使用，所以改为在proto里面定义枚举类型
 enum CourseProperty {
     CoursePropertyAny = 0;
@@ -37,7 +29,6 @@ message Course {
   string school = 6;    // 学院
   CourseProperty property = 7;  // 课程性质
   float credit = 8;    // 学分
-  repeated Grade grades = 4;
 }
 
 message CourseSubscription {
