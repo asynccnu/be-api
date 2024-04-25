@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	StanceService_Endorse_FullMethodName       = "/stance.v1.StanceService/Endorse"
 	StanceService_GetUserStance_FullMethodName = "/stance.v1.StanceService/GetUserStance"
+	StanceService_CountStance_FullMethodName   = "/stance.v1.StanceService/CountStance"
 )
 
 // StanceServiceClient is the client API for StanceService service.
@@ -29,6 +30,7 @@ const (
 type StanceServiceClient interface {
 	Endorse(ctx context.Context, in *EndorseRequest, opts ...grpc.CallOption) (*EndorseResponse, error)
 	GetUserStance(ctx context.Context, in *GetUserStanceRequest, opts ...grpc.CallOption) (*GetUserStanceResponse, error)
+	CountStance(ctx context.Context, in *CountStanceRequest, opts ...grpc.CallOption) (*CountStanceResponse, error)
 }
 
 type stanceServiceClient struct {
@@ -57,12 +59,22 @@ func (c *stanceServiceClient) GetUserStance(ctx context.Context, in *GetUserStan
 	return out, nil
 }
 
+func (c *stanceServiceClient) CountStance(ctx context.Context, in *CountStanceRequest, opts ...grpc.CallOption) (*CountStanceResponse, error) {
+	out := new(CountStanceResponse)
+	err := c.cc.Invoke(ctx, StanceService_CountStance_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StanceServiceServer is the server API for StanceService service.
 // All implementations must embed UnimplementedStanceServiceServer
 // for forward compatibility
 type StanceServiceServer interface {
 	Endorse(context.Context, *EndorseRequest) (*EndorseResponse, error)
 	GetUserStance(context.Context, *GetUserStanceRequest) (*GetUserStanceResponse, error)
+	CountStance(context.Context, *CountStanceRequest) (*CountStanceResponse, error)
 	mustEmbedUnimplementedStanceServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedStanceServiceServer) Endorse(context.Context, *EndorseRequest
 }
 func (UnimplementedStanceServiceServer) GetUserStance(context.Context, *GetUserStanceRequest) (*GetUserStanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserStance not implemented")
+}
+func (UnimplementedStanceServiceServer) CountStance(context.Context, *CountStanceRequest) (*CountStanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountStance not implemented")
 }
 func (UnimplementedStanceServiceServer) mustEmbedUnimplementedStanceServiceServer() {}
 
@@ -125,6 +140,24 @@ func _StanceService_GetUserStance_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StanceService_CountStance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountStanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StanceServiceServer).CountStance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StanceService_CountStance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StanceServiceServer).CountStance(ctx, req.(*CountStanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StanceService_ServiceDesc is the grpc.ServiceDesc for StanceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var StanceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserStance",
 			Handler:    _StanceService_GetUserStance_Handler,
+		},
+		{
+			MethodName: "CountStance",
+			Handler:    _StanceService_CountStance_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
