@@ -8,6 +8,8 @@ service CourseService {
   rpc GetDetailById(GetDetailByIdRequest)returns(GetDetailByIdResponse);
   rpc GetSubscriberUidsById(GetSubscriberUidsByIdRequest)returns(GetSubscriberUidsByIdResponse);
   rpc Subscribed (SubscribedRequest) returns (SubscribedResponse);
+  // 批处理，减少网络开销和延迟
+  rpc FindIdsOrUpsertByCourses (FindIdOrUpsertByCoursesRequest) returns (FindIdOrUpsertByCoursesResponse);
 }
 
 // 因为Property，不仅仅要在内部使用，所以改为在proto里面定义枚举类型
@@ -28,7 +30,7 @@ message Course {
   string teacher = 5;
   string school = 6;    // 学院
   CourseProperty property = 7;  // 课程性质
-  float credit = 8;    // 学分
+  double credit = 8;    // 学分
 }
 
 message CourseSubscription {
@@ -80,4 +82,12 @@ message SubscribedRequest {
 
 message SubscribedResponse {
   bool subscribed = 1;
+}
+
+message FindIdOrUpsertByCoursesRequest {
+  repeated Course courses = 1;
+}
+
+message FindIdOrUpsertByCoursesResponse {
+  repeated Course courses = 1;
 }

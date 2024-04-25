@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CourseService_SubscriptionList_FullMethodName      = "/course.v1.CourseService/SubscriptionList"
-	CourseService_GetDetailById_FullMethodName         = "/course.v1.CourseService/GetDetailById"
-	CourseService_GetSubscriberUidsById_FullMethodName = "/course.v1.CourseService/GetSubscriberUidsById"
-	CourseService_Subscribed_FullMethodName            = "/course.v1.CourseService/Subscribed"
+	CourseService_SubscriptionList_FullMethodName         = "/course.v1.CourseService/SubscriptionList"
+	CourseService_GetDetailById_FullMethodName            = "/course.v1.CourseService/GetDetailById"
+	CourseService_GetSubscriberUidsById_FullMethodName    = "/course.v1.CourseService/GetSubscriberUidsById"
+	CourseService_Subscribed_FullMethodName               = "/course.v1.CourseService/Subscribed"
+	CourseService_FindIdsOrUpsertByCourses_FullMethodName = "/course.v1.CourseService/FindIdsOrUpsertByCourses"
 )
 
 // CourseServiceClient is the client API for CourseService service.
@@ -33,6 +34,8 @@ type CourseServiceClient interface {
 	GetDetailById(ctx context.Context, in *GetDetailByIdRequest, opts ...grpc.CallOption) (*GetDetailByIdResponse, error)
 	GetSubscriberUidsById(ctx context.Context, in *GetSubscriberUidsByIdRequest, opts ...grpc.CallOption) (*GetSubscriberUidsByIdResponse, error)
 	Subscribed(ctx context.Context, in *SubscribedRequest, opts ...grpc.CallOption) (*SubscribedResponse, error)
+	// 批处理，减少网络开销和延迟
+	FindIdsOrUpsertByCourses(ctx context.Context, in *FindIdOrUpsertByCoursesRequest, opts ...grpc.CallOption) (*FindIdOrUpsertByCoursesResponse, error)
 }
 
 type courseServiceClient struct {
@@ -79,6 +82,15 @@ func (c *courseServiceClient) Subscribed(ctx context.Context, in *SubscribedRequ
 	return out, nil
 }
 
+func (c *courseServiceClient) FindIdsOrUpsertByCourses(ctx context.Context, in *FindIdOrUpsertByCoursesRequest, opts ...grpc.CallOption) (*FindIdOrUpsertByCoursesResponse, error) {
+	out := new(FindIdOrUpsertByCoursesResponse)
+	err := c.cc.Invoke(ctx, CourseService_FindIdsOrUpsertByCourses_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CourseServiceServer is the server API for CourseService service.
 // All implementations must embed UnimplementedCourseServiceServer
 // for forward compatibility
@@ -87,6 +99,8 @@ type CourseServiceServer interface {
 	GetDetailById(context.Context, *GetDetailByIdRequest) (*GetDetailByIdResponse, error)
 	GetSubscriberUidsById(context.Context, *GetSubscriberUidsByIdRequest) (*GetSubscriberUidsByIdResponse, error)
 	Subscribed(context.Context, *SubscribedRequest) (*SubscribedResponse, error)
+	// 批处理，减少网络开销和延迟
+	FindIdsOrUpsertByCourses(context.Context, *FindIdOrUpsertByCoursesRequest) (*FindIdOrUpsertByCoursesResponse, error)
 	mustEmbedUnimplementedCourseServiceServer()
 }
 
@@ -105,6 +119,9 @@ func (UnimplementedCourseServiceServer) GetSubscriberUidsById(context.Context, *
 }
 func (UnimplementedCourseServiceServer) Subscribed(context.Context, *SubscribedRequest) (*SubscribedResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Subscribed not implemented")
+}
+func (UnimplementedCourseServiceServer) FindIdsOrUpsertByCourses(context.Context, *FindIdOrUpsertByCoursesRequest) (*FindIdOrUpsertByCoursesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindIdsOrUpsertByCourses not implemented")
 }
 func (UnimplementedCourseServiceServer) mustEmbedUnimplementedCourseServiceServer() {}
 
@@ -191,6 +208,24 @@ func _CourseService_Subscribed_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CourseService_FindIdsOrUpsertByCourses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindIdOrUpsertByCoursesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CourseServiceServer).FindIdsOrUpsertByCourses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CourseService_FindIdsOrUpsertByCourses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CourseServiceServer).FindIdsOrUpsertByCourses(ctx, req.(*FindIdOrUpsertByCoursesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CourseService_ServiceDesc is the grpc.ServiceDesc for CourseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +248,10 @@ var CourseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Subscribed",
 			Handler:    _CourseService_Subscribed_Handler,
+		},
+		{
+			MethodName: "FindIdsOrUpsertByCourses",
+			Handler:    _CourseService_FindIdsOrUpsertByCourses_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

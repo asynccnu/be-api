@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package grade.v1;
+option go_package="github.com/MuxiKeStack/be-api/gen/proto/grade/v1;gradev1";
+import "proto/ccnu/v1/ccnu.proto";
+
+service GradeService {
+  rpc GetGradesByCourseId (GetGradesByCourseIdRequest) returns (GetGradesByCourseIdResponse);
+  rpc SignForGradeSharing (SignForGradeSharingRequest) returns (SignForGradeSharingResponse);
+  rpc ShareGrade (ShareGradeRequest) returns (ShareGradeResponse);
+  rpc GetSignStatus (GetSignStatusRequest) returns (GetSignStatusResponse);
+}
+
+message GetGradesByCourseIdRequest {
+  int64 course_id = 1;
+}
+
+message GetGradesByCourseIdResponse {
+  repeated ccnu.v1.Grade grades = 1;
+}
+
+message SignForGradeSharingRequest {
+  int64 uid = 1;
+  bool wants_to_sign = 2;
+}
+
+message SignForGradeSharingResponse {
+}
+
+message ShareGradeRequest {
+  int64 uid = 1;
+  string student_id = 2;
+  string password = 3;
+}
+
+message ShareGradeResponse {
+}
+
+message GetSignStatusRequest {
+  int64 uid = 1;
+}
+
+message GetSignStatusResponse {
+  bool isSigned = 1;
+}
