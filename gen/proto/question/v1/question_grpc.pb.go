@@ -23,6 +23,9 @@ const (
 	QuestionService_GetRecommendationInviteeUids_FullMethodName = "/question.v1.QuestionService/GetRecommendationInviteeUids"
 	QuestionService_GetDetailById_FullMethodName                = "/question.v1.QuestionService/GetDetailById"
 	QuestionService_InviteUserToAnswer_FullMethodName           = "/question.v1.QuestionService/InviteUserToAnswer"
+	QuestionService_CountBizQuestions_FullMethodName            = "/question.v1.QuestionService/CountBizQuestions"
+	QuestionService_ListBizQuestions_FullMethodName             = "/question.v1.QuestionService/ListBizQuestions"
+	QuestionService_ListUserQuestions_FullMethodName            = "/question.v1.QuestionService/ListUserQuestions"
 )
 
 // QuestionServiceClient is the client API for QuestionService service.
@@ -33,6 +36,9 @@ type QuestionServiceClient interface {
 	GetRecommendationInviteeUids(ctx context.Context, in *GetRecommendationInviteeUidsRequest, opts ...grpc.CallOption) (*GetRecommendationInviteeUidsResponse, error)
 	GetDetailById(ctx context.Context, in *GetDetailByIdRequest, opts ...grpc.CallOption) (*GetDetailByIdResponse, error)
 	InviteUserToAnswer(ctx context.Context, in *InviteUserToAnswerRequest, opts ...grpc.CallOption) (*InviteUserToAnswerResponse, error)
+	CountBizQuestions(ctx context.Context, in *CountQuestionsRequest, opts ...grpc.CallOption) (*CountQuestionsResponse, error)
+	ListBizQuestions(ctx context.Context, in *ListBizQuestionsRequest, opts ...grpc.CallOption) (*ListBizQuestionsResponse, error)
+	ListUserQuestions(ctx context.Context, in *ListUserQuestionsRequest, opts ...grpc.CallOption) (*ListUserQuestionsResponse, error)
 }
 
 type questionServiceClient struct {
@@ -79,6 +85,33 @@ func (c *questionServiceClient) InviteUserToAnswer(ctx context.Context, in *Invi
 	return out, nil
 }
 
+func (c *questionServiceClient) CountBizQuestions(ctx context.Context, in *CountQuestionsRequest, opts ...grpc.CallOption) (*CountQuestionsResponse, error) {
+	out := new(CountQuestionsResponse)
+	err := c.cc.Invoke(ctx, QuestionService_CountBizQuestions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionServiceClient) ListBizQuestions(ctx context.Context, in *ListBizQuestionsRequest, opts ...grpc.CallOption) (*ListBizQuestionsResponse, error) {
+	out := new(ListBizQuestionsResponse)
+	err := c.cc.Invoke(ctx, QuestionService_ListBizQuestions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *questionServiceClient) ListUserQuestions(ctx context.Context, in *ListUserQuestionsRequest, opts ...grpc.CallOption) (*ListUserQuestionsResponse, error) {
+	out := new(ListUserQuestionsResponse)
+	err := c.cc.Invoke(ctx, QuestionService_ListUserQuestions_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QuestionServiceServer is the server API for QuestionService service.
 // All implementations must embed UnimplementedQuestionServiceServer
 // for forward compatibility
@@ -87,6 +120,9 @@ type QuestionServiceServer interface {
 	GetRecommendationInviteeUids(context.Context, *GetRecommendationInviteeUidsRequest) (*GetRecommendationInviteeUidsResponse, error)
 	GetDetailById(context.Context, *GetDetailByIdRequest) (*GetDetailByIdResponse, error)
 	InviteUserToAnswer(context.Context, *InviteUserToAnswerRequest) (*InviteUserToAnswerResponse, error)
+	CountBizQuestions(context.Context, *CountQuestionsRequest) (*CountQuestionsResponse, error)
+	ListBizQuestions(context.Context, *ListBizQuestionsRequest) (*ListBizQuestionsResponse, error)
+	ListUserQuestions(context.Context, *ListUserQuestionsRequest) (*ListUserQuestionsResponse, error)
 	mustEmbedUnimplementedQuestionServiceServer()
 }
 
@@ -105,6 +141,15 @@ func (UnimplementedQuestionServiceServer) GetDetailById(context.Context, *GetDet
 }
 func (UnimplementedQuestionServiceServer) InviteUserToAnswer(context.Context, *InviteUserToAnswerRequest) (*InviteUserToAnswerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteUserToAnswer not implemented")
+}
+func (UnimplementedQuestionServiceServer) CountBizQuestions(context.Context, *CountQuestionsRequest) (*CountQuestionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CountBizQuestions not implemented")
+}
+func (UnimplementedQuestionServiceServer) ListBizQuestions(context.Context, *ListBizQuestionsRequest) (*ListBizQuestionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListBizQuestions not implemented")
+}
+func (UnimplementedQuestionServiceServer) ListUserQuestions(context.Context, *ListUserQuestionsRequest) (*ListUserQuestionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListUserQuestions not implemented")
 }
 func (UnimplementedQuestionServiceServer) mustEmbedUnimplementedQuestionServiceServer() {}
 
@@ -191,6 +236,60 @@ func _QuestionService_InviteUserToAnswer_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _QuestionService_CountBizQuestions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CountQuestionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServiceServer).CountBizQuestions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QuestionService_CountBizQuestions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServiceServer).CountBizQuestions(ctx, req.(*CountQuestionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionService_ListBizQuestions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListBizQuestionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServiceServer).ListBizQuestions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QuestionService_ListBizQuestions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServiceServer).ListBizQuestions(ctx, req.(*ListBizQuestionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _QuestionService_ListUserQuestions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListUserQuestionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QuestionServiceServer).ListUserQuestions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: QuestionService_ListUserQuestions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QuestionServiceServer).ListUserQuestions(ctx, req.(*ListUserQuestionsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // QuestionService_ServiceDesc is the grpc.ServiceDesc for QuestionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +312,18 @@ var QuestionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InviteUserToAnswer",
 			Handler:    _QuestionService_InviteUserToAnswer_Handler,
+		},
+		{
+			MethodName: "CountBizQuestions",
+			Handler:    _QuestionService_CountBizQuestions_Handler,
+		},
+		{
+			MethodName: "ListBizQuestions",
+			Handler:    _QuestionService_ListBizQuestions_Handler,
+		},
+		{
+			MethodName: "ListUserQuestions",
+			Handler:    _QuestionService_ListUserQuestions_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

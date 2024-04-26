@@ -8,6 +8,9 @@ service QuestionService {
   rpc GetRecommendationInviteeUids(GetRecommendationInviteeUidsRequest)returns(GetRecommendationInviteeUidsResponse);
   rpc GetDetailById(GetDetailByIdRequest)returns(GetDetailByIdResponse);
   rpc InviteUserToAnswer(InviteUserToAnswerRequest)returns(InviteUserToAnswerResponse);
+  rpc CountBizQuestions (CountQuestionsRequest) returns (CountQuestionsResponse);
+  rpc ListBizQuestions (ListBizQuestionsRequest) returns (ListBizQuestionsResponse);
+  rpc ListUserQuestions (ListUserQuestionsRequest) returns (ListUserQuestionsResponse);
 }
 
 enum Biz {
@@ -53,10 +56,38 @@ message GetDetailByIdResponse {
 message InviteUserToAnswerRequest {
   int64 inviter = 1;
   repeated int64 invitees = 2;
-  Biz biz = 3;
-  int64 bizId = 4;
   int64 question_id = 5;
 }
 
 message InviteUserToAnswerResponse {
+}
+
+message CountQuestionsRequest {
+  Biz biz = 1;
+  int64 biz_id = 2;
+}
+
+message CountQuestionsResponse {
+  int64 count = 1;
+}
+
+message ListBizQuestionsRequest {
+  Biz biz = 1;
+  int64 biz_id = 2;
+  int64 cur_question_id = 3;
+  int64 limit = 4;
+}
+
+message ListBizQuestionsResponse {
+  repeated Question questions = 1;
+}
+
+message ListUserQuestionsRequest {
+  int64 uid = 1;
+  int64 cur_question_id = 2;
+  int64 limit = 3;
+}
+
+message ListUserQuestionsResponse {
+  repeated Question questions = 1;
 }
