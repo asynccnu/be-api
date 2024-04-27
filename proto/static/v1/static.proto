@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package static.v1;
+option go_package = "github.com/MuxiKeStack/be-api/gen/proto/static/v1;staticv1";
+
+service StaticService {
+  rpc GetStaticByName (GetStaticByNameRequest) returns (GetStaticByNameResponse);
+  rpc SaveStatic (SaveStaticRequest) returns (SaveStaticResponse);
+}
+
+message Static {
+  string name = 1;
+  string content = 2;
+}
+
+message GetStaticByNameRequest {
+  string name = 1;
+}
+
+message GetStaticByNameResponse {
+  Static static = 1;
+}
+
+message SaveStaticRequest {
+  Static static = 1;
+}
+
+message SaveStaticResponse {
+}
