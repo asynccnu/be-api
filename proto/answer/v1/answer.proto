@@ -9,15 +9,15 @@ service AnswerService {
   rpc ListForQuestion (ListForQuestionRequest) returns (ListForQuestionResponse);
   rpc ListForUser (ListForUserRequest) returns (ListForUserResponse);
   rpc CountForQuestion (CountForQuestionRequest) returns (CountForQuestionResponse);
+  rpc DelAnswerById (DelAnswerByIdRequest) returns (DelAnswerByIdResponse);
 }
 
 message PublishRequest {
-  int64 publisher_id = 1;
-  int64 question_id = 2;
-  string content = 3;
+  Answer answer = 1;
 }
 
 message PublishResponse {
+  int64 answer_id = 1;
 }
 
 message DetailRequest {
@@ -29,6 +29,8 @@ message Answer {
   int64 publisher_id = 2;
   int64 question_id = 3;
   string content = 4;
+  int64 utime = 5;
+  int64 ctime = 6;
 }
 
 message DetailResponse {
@@ -61,4 +63,12 @@ message CountForQuestionRequest {
 
 message CountForQuestionResponse {
   int64 cnt = 1;
+}
+
+message DelAnswerByIdRequest {
+  int64 answer_id = 1;
+  int64 uid = 2;
+}
+
+message DelAnswerByIdResponse {
 }

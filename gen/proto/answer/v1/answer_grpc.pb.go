@@ -24,6 +24,7 @@ const (
 	AnswerService_ListForQuestion_FullMethodName  = "/answer.v1.AnswerService/ListForQuestion"
 	AnswerService_ListForUser_FullMethodName      = "/answer.v1.AnswerService/ListForUser"
 	AnswerService_CountForQuestion_FullMethodName = "/answer.v1.AnswerService/CountForQuestion"
+	AnswerService_DelAnswerById_FullMethodName    = "/answer.v1.AnswerService/DelAnswerById"
 )
 
 // AnswerServiceClient is the client API for AnswerService service.
@@ -35,6 +36,7 @@ type AnswerServiceClient interface {
 	ListForQuestion(ctx context.Context, in *ListForQuestionRequest, opts ...grpc.CallOption) (*ListForQuestionResponse, error)
 	ListForUser(ctx context.Context, in *ListForUserRequest, opts ...grpc.CallOption) (*ListForUserResponse, error)
 	CountForQuestion(ctx context.Context, in *CountForQuestionRequest, opts ...grpc.CallOption) (*CountForQuestionResponse, error)
+	DelAnswerById(ctx context.Context, in *DelAnswerByIdRequest, opts ...grpc.CallOption) (*DelAnswerByIdResponse, error)
 }
 
 type answerServiceClient struct {
@@ -90,6 +92,15 @@ func (c *answerServiceClient) CountForQuestion(ctx context.Context, in *CountFor
 	return out, nil
 }
 
+func (c *answerServiceClient) DelAnswerById(ctx context.Context, in *DelAnswerByIdRequest, opts ...grpc.CallOption) (*DelAnswerByIdResponse, error) {
+	out := new(DelAnswerByIdResponse)
+	err := c.cc.Invoke(ctx, AnswerService_DelAnswerById_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnswerServiceServer is the server API for AnswerService service.
 // All implementations must embed UnimplementedAnswerServiceServer
 // for forward compatibility
@@ -99,6 +110,7 @@ type AnswerServiceServer interface {
 	ListForQuestion(context.Context, *ListForQuestionRequest) (*ListForQuestionResponse, error)
 	ListForUser(context.Context, *ListForUserRequest) (*ListForUserResponse, error)
 	CountForQuestion(context.Context, *CountForQuestionRequest) (*CountForQuestionResponse, error)
+	DelAnswerById(context.Context, *DelAnswerByIdRequest) (*DelAnswerByIdResponse, error)
 	mustEmbedUnimplementedAnswerServiceServer()
 }
 
@@ -120,6 +132,9 @@ func (UnimplementedAnswerServiceServer) ListForUser(context.Context, *ListForUse
 }
 func (UnimplementedAnswerServiceServer) CountForQuestion(context.Context, *CountForQuestionRequest) (*CountForQuestionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountForQuestion not implemented")
+}
+func (UnimplementedAnswerServiceServer) DelAnswerById(context.Context, *DelAnswerByIdRequest) (*DelAnswerByIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelAnswerById not implemented")
 }
 func (UnimplementedAnswerServiceServer) mustEmbedUnimplementedAnswerServiceServer() {}
 
@@ -224,6 +239,24 @@ func _AnswerService_CountForQuestion_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnswerService_DelAnswerById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelAnswerByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnswerServiceServer).DelAnswerById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnswerService_DelAnswerById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnswerServiceServer).DelAnswerById(ctx, req.(*DelAnswerByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnswerService_ServiceDesc is the grpc.ServiceDesc for AnswerService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +283,10 @@ var AnswerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CountForQuestion",
 			Handler:    _AnswerService_CountForQuestion_Handler,
+		},
+		{
+			MethodName: "DelAnswerById",
+			Handler:    _AnswerService_DelAnswerById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
