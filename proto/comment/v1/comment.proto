@@ -59,7 +59,7 @@ message GetMoreRepliesResponse {
 
 enum Biz {
   Evaluation = 0;
-  Question  = 1;
+  Answer = 1;
 }
 
 message Comment {

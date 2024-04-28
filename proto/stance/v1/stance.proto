@@ -5,6 +5,7 @@ option go_package = "github.com/MuxiKeStack/be-api/gen/proto/stance/v1;stancev1"
 
 enum Biz {
   Evaluation = 0;
+  Answer = 1;
 }
 
 enum Stance {
