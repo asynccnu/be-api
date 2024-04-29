@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package point.v1;
+option go_package="github.com/MuxiKeStack/be-api/gen/proto/point/v1;pointv1";
+
+service PointService {
+  rpc GetTitleOfUser (GetTitleOfUserRequest) returns (GetTitleOfUserResponse);
+  rpc SaveUsingTitleOfUser (SaveUsingTitleOfUserRequest) returns (SaveUsingTitleOfUserResponse);
+  rpc GetPointInfoOfUser (GetPointInfoOfUserRequest) returns (GetPointInfoOfUserResponse);
+}
+
+message GetTitleOfUserRequest {
+  int64 uid = 1;
+}
+
+enum Title {
+    Unknown = 0;
+    CaringSenior = 1;
+    KeStackPartner = 2;
+    CCNUWithMe = 3;
+}
+
+message GetTitleOfUserResponse {
+  Title using_title = 1;
+  repeated Title title_owned = 2;
+}
+
+message SaveUsingTitleOfUserRequest {
+  int64 uid = 1;
+  Title title = 2;
+}
+
+message SaveUsingTitleOfUserResponse {
+}
+
+message GetPointInfoOfUserRequest {
+  int64 uid = 1;
+}
+
+message GetPointInfoOfUserResponse {
+  int64 points = 1;
+  int64 level = 2;
+  int64 next_level_points = 3;
+}
