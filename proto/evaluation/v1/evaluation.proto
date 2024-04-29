@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package evaluation.v1;
-option go_package="proto/evaluation/v1;evaluationv1";
+option go_package="github.com/MuxiKeStack/be-api/gen/proto/evaluation/v1;evaluationv1";
 import "proto/course/v1/course.proto";
 
 service EvaluationService {
