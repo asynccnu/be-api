@@ -14,7 +14,7 @@ message GetTitleOfUserRequest {
 }
 
 enum Title {
-    Unknown = 0;
+    None = 0;
     CaringSenior = 1;
     KeStackPartner = 2;
     CCNUWithMe = 3;
@@ -22,7 +22,7 @@ enum Title {
 
 message GetTitleOfUserResponse {
   Title using_title = 1;
-  repeated Title title_owned = 2;
+  repeated Title owned_titles = 2;
 }
 
 message SaveUsingTitleOfUserRequest {
