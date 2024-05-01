@@ -22,3 +22,15 @@ func IsInvalidInput(err error) bool {
 func ErrorInvalidInput(format string, args ...interface{}) *errors.Error {
 	return errors.New(400, EvaluationErrorReason_INVALID_INPUT.String(), fmt.Sprintf(format, args...))
 }
+
+func IsEvaluationNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == EvaluationErrorReason_EVALUATION_NOT_FOUND.String() && e.Code == 404
+}
+
+func ErrorEvaluationNotFound(format string, args ...interface{}) *errors.Error {
+	return errors.New(404, EvaluationErrorReason_EVALUATION_NOT_FOUND.String(), fmt.Sprintf(format, args...))
+}
