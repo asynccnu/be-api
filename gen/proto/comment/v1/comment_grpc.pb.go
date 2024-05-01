@@ -24,6 +24,7 @@ const (
 	CommentService_CreateComment_FullMethodName  = "/comment.v1.CommentService/CreateComment"
 	CommentService_GetMoreReplies_FullMethodName = "/comment.v1.CommentService/GetMoreReplies"
 	CommentService_CountComment_FullMethodName   = "/comment.v1.CommentService/CountComment"
+	CommentService_GetComment_FullMethodName     = "/comment.v1.CommentService/GetComment"
 )
 
 // CommentServiceClient is the client API for CommentService service.
@@ -38,6 +39,7 @@ type CommentServiceClient interface {
 	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
 	GetMoreReplies(ctx context.Context, in *GetMoreRepliesRequest, opts ...grpc.CallOption) (*GetMoreRepliesResponse, error)
 	CountComment(ctx context.Context, in *CountCommentRequest, opts ...grpc.CallOption) (*CountCommentResponse, error)
+	GetComment(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*GetCommentResponse, error)
 }
 
 type commentServiceClient struct {
@@ -93,6 +95,15 @@ func (c *commentServiceClient) CountComment(ctx context.Context, in *CountCommen
 	return out, nil
 }
 
+func (c *commentServiceClient) GetComment(ctx context.Context, in *GetCommentRequest, opts ...grpc.CallOption) (*GetCommentResponse, error) {
+	out := new(GetCommentResponse)
+	err := c.cc.Invoke(ctx, CommentService_GetComment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommentServiceServer is the server API for CommentService service.
 // All implementations must embed UnimplementedCommentServiceServer
 // for forward compatibility
@@ -105,6 +116,7 @@ type CommentServiceServer interface {
 	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
 	GetMoreReplies(context.Context, *GetMoreRepliesRequest) (*GetMoreRepliesResponse, error)
 	CountComment(context.Context, *CountCommentRequest) (*CountCommentResponse, error)
+	GetComment(context.Context, *GetCommentRequest) (*GetCommentResponse, error)
 	mustEmbedUnimplementedCommentServiceServer()
 }
 
@@ -126,6 +138,9 @@ func (UnimplementedCommentServiceServer) GetMoreReplies(context.Context, *GetMor
 }
 func (UnimplementedCommentServiceServer) CountComment(context.Context, *CountCommentRequest) (*CountCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CountComment not implemented")
+}
+func (UnimplementedCommentServiceServer) GetComment(context.Context, *GetCommentRequest) (*GetCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetComment not implemented")
 }
 func (UnimplementedCommentServiceServer) mustEmbedUnimplementedCommentServiceServer() {}
 
@@ -230,6 +245,24 @@ func _CommentService_CountComment_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CommentService_GetComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommentServiceServer).GetComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CommentService_GetComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommentServiceServer).GetComment(ctx, req.(*GetCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CommentService_ServiceDesc is the grpc.ServiceDesc for CommentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -256,6 +289,10 @@ var CommentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CountComment",
 			Handler:    _CommentService_CountComment_Handler,
+		},
+		{
+			MethodName: "GetComment",
+			Handler:    _CommentService_GetComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

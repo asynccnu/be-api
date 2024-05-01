@@ -16,6 +16,8 @@ service CommentService {
   rpc GetMoreReplies(GetMoreRepliesRequest) returns (GetMoreRepliesResponse);
 
   rpc CountComment (CountCommentRequest) returns (CountCommentResponse);
+
+  rpc GetComment (GetCommentRequest) returns (GetCommentResponse);
 }
 
 message CommentListRequest {
@@ -82,4 +84,12 @@ message CountCommentRequest {
 
 message CountCommentResponse {
   int64 count = 1;
+}
+
+message GetCommentRequest {
+  int64 comment_id = 1;
+}
+
+message GetCommentResponse {
+  Comment comment = 1;
 }
