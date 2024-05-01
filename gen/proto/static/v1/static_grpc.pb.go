@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	StaticService_GetStaticByName_FullMethodName = "/static.v1.StaticService/GetStaticByName"
-	StaticService_SaveStatic_FullMethodName      = "/static.v1.StaticService/SaveStatic"
+	StaticService_GetStaticByName_FullMethodName    = "/static.v1.StaticService/GetStaticByName"
+	StaticService_SaveStatic_FullMethodName         = "/static.v1.StaticService/SaveStatic"
+	StaticService_GetStaticsByLabels_FullMethodName = "/static.v1.StaticService/GetStaticsByLabels"
 )
 
 // StaticServiceClient is the client API for StaticService service.
@@ -29,6 +30,7 @@ const (
 type StaticServiceClient interface {
 	GetStaticByName(ctx context.Context, in *GetStaticByNameRequest, opts ...grpc.CallOption) (*GetStaticByNameResponse, error)
 	SaveStatic(ctx context.Context, in *SaveStaticRequest, opts ...grpc.CallOption) (*SaveStaticResponse, error)
+	GetStaticsByLabels(ctx context.Context, in *GetStaticsByLabelsRequest, opts ...grpc.CallOption) (*GetStaticsByLabelsResponse, error)
 }
 
 type staticServiceClient struct {
@@ -57,12 +59,22 @@ func (c *staticServiceClient) SaveStatic(ctx context.Context, in *SaveStaticRequ
 	return out, nil
 }
 
+func (c *staticServiceClient) GetStaticsByLabels(ctx context.Context, in *GetStaticsByLabelsRequest, opts ...grpc.CallOption) (*GetStaticsByLabelsResponse, error) {
+	out := new(GetStaticsByLabelsResponse)
+	err := c.cc.Invoke(ctx, StaticService_GetStaticsByLabels_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StaticServiceServer is the server API for StaticService service.
 // All implementations must embed UnimplementedStaticServiceServer
 // for forward compatibility
 type StaticServiceServer interface {
 	GetStaticByName(context.Context, *GetStaticByNameRequest) (*GetStaticByNameResponse, error)
 	SaveStatic(context.Context, *SaveStaticRequest) (*SaveStaticResponse, error)
+	GetStaticsByLabels(context.Context, *GetStaticsByLabelsRequest) (*GetStaticsByLabelsResponse, error)
 	mustEmbedUnimplementedStaticServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedStaticServiceServer) GetStaticByName(context.Context, *GetSta
 }
 func (UnimplementedStaticServiceServer) SaveStatic(context.Context, *SaveStaticRequest) (*SaveStaticResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveStatic not implemented")
+}
+func (UnimplementedStaticServiceServer) GetStaticsByLabels(context.Context, *GetStaticsByLabelsRequest) (*GetStaticsByLabelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStaticsByLabels not implemented")
 }
 func (UnimplementedStaticServiceServer) mustEmbedUnimplementedStaticServiceServer() {}
 
@@ -125,6 +140,24 @@ func _StaticService_SaveStatic_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StaticService_GetStaticsByLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStaticsByLabelsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StaticServiceServer).GetStaticsByLabels(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StaticService_GetStaticsByLabels_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StaticServiceServer).GetStaticsByLabels(ctx, req.(*GetStaticsByLabelsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StaticService_ServiceDesc is the grpc.ServiceDesc for StaticService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var StaticService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveStatic",
 			Handler:    _StaticService_SaveStatic_Handler,
+		},
+		{
+			MethodName: "GetStaticsByLabels",
+			Handler:    _StaticService_GetStaticsByLabels_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
