@@ -36,11 +36,12 @@ message Course {
   string course_code = 1;
   string name = 2;
   string teacher = 3;
-  string school = 4;
-  string property = 5;  // 课程性质
-  double credit = 6;
-  string year = 7;
-  string term = 8;
+  string class = 4;
+  string school = 5;
+  string property = 6;  // 课程性质
+  double credit = 7;
+  string year = 8;
+  string term = 9;
 }
 
 message CourseListResponse {
