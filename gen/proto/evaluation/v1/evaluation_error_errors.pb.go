@@ -34,3 +34,15 @@ func IsEvaluationNotFound(err error) bool {
 func ErrorEvaluationNotFound(format string, args ...interface{}) *errors.Error {
 	return errors.New(404, EvaluationErrorReason_EVALUATION_NOT_FOUND.String(), fmt.Sprintf(format, args...))
 }
+
+func IsCanNotEvaluateUnattendedCourse(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == EvaluationErrorReason_CAN_NOT_EVALUATE_UNATTENDED_COURSE.String() && e.Code == 403
+}
+
+func ErrorCanNotEvaluateUnattendedCourse(format string, args ...interface{}) *errors.Error {
+	return errors.New(403, EvaluationErrorReason_CAN_NOT_EVALUATE_UNATTENDED_COURSE.String(), fmt.Sprintf(format, args...))
+}

@@ -11,4 +11,5 @@ enum EvaluationErrorReason {
 
   INVALID_INPUT = 0 [(errors.code) = 400];
   EVALUATION_NOT_FOUND = 1 [(errors.code) = 404];
+  CAN_NOT_EVALUATE_UNATTENDED_COURSE = 2 [(errors.code) = 403];
 }
