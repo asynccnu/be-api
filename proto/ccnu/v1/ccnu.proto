@@ -7,6 +7,7 @@ service CCNUService {
   rpc Login(LoginRequest)returns(LoginResponse);
   rpc CourseList(CourseListRequest)returns(CourseListResponse);
   rpc GetAllGrades (GetAllGradesRequest) returns (GetAllGradesResponse);
+  rpc GetGrades (GetGradesRequest) returns (GetGradesResponse);
 }
 
 message LoginRequest {
@@ -65,5 +66,16 @@ message Grade {
 }
 
 message GetAllGradesResponse {
+  repeated Grade grades = 1;
+}
+
+message GetGradesRequest {
+  string student_id = 1;
+  string password = 2;
+  string year = 3;
+  string term = 4;
+}
+
+message GetGradesResponse {
   repeated Grade grades = 1;
 }
