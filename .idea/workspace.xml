@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ca5a50e3-f8ec-4cea-b780-3aee1ed5fea9" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/proto/static/v1/static_error.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/answer/v1/answer.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/answer/v1/answer_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/answer/v1/answer_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/answer/v1/answer_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/ccnu/v1/ccnu.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/ccnu/v1/ccnu_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/ccnu/v1/ccnu_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/ccnu/v1/ccnu_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/collect/v1/collect.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/collect/v1/collect_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/comment/v1/comment.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/comment/v1/comment_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/comment/v1/comment_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/comment/v1/comment_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/course/v1/course.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/course/v1/course_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/evaluation/v1/evaluation.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/evaluation/v1/evaluation_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/evaluation/v1/evaluation_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/evaluation/v1/evaluation_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/feed/v1/feed.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/feed/v1/feed_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/grade/v1/grade.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/grade/v1/grade_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/grade/v1/grade_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/grade/v1/grade_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/point/v1/point.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/point/v1/point_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/point/v1/point_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/point/v1/point_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/question/v1/question.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/question/v1/question_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/question/v1/question_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/question/v1/question_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/search/v1/search.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/search/v1/search_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/stance/v1/stance.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/stance/v1/stance_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/static/v1/static.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/static/v1/static_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/tag/v1/tag.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/tag/v1/tag_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/user/v1/user.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/user/v1/user_error.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/user/v1/user_error_errors.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gen/proto/user/v1/user_grpc.pb.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/answer/v1/answer.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/answer/v1/answer_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/ccnu/v1/ccnu.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/ccnu/v1/ccnu_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/collect/v1/collect.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/comment/v1/comment.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/comment/v1/comment_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/course/v1/course.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/evaluation/v1/evaluation.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/evaluation/v1/evaluation_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/feed/v1/feed.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/grade/v1/grade.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/grade/v1/grade_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/point/v1/point.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/point/v1/point_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/question/v1/question.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/question/v1/question_error.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/search/v1/search.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/stance/v1/stance.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/static/v1/static.proto" beforeDir="false" afterPath="$PROJECT_DIR$/proto/static/v1/static.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/tag/v1/tag.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/user/v1/user.proto" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/proto/user/v1/user_error.proto" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://D:/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2jKJdKAzUleWNFO2S35L69H2abk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Makefile 目标.grpc.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "configurable.GoLibrariesConfigurable.is.expanded": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/21017/Desktop/ccnubox/be-api/proto",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.goide.configuration.GoLibrariesConfigurableProvider"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\21017\Desktop\ccnubox\be-api\proto" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="grpc" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="grpc" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile 目标.grpc" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-e58f7cfedaf7-155fe4b6e3a0-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.14015.113" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
