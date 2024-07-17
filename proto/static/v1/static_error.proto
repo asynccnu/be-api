@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package static.v1;
+import "errors/errors.proto";
+
+option go_package = "github.com/asynccnu/be-api/gen/proto/static/v1;staticv1";
+
+enum StaticErrorReason {
+  // 设置缺省错误码
+  option (errors.default_code) = 500;
+
+  STATIC_NOT_FOUND = 0 [(errors.code) = 404];
+}

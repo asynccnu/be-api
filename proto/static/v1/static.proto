@@ -1,41 +1,94 @@
 syntax = "proto3";
 
 package static.v1;
-option go_package = "github.com/MuxiKeStack/be-api/gen/proto/static/v1;staticv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/static/v1;staticv1";
 
 import "google/protobuf/any.proto";
 
 service StaticService {
-  rpc GetStaticByName (GetStaticByNameRequest) returns (GetStaticByNameResponse);
-  rpc SaveStatic (SaveStaticRequest) returns (SaveStaticResponse);
-  rpc GetStaticsByLabels (GetStaticsByLabelsRequest) returns (GetStaticsByLabelsResponse);
+  rpc GetDepartments(GetDepartmentsRequest)returns(GetDepartmentsResponse);
+  rpc UpdateDepartments(UpdateDepartmentsRequest)returns(UpdateDepartmentsResponse);
+  rpc GetBanners(GetBannersRequest)returns(GetBannersResponse);
+  rpc UpdateBanners(UpdateBannersRequest)returns(UpdateBannersResponse);
+  rpc GetWebs(GetWebsRequest)returns(GetWebsResponse);
+  rpc UpdateWebs(UpdateWebsRequest)returns(UpdateWebsResponse);
+  rpc GetCalendar(GetCalendarRequest)returns(GetCalendarResponse);
+  rpc UpdateCalendars(UpdateCalendarsRequest)returns(UpdateCalendarsResponse);
 }
-
-message Static {
+//department
+message Department {
   string name = 1;
-  string content = 2;
-  map<string,string> labels = 3;
+  string phone = 2;
+  string place = 3;
 }
 
-message GetStaticByNameRequest {
-  string name = 1;
+message GetDepartmentsRequest {}
+
+message GetDepartmentsResponse {
+  repeated Department departments = 1;//列表使用的是repeated好奇妙诶
 }
 
-message GetStaticByNameResponse {
-  Static static = 1;
+message UpdateDepartmentsRequest {
+  repeated Department departments = 1;
 }
 
-message SaveStaticRequest {
-  Static static = 1;
+message UpdateDepartmentsResponse {
+  repeated Department departments = 1;
+}
+//banner
+message Banner {
+  string link =1;
+  string picture =2;
 }
 
-message SaveStaticResponse {
+message GetBannersRequest {}
+
+message GetBannersResponse {
+  repeated Banner banners = 1;
 }
 
-message GetStaticsByLabelsRequest {
-  map<string,string> labels = 1;
+message UpdateBannersRequest {
+  repeated Banner banners = 1;
 }
 
-message GetStaticsByLabelsResponse {
-  repeated Static statics = 1;
+message UpdateBannersResponse {
+  repeated Banner banners = 1;
+}
+//web
+message Web {
+  string link =1;
+  string name =2;
+}
+
+message GetWebsRequest {}
+
+message GetWebsResponse {
+  repeated Web webs = 1;
+}
+
+message UpdateWebsRequest {
+  repeated Web webs = 1;
+}
+
+message UpdateWebsResponse {
+  repeated Web webs = 1;
+}
+
+message Calendar {
+  string link =1;
+  string year =2;
+}
+
+message GetCalendarRequest {}
+
+message GetCalendarResponse {
+  Calendar calendar = 1;
+}
+
+message UpdateCalendarsRequest {
+  repeated Calendar calendars = 1;
+}
+
+message UpdateCalendarsResponse {
+  repeated Calendar calendars = 1;
 }
