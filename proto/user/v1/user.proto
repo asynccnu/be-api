@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package user.v1;
+option go_package="proto/user/v1;userv1";
+
+message User {
+  int64 id = 1;
+  string student_id = 2;
+  string password = 3;
+  string avatar = 4;
+  string nickname = 5;
+  int64 utime = 6;
+  int64 ctime = 7;
+  bool new = 8; // 判断是否为新用户
+}
+
+service UserService {
+  rpc FindOrCreateByStudentId (FindOrCreateByStudentIdRequest) returns(FindOrCreateByStudentIdResponse);
+  rpc UpdateNonSensitiveInfo (UpdateNonSensitiveInfoRequest) returns (UpdateNonSensitiveInfoResponse);
+  rpc Profile (ProfileRequest) returns (ProfileResponse);
+}
+
+message FindOrCreateByStudentIdRequest {
+  string student_id = 1;
+}
+
+message FindOrCreateByStudentIdResponse {
+  User user = 1;
+}
+
+// 昵称和头像
+message UpdateNonSensitiveInfoRequest {
+  User user = 1;
+}
+
+message UpdateNonSensitiveInfoResponse {
+}
+
+message ProfileRequest {
+  int64 uid = 1;
+}
+
+message ProfileResponse {
+  User user = 1;
+}

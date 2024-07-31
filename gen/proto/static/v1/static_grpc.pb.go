@@ -19,28 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	StaticService_GetDepartments_FullMethodName    = "/static.v1.StaticService/GetDepartments"
-	StaticService_UpdateDepartments_FullMethodName = "/static.v1.StaticService/UpdateDepartments"
-	StaticService_GetBanners_FullMethodName        = "/static.v1.StaticService/GetBanners"
-	StaticService_UpdateBanners_FullMethodName     = "/static.v1.StaticService/UpdateBanners"
-	StaticService_GetWebs_FullMethodName           = "/static.v1.StaticService/GetWebs"
-	StaticService_UpdateWebs_FullMethodName        = "/static.v1.StaticService/UpdateWebs"
-	StaticService_GetCalendar_FullMethodName       = "/static.v1.StaticService/GetCalendar"
-	StaticService_UpdateCalendars_FullMethodName   = "/static.v1.StaticService/UpdateCalendars"
+	StaticService_GetStaticByName_FullMethodName    = "/static.v1.StaticService/GetStaticByName"
+	StaticService_SaveStatic_FullMethodName         = "/static.v1.StaticService/SaveStatic"
+	StaticService_GetStaticsByLabels_FullMethodName = "/static.v1.StaticService/GetStaticsByLabels"
 )
 
 // StaticServiceClient is the client API for StaticService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StaticServiceClient interface {
-	GetDepartments(ctx context.Context, in *GetDepartmentsRequest, opts ...grpc.CallOption) (*GetDepartmentsResponse, error)
-	UpdateDepartments(ctx context.Context, in *UpdateDepartmentsRequest, opts ...grpc.CallOption) (*UpdateDepartmentsResponse, error)
-	GetBanners(ctx context.Context, in *GetBannersRequest, opts ...grpc.CallOption) (*GetBannersResponse, error)
-	UpdateBanners(ctx context.Context, in *UpdateBannersRequest, opts ...grpc.CallOption) (*UpdateBannersResponse, error)
-	GetWebs(ctx context.Context, in *GetWebsRequest, opts ...grpc.CallOption) (*GetWebsResponse, error)
-	UpdateWebs(ctx context.Context, in *UpdateWebsRequest, opts ...grpc.CallOption) (*UpdateWebsResponse, error)
-	GetCalendar(ctx context.Context, in *GetCalendarRequest, opts ...grpc.CallOption) (*GetCalendarResponse, error)
-	UpdateCalendars(ctx context.Context, in *UpdateCalendarsRequest, opts ...grpc.CallOption) (*UpdateCalendarsResponse, error)
+	GetStaticByName(ctx context.Context, in *GetStaticByNameRequest, opts ...grpc.CallOption) (*GetStaticByNameResponse, error)
+	SaveStatic(ctx context.Context, in *SaveStaticRequest, opts ...grpc.CallOption) (*SaveStaticResponse, error)
+	GetStaticsByLabels(ctx context.Context, in *GetStaticsByLabelsRequest, opts ...grpc.CallOption) (*GetStaticsByLabelsResponse, error)
 }
 
 type staticServiceClient struct {
@@ -51,80 +41,30 @@ func NewStaticServiceClient(cc grpc.ClientConnInterface) StaticServiceClient {
 	return &staticServiceClient{cc}
 }
 
-func (c *staticServiceClient) GetDepartments(ctx context.Context, in *GetDepartmentsRequest, opts ...grpc.CallOption) (*GetDepartmentsResponse, error) {
+func (c *staticServiceClient) GetStaticByName(ctx context.Context, in *GetStaticByNameRequest, opts ...grpc.CallOption) (*GetStaticByNameResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetDepartmentsResponse)
-	err := c.cc.Invoke(ctx, StaticService_GetDepartments_FullMethodName, in, out, cOpts...)
+	out := new(GetStaticByNameResponse)
+	err := c.cc.Invoke(ctx, StaticService_GetStaticByName_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *staticServiceClient) UpdateDepartments(ctx context.Context, in *UpdateDepartmentsRequest, opts ...grpc.CallOption) (*UpdateDepartmentsResponse, error) {
+func (c *staticServiceClient) SaveStatic(ctx context.Context, in *SaveStaticRequest, opts ...grpc.CallOption) (*SaveStaticResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateDepartmentsResponse)
-	err := c.cc.Invoke(ctx, StaticService_UpdateDepartments_FullMethodName, in, out, cOpts...)
+	out := new(SaveStaticResponse)
+	err := c.cc.Invoke(ctx, StaticService_SaveStatic_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *staticServiceClient) GetBanners(ctx context.Context, in *GetBannersRequest, opts ...grpc.CallOption) (*GetBannersResponse, error) {
+func (c *staticServiceClient) GetStaticsByLabels(ctx context.Context, in *GetStaticsByLabelsRequest, opts ...grpc.CallOption) (*GetStaticsByLabelsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetBannersResponse)
-	err := c.cc.Invoke(ctx, StaticService_GetBanners_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *staticServiceClient) UpdateBanners(ctx context.Context, in *UpdateBannersRequest, opts ...grpc.CallOption) (*UpdateBannersResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateBannersResponse)
-	err := c.cc.Invoke(ctx, StaticService_UpdateBanners_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *staticServiceClient) GetWebs(ctx context.Context, in *GetWebsRequest, opts ...grpc.CallOption) (*GetWebsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetWebsResponse)
-	err := c.cc.Invoke(ctx, StaticService_GetWebs_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *staticServiceClient) UpdateWebs(ctx context.Context, in *UpdateWebsRequest, opts ...grpc.CallOption) (*UpdateWebsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateWebsResponse)
-	err := c.cc.Invoke(ctx, StaticService_UpdateWebs_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *staticServiceClient) GetCalendar(ctx context.Context, in *GetCalendarRequest, opts ...grpc.CallOption) (*GetCalendarResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetCalendarResponse)
-	err := c.cc.Invoke(ctx, StaticService_GetCalendar_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *staticServiceClient) UpdateCalendars(ctx context.Context, in *UpdateCalendarsRequest, opts ...grpc.CallOption) (*UpdateCalendarsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateCalendarsResponse)
-	err := c.cc.Invoke(ctx, StaticService_UpdateCalendars_FullMethodName, in, out, cOpts...)
+	out := new(GetStaticsByLabelsResponse)
+	err := c.cc.Invoke(ctx, StaticService_GetStaticsByLabels_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -135,14 +75,9 @@ func (c *staticServiceClient) UpdateCalendars(ctx context.Context, in *UpdateCal
 // All implementations must embed UnimplementedStaticServiceServer
 // for forward compatibility
 type StaticServiceServer interface {
-	GetDepartments(context.Context, *GetDepartmentsRequest) (*GetDepartmentsResponse, error)
-	UpdateDepartments(context.Context, *UpdateDepartmentsRequest) (*UpdateDepartmentsResponse, error)
-	GetBanners(context.Context, *GetBannersRequest) (*GetBannersResponse, error)
-	UpdateBanners(context.Context, *UpdateBannersRequest) (*UpdateBannersResponse, error)
-	GetWebs(context.Context, *GetWebsRequest) (*GetWebsResponse, error)
-	UpdateWebs(context.Context, *UpdateWebsRequest) (*UpdateWebsResponse, error)
-	GetCalendar(context.Context, *GetCalendarRequest) (*GetCalendarResponse, error)
-	UpdateCalendars(context.Context, *UpdateCalendarsRequest) (*UpdateCalendarsResponse, error)
+	GetStaticByName(context.Context, *GetStaticByNameRequest) (*GetStaticByNameResponse, error)
+	SaveStatic(context.Context, *SaveStaticRequest) (*SaveStaticResponse, error)
+	GetStaticsByLabels(context.Context, *GetStaticsByLabelsRequest) (*GetStaticsByLabelsResponse, error)
 	mustEmbedUnimplementedStaticServiceServer()
 }
 
@@ -150,29 +85,14 @@ type StaticServiceServer interface {
 type UnimplementedStaticServiceServer struct {
 }
 
-func (UnimplementedStaticServiceServer) GetDepartments(context.Context, *GetDepartmentsRequest) (*GetDepartmentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDepartments not implemented")
+func (UnimplementedStaticServiceServer) GetStaticByName(context.Context, *GetStaticByNameRequest) (*GetStaticByNameResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStaticByName not implemented")
 }
-func (UnimplementedStaticServiceServer) UpdateDepartments(context.Context, *UpdateDepartmentsRequest) (*UpdateDepartmentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateDepartments not implemented")
+func (UnimplementedStaticServiceServer) SaveStatic(context.Context, *SaveStaticRequest) (*SaveStaticResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveStatic not implemented")
 }
-func (UnimplementedStaticServiceServer) GetBanners(context.Context, *GetBannersRequest) (*GetBannersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBanners not implemented")
-}
-func (UnimplementedStaticServiceServer) UpdateBanners(context.Context, *UpdateBannersRequest) (*UpdateBannersResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateBanners not implemented")
-}
-func (UnimplementedStaticServiceServer) GetWebs(context.Context, *GetWebsRequest) (*GetWebsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetWebs not implemented")
-}
-func (UnimplementedStaticServiceServer) UpdateWebs(context.Context, *UpdateWebsRequest) (*UpdateWebsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateWebs not implemented")
-}
-func (UnimplementedStaticServiceServer) GetCalendar(context.Context, *GetCalendarRequest) (*GetCalendarResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCalendar not implemented")
-}
-func (UnimplementedStaticServiceServer) UpdateCalendars(context.Context, *UpdateCalendarsRequest) (*UpdateCalendarsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateCalendars not implemented")
+func (UnimplementedStaticServiceServer) GetStaticsByLabels(context.Context, *GetStaticsByLabelsRequest) (*GetStaticsByLabelsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStaticsByLabels not implemented")
 }
 func (UnimplementedStaticServiceServer) mustEmbedUnimplementedStaticServiceServer() {}
 
@@ -187,146 +107,56 @@ func RegisterStaticServiceServer(s grpc.ServiceRegistrar, srv StaticServiceServe
 	s.RegisterService(&StaticService_ServiceDesc, srv)
 }
 
-func _StaticService_GetDepartments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDepartmentsRequest)
+func _StaticService_GetStaticByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStaticByNameRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StaticServiceServer).GetDepartments(ctx, in)
+		return srv.(StaticServiceServer).GetStaticByName(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StaticService_GetDepartments_FullMethodName,
+		FullMethod: StaticService_GetStaticByName_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).GetDepartments(ctx, req.(*GetDepartmentsRequest))
+		return srv.(StaticServiceServer).GetStaticByName(ctx, req.(*GetStaticByNameRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _StaticService_UpdateDepartments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateDepartmentsRequest)
+func _StaticService_SaveStatic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveStaticRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StaticServiceServer).UpdateDepartments(ctx, in)
+		return srv.(StaticServiceServer).SaveStatic(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StaticService_UpdateDepartments_FullMethodName,
+		FullMethod: StaticService_SaveStatic_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).UpdateDepartments(ctx, req.(*UpdateDepartmentsRequest))
+		return srv.(StaticServiceServer).SaveStatic(ctx, req.(*SaveStaticRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _StaticService_GetBanners_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBannersRequest)
+func _StaticService_GetStaticsByLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStaticsByLabelsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(StaticServiceServer).GetBanners(ctx, in)
+		return srv.(StaticServiceServer).GetStaticsByLabels(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: StaticService_GetBanners_FullMethodName,
+		FullMethod: StaticService_GetStaticsByLabels_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).GetBanners(ctx, req.(*GetBannersRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StaticService_UpdateBanners_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateBannersRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StaticServiceServer).UpdateBanners(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StaticService_UpdateBanners_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).UpdateBanners(ctx, req.(*UpdateBannersRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StaticService_GetWebs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetWebsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StaticServiceServer).GetWebs(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StaticService_GetWebs_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).GetWebs(ctx, req.(*GetWebsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StaticService_UpdateWebs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateWebsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StaticServiceServer).UpdateWebs(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StaticService_UpdateWebs_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).UpdateWebs(ctx, req.(*UpdateWebsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StaticService_GetCalendar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCalendarRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StaticServiceServer).GetCalendar(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StaticService_GetCalendar_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).GetCalendar(ctx, req.(*GetCalendarRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StaticService_UpdateCalendars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateCalendarsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StaticServiceServer).UpdateCalendars(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: StaticService_UpdateCalendars_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StaticServiceServer).UpdateCalendars(ctx, req.(*UpdateCalendarsRequest))
+		return srv.(StaticServiceServer).GetStaticsByLabels(ctx, req.(*GetStaticsByLabelsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -339,36 +169,16 @@ var StaticService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*StaticServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetDepartments",
-			Handler:    _StaticService_GetDepartments_Handler,
+			MethodName: "GetStaticByName",
+			Handler:    _StaticService_GetStaticByName_Handler,
 		},
 		{
-			MethodName: "UpdateDepartments",
-			Handler:    _StaticService_UpdateDepartments_Handler,
+			MethodName: "SaveStatic",
+			Handler:    _StaticService_SaveStatic_Handler,
 		},
 		{
-			MethodName: "GetBanners",
-			Handler:    _StaticService_GetBanners_Handler,
-		},
-		{
-			MethodName: "UpdateBanners",
-			Handler:    _StaticService_UpdateBanners_Handler,
-		},
-		{
-			MethodName: "GetWebs",
-			Handler:    _StaticService_GetWebs_Handler,
-		},
-		{
-			MethodName: "UpdateWebs",
-			Handler:    _StaticService_UpdateWebs_Handler,
-		},
-		{
-			MethodName: "GetCalendar",
-			Handler:    _StaticService_GetCalendar_Handler,
-		},
-		{
-			MethodName: "UpdateCalendars",
-			Handler:    _StaticService_UpdateCalendars_Handler,
+			MethodName: "GetStaticsByLabels",
+			Handler:    _StaticService_GetStaticsByLabels_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
