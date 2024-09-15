@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	ElecPrice_Check_FullMethodName = "/elecprice.v1.ElecPrice/Check"
-	ElecPrice_Set_FullMethodName   = "/elecprice.v1.ElecPrice/Set"
+	ElecPrice_Set_FullMethodName   = "/elecprice.v1.ElecPrice/Detail"
 )
 
 // ElecPriceClient is the client API for ElecPrice service.
@@ -83,7 +83,7 @@ func (UnimplementedElecPriceServer) Check(context.Context, *CheckRequest) (*Chec
 	return nil, status.Errorf(codes.Unimplemented, "method Check not implemented")
 }
 func (UnimplementedElecPriceServer) Set(context.Context, *SetRequest) (*SetResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
+	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
 }
 func (UnimplementedElecPriceServer) mustEmbedUnimplementedElecPriceServer() {}
 func (UnimplementedElecPriceServer) testEmbeddedByValue()                   {}
@@ -154,7 +154,7 @@ var ElecPrice_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ElecPrice_Check_Handler,
 		},
 		{
-			MethodName: "Set",
+			MethodName: "Detail",
 			Handler:    _ElecPrice_Set_Handler,
 		},
 	},

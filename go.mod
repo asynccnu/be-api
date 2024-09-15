@@ -1,8 +1,8 @@
 module github.com/asynccnu/be-api
 
-go 1.22.0
+go 1.22.5
 
-toolchain go1.22.6
+toolchain go1.22.5
 
 require (
 	github.com/go-kratos/kratos/v2 v2.8.0
