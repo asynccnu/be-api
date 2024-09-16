@@ -486,9 +486,9 @@ var file_proto_elecprice_v1_elecprice_proto_goTypes = []interface{}{
 var file_proto_elecprice_v1_elecprice_proto_depIdxs = []int32{
 	2, // 0: elecprice.v1.CheckResponse.price:type_name -> elecprice.v1.Price
 	0, // 1: elecprice.v1.ElecPrice.Check:input_type -> elecprice.v1.CheckRequest
-	3, // 2: elecprice.v1.ElecPrice.Detail:input_type -> elecprice.v1.SetRequest
+	3, // 2: elecprice.v1.ElecPrice.Set:input_type -> elecprice.v1.SetRequest
 	1, // 3: elecprice.v1.ElecPrice.Check:output_type -> elecprice.v1.CheckResponse
-	4, // 4: elecprice.v1.ElecPrice.Detail:output_type -> elecprice.v1.SetResponse
+	4, // 4: elecprice.v1.ElecPrice.Set:output_type -> elecprice.v1.SetResponse
 	3, // [3:5] is the sub-list for method output_type
 	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
