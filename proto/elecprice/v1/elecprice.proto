@@ -1,0 +1,50 @@
+syntax = "proto3";
+package elecprice.v1;
+option go_package = "github.com/asynccnu/be-api/gen/proto/elecprice/v1;elecpricev1";
+import "google/protobuf/any.proto";
+
+// 查询电费的接口定义
+service ElecPrice {
+  rpc Check (CheckRequest) returns (CheckResponse);
+  rpc Set (SetRequest) returns (SetResponse);
+}
+
+// 请求体
+message CheckRequest {
+  string student_id = 1;  //学号
+  string area       = 2;  //区域
+  string building   = 3;  //建筑
+  string room       = 4;  //房间号
+}
+
+// 响应体
+message CheckResponse {
+  int32 status_code = 1; // 响应码
+  string description= 2; // 描述
+  Price  price = 3; // 电费
+}
+
+// 电费结构体
+message Price{
+  string lighting_price = 1; // 昨日照明电费
+  string lighting_garde = 2; // 昨日照明用电度数
+  string air_price      = 3; // 昨日空调电费
+  string air_garde      = 4; // 昨日用电度数
+  string lighting_rest  = 5; // 电灯剩余电费
+  string air_rest       = 6; // 空调剩余电费
+}
+
+// 请求体
+message SetRequest {
+  string student_id = 1;  //学号
+  int32 money       = 2;  //金额
+  string area       = 3;  //区域
+  string building   = 4;  //建筑
+  string room       = 5;  //房间号
+}
+// 响应体
+message SetResponse{
+  int32 status_code =1;
+  string  description=2;
+  string data=3;
+}

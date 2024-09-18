@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package grade.v1;
+option go_package = "github.com/asynccnu/be-api/gen/proto/grade/v1;gradev1";
+import "google/protobuf/any.proto";
+
+// 查询成绩的接口定义
+service Grade {
+  rpc Grade (GradeRequest) returns (GradeResponse) ;
+  rpc Detail (DetailRequest) returns (DetailResponse);
+  rpc Already (AlreadyRequest) returns (AlreadyResponse) ;
+}
+
+// 请求体
+message GradeRequest{
+  string student_id =1;//学号
+  string password =2;//密码
+}
+
+// 响应体
+message GradeResponse{
+  int32 status_code = 1; // 响应码
+  string description= 2; // 描述
+  repeated  Class  class = 3; // 课程信息
+}
+
+// 成绩结构体
+message Class{
+  string name =1 ;//课程名
+  string credit =2 ;//学分
+  string  grade =3;//总成绩
+  string kind=4;//课程类型
+  string xnm=5;//学年
+  string xqm=6;//学期
+  string kcid =7;//课程id
+}
+
+// 请求体
+message DetailRequest{
+  string student_id = 1;//学号
+  string jxb_id       = 2;//课程名
+}
+
+// 响应体
+message DetailResponse {
+  int32 status_code = 1; // 响应码
+  string description= 2; // 描述
+  Class_detail  class_detail = 3; // 课程信息
+}
+
+// 课程成绩结构体
+message Class_detail{
+  string name =1 ;//课程名
+  string  credit =2 ;//学分
+  string time_grade=3;//平时成绩
+  string time_grade_percent=4;//平时成绩占比
+  string final_grade=5;//期末成绩
+  string final_grade_percent=6;//期末成绩占比
+  string  grade =7;//总成绩
+  string  gpa =8;//绩点
+
+}
+
+// 请求体
+message AlreadyRequest{
+  string student_id = 1;   //学号
+}
+
+// 响应体
+message AlreadyResponse {
+  int32 status_code = 1; // 响应码
+  string description= 2; // 描述
+  All_grade all_grade=3;//全部学分分布
+}
+
+message All_grade{
+  string ALL=1;//全部学分
+  Kind Profession=2;//专业主干课
+  Kind Development=3;//个性发展课
+  Kind Core =4;//通识核心课
+  Kind Must =5;//通识必修课
+  Kind Option=6;//通识选修课
+  Kind Other=7;//其他课程
+}
+
+//单类课程
+message Kind{
+  string All =1;//单类全部学分
+  repeated Alone many=2;//各个课程
+
+}
+
+//单个课程
+message Alone{
+  string name=1;//课程名
+  string xf=2;//学分
+}

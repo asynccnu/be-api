@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package department.v1;
+import "errors/errors.proto";
+
+option go_package = "github.com/asynccnu/be-api/gen/proto/department/v1;departmentv1";
+
+enum DepartmentErrorReason {
+  // 设置缺省错误码
+  option (errors.default_code) = 500;
+
+  DEPARTMENT_NOT_FOUND = 0 [(errors.code) = 404];
+}

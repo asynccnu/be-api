@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package cookie.v1;
+option go_package="github.com/asynccnu/be-api/gen/proto/cookie/v1;cookiev1";
+
+service CCNUService {
+  rpc SaveUser(SaveUserRequest) returns (SaveUserResponse);
+  rpc GetCookie(GetCookieRequest) returns (GetCookieResponse);
+}
+
+message User {
+  string userid = 1;
+  string password = 2;
+}
+
+message SaveUserRequest {
+  User user = 1;
+}
+
+message SaveUserResponse {
+  string message = 1;
+}
+
+message GetCookieRequest {
+  string userid = 1;
+}
+
+message GetCookieResponse {
+  string cookie = 1;
+}
+
+
