@@ -7,9 +7,9 @@ option go_package="github.com/asynccnu/be-api/gen/proto/classService/v1;classSer
 // The greeting service definition.
 service ClassService {
   // 数据源是所有使用匣子的用户的课表，从其中搜索相应的课程
-  rpc SearchClass (SearchRequest) returns (SearchReply) {}
+  rpc SearchClass (SearchRequest) returns (SearchResponse) {}
     //添加课程
-  rpc AddClass (AddClassRequest) returns (AddClassReply) {}
+  rpc AddClass (AddClassRequest) returns (AddClassResponse) {}
 }
 
 message SearchRequest {
@@ -19,7 +19,7 @@ message SearchRequest {
   string semester = 3 ;
 }
 
-message SearchReply {
+message SearchResponse {
     //课程信息
   repeated ClassInfo class_infos = 1 ;
 }
@@ -45,7 +45,7 @@ message AddClassRequest {
     //学分
     optional double credit=10;
 }
-message AddClassReply {
+message AddClassResponse {
     //添加的课程ID
     string id=1 ;
     string msg=2 ;

@@ -30,9 +30,9 @@ const (
 // The greeting service definition.
 type ClassServiceClient interface {
 	// 数据源是所有使用匣子的用户的课表，从其中搜索相应的课程
-	SearchClass(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchReply, error)
+	SearchClass(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error)
 	//添加课程
-	AddClass(ctx context.Context, in *AddClassRequest, opts ...grpc.CallOption) (*AddClassReply, error)
+	AddClass(ctx context.Context, in *AddClassRequest, opts ...grpc.CallOption) (*AddClassResponse, error)
 }
 
 type classServiceClient struct {
@@ -43,9 +43,9 @@ func NewClassServiceClient(cc grpc.ClientConnInterface) ClassServiceClient {
 	return &classServiceClient{cc}
 }
 
-func (c *classServiceClient) SearchClass(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchReply, error) {
+func (c *classServiceClient) SearchClass(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SearchReply)
+	out := new(SearchResponse)
 	err := c.cc.Invoke(ctx, ClassService_SearchClass_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -53,9 +53,9 @@ func (c *classServiceClient) SearchClass(ctx context.Context, in *SearchRequest,
 	return out, nil
 }
 
-func (c *classServiceClient) AddClass(ctx context.Context, in *AddClassRequest, opts ...grpc.CallOption) (*AddClassReply, error) {
+func (c *classServiceClient) AddClass(ctx context.Context, in *AddClassRequest, opts ...grpc.CallOption) (*AddClassResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddClassReply)
+	out := new(AddClassResponse)
 	err := c.cc.Invoke(ctx, ClassService_AddClass_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -70,9 +70,9 @@ func (c *classServiceClient) AddClass(ctx context.Context, in *AddClassRequest, 
 // The greeting service definition.
 type ClassServiceServer interface {
 	// 数据源是所有使用匣子的用户的课表，从其中搜索相应的课程
-	SearchClass(context.Context, *SearchRequest) (*SearchReply, error)
+	SearchClass(context.Context, *SearchRequest) (*SearchResponse, error)
 	//添加课程
-	AddClass(context.Context, *AddClassRequest) (*AddClassReply, error)
+	AddClass(context.Context, *AddClassRequest) (*AddClassResponse, error)
 	mustEmbedUnimplementedClassServiceServer()
 }
 
@@ -83,10 +83,10 @@ type ClassServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedClassServiceServer struct{}
 
-func (UnimplementedClassServiceServer) SearchClass(context.Context, *SearchRequest) (*SearchReply, error) {
+func (UnimplementedClassServiceServer) SearchClass(context.Context, *SearchRequest) (*SearchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchClass not implemented")
 }
-func (UnimplementedClassServiceServer) AddClass(context.Context, *AddClassRequest) (*AddClassReply, error) {
+func (UnimplementedClassServiceServer) AddClass(context.Context, *AddClassRequest) (*AddClassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddClass not implemented")
 }
 func (UnimplementedClassServiceServer) mustEmbedUnimplementedClassServiceServer() {}

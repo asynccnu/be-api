@@ -21,7 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	UserService_FindOrCreateByStudentId_FullMethodName = "/user.v1.UserService/FindOrCreateByStudentId"
 	UserService_UpdateNonSensitiveInfo_FullMethodName  = "/user.v1.UserService/UpdateNonSensitiveInfo"
-	UserService_Profile_FullMethodName                 = "/user.v1.UserService/Profile"
+	UserService_GetCookie_FullMethodName               = "/user.v1.UserService/GetCookie"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -30,7 +30,7 @@ const (
 type UserServiceClient interface {
 	FindOrCreateByStudentId(ctx context.Context, in *FindOrCreateByStudentIdRequest, opts ...grpc.CallOption) (*FindOrCreateByStudentIdResponse, error)
 	UpdateNonSensitiveInfo(ctx context.Context, in *UpdateNonSensitiveInfoRequest, opts ...grpc.CallOption) (*UpdateNonSensitiveInfoResponse, error)
-	Profile(ctx context.Context, in *ProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error)
+	GetCookie(ctx context.Context, in *GetCookieRequest, opts ...grpc.CallOption) (*GetCookieResponse, error)
 }
 
 type userServiceClient struct {
@@ -61,10 +61,10 @@ func (c *userServiceClient) UpdateNonSensitiveInfo(ctx context.Context, in *Upda
 	return out, nil
 }
 
-func (c *userServiceClient) Profile(ctx context.Context, in *ProfileRequest, opts ...grpc.CallOption) (*ProfileResponse, error) {
+func (c *userServiceClient) GetCookie(ctx context.Context, in *GetCookieRequest, opts ...grpc.CallOption) (*GetCookieResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ProfileResponse)
-	err := c.cc.Invoke(ctx, UserService_Profile_FullMethodName, in, out, cOpts...)
+	out := new(GetCookieResponse)
+	err := c.cc.Invoke(ctx, UserService_GetCookie_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *userServiceClient) Profile(ctx context.Context, in *ProfileRequest, opt
 type UserServiceServer interface {
 	FindOrCreateByStudentId(context.Context, *FindOrCreateByStudentIdRequest) (*FindOrCreateByStudentIdResponse, error)
 	UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error)
-	Profile(context.Context, *ProfileRequest) (*ProfileResponse, error)
+	GetCookie(context.Context, *GetCookieRequest) (*GetCookieResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -94,8 +94,8 @@ func (UnimplementedUserServiceServer) FindOrCreateByStudentId(context.Context, *
 func (UnimplementedUserServiceServer) UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateNonSensitiveInfo not implemented")
 }
-func (UnimplementedUserServiceServer) Profile(context.Context, *ProfileRequest) (*ProfileResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Profile not implemented")
+func (UnimplementedUserServiceServer) GetCookie(context.Context, *GetCookieRequest) (*GetCookieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCookie not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -154,20 +154,20 @@ func _UserService_UpdateNonSensitiveInfo_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_Profile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProfileRequest)
+func _UserService_GetCookie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCookieRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Profile(ctx, in)
+		return srv.(UserServiceServer).GetCookie(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_Profile_FullMethodName,
+		FullMethod: UserService_GetCookie_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Profile(ctx, req.(*ProfileRequest))
+		return srv.(UserServiceServer).GetCookie(ctx, req.(*GetCookieRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -188,8 +188,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_UpdateNonSensitiveInfo_Handler,
 		},
 		{
-			MethodName: "Profile",
-			Handler:    _UserService_Profile_Handler,
+			MethodName: "GetCookie",
+			Handler:    _UserService_GetCookie_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

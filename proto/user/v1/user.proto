@@ -7,17 +7,15 @@ message User {
   int64 id = 1;
   string student_id = 2;
   string password = 3;
-  string avatar = 4;
-  string nickname = 5;
-  int64 utime = 6;
-  int64 ctime = 7;
-  bool new = 8; // 判断是否为新用户
+  int64 utime = 4;
+  int64 ctime = 5;
+  bool new = 6; // 判断是否为新用户
 }
 
 service UserService {
   rpc FindOrCreateByStudentId (FindOrCreateByStudentIdRequest) returns(FindOrCreateByStudentIdResponse);
   rpc UpdateNonSensitiveInfo (UpdateNonSensitiveInfoRequest) returns (UpdateNonSensitiveInfoResponse);
-  rpc Profile (ProfileRequest) returns (ProfileResponse);
+  rpc GetCookie(GetCookieRequest) returns (GetCookieResponse);
 }
 
 message FindOrCreateByStudentIdRequest {
@@ -36,10 +34,10 @@ message UpdateNonSensitiveInfoRequest {
 message UpdateNonSensitiveInfoResponse {
 }
 
-message ProfileRequest {
-  int64 uid = 1;
+message GetCookieRequest {
+  string student_id = 1;
 }
 
-message ProfileResponse {
-  User user = 1;
+message GetCookieResponse {
+  string cookie = 1;
 }

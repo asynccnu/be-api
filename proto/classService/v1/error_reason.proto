@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package classService.v1;
+import "errors/errors.proto";
+option go_package="github.com/asynccnu/be-api/gen/proto/classService/v1;classService";
+
+enum ErrorReason {
+  ES_AddClassFailed = 0[(errors.code) = 450];
+  ES_SearchClassFailed = 1[(errors.code) =451];
+}

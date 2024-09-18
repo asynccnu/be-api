@@ -5,6 +5,7 @@ option go_package="github.com/asynccnu/be-api/gen/proto/ccnu/v1;ccnuv1";
 
 service CCNUService {
   rpc Login(LoginRequest)returns(LoginResponse);
+  rpc GetCCNUCookie(GetCCNUCookieRequest)returns(GetCCNUCookieResponse);
   rpc CourseList(CourseListRequest)returns(CourseListResponse);
   rpc GetAllGrades (GetAllGradesRequest) returns (GetAllGradesResponse);
   rpc GetGrades (GetGradesRequest) returns (GetGradesResponse);
@@ -18,7 +19,13 @@ message LoginRequest {
 message LoginResponse {
   bool success = 1;
 }
-
+message GetCCNUCookieRequest{
+  string student_id = 1;
+  string password = 2;
+}
+message GetCCNUCookieResponse{
+  string cookie = 1;
+}
 message CourseListRequest {
   string student_id = 1;
   string password = 2;

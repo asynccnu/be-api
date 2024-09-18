@@ -19,10 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CCNUService_Login_FullMethodName        = "/ccnu.v1.CCNUService/Login"
-	CCNUService_CourseList_FullMethodName   = "/ccnu.v1.CCNUService/CourseList"
-	CCNUService_GetAllGrades_FullMethodName = "/ccnu.v1.CCNUService/GetAllGrades"
-	CCNUService_GetGrades_FullMethodName    = "/ccnu.v1.CCNUService/GetGrades"
+	CCNUService_Login_FullMethodName         = "/ccnu.v1.CCNUService/Login"
+	CCNUService_GetCCNUCookie_FullMethodName = "/ccnu.v1.CCNUService/GetCCNUCookie"
+	CCNUService_CourseList_FullMethodName    = "/ccnu.v1.CCNUService/CourseList"
+	CCNUService_GetAllGrades_FullMethodName  = "/ccnu.v1.CCNUService/GetAllGrades"
+	CCNUService_GetGrades_FullMethodName     = "/ccnu.v1.CCNUService/GetGrades"
 )
 
 // CCNUServiceClient is the client API for CCNUService service.
@@ -30,6 +31,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CCNUServiceClient interface {
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	GetCCNUCookie(ctx context.Context, in *GetCCNUCookieRequest, opts ...grpc.CallOption) (*GetCCNUCookieResponse, error)
 	CourseList(ctx context.Context, in *CourseListRequest, opts ...grpc.CallOption) (*CourseListResponse, error)
 	GetAllGrades(ctx context.Context, in *GetAllGradesRequest, opts ...grpc.CallOption) (*GetAllGradesResponse, error)
 	GetGrades(ctx context.Context, in *GetGradesRequest, opts ...grpc.CallOption) (*GetGradesResponse, error)
@@ -47,6 +49,16 @@ func (c *cCNUServiceClient) Login(ctx context.Context, in *LoginRequest, opts ..
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(LoginResponse)
 	err := c.cc.Invoke(ctx, CCNUService_Login_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cCNUServiceClient) GetCCNUCookie(ctx context.Context, in *GetCCNUCookieRequest, opts ...grpc.CallOption) (*GetCCNUCookieResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetCCNUCookieResponse)
+	err := c.cc.Invoke(ctx, CCNUService_GetCCNUCookie_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,6 +100,7 @@ func (c *cCNUServiceClient) GetGrades(ctx context.Context, in *GetGradesRequest,
 // for forward compatibility.
 type CCNUServiceServer interface {
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	GetCCNUCookie(context.Context, *GetCCNUCookieRequest) (*GetCCNUCookieResponse, error)
 	CourseList(context.Context, *CourseListRequest) (*CourseListResponse, error)
 	GetAllGrades(context.Context, *GetAllGradesRequest) (*GetAllGradesResponse, error)
 	GetGrades(context.Context, *GetGradesRequest) (*GetGradesResponse, error)
@@ -103,6 +116,9 @@ type UnimplementedCCNUServiceServer struct{}
 
 func (UnimplementedCCNUServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedCCNUServiceServer) GetCCNUCookie(context.Context, *GetCCNUCookieRequest) (*GetCCNUCookieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCCNUCookie not implemented")
 }
 func (UnimplementedCCNUServiceServer) CourseList(context.Context, *CourseListRequest) (*CourseListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CourseList not implemented")
@@ -148,6 +164,24 @@ func _CCNUService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CCNUServiceServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CCNUService_GetCCNUCookie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCCNUCookieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CCNUServiceServer).GetCCNUCookie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CCNUService_GetCCNUCookie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CCNUServiceServer).GetCCNUCookie(ctx, req.(*GetCCNUCookieRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -216,6 +250,10 @@ var CCNUService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Login",
 			Handler:    _CCNUService_Login_Handler,
+		},
+		{
+			MethodName: "GetCCNUCookie",
+			Handler:    _CCNUService_GetCCNUCookie_Handler,
 		},
 		{
 			MethodName: "CourseList",
