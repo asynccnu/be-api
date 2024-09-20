@@ -20,6 +20,7 @@ service UserService {
 
 message FindOrCreateByStudentIdRequest {
   string student_id = 1;
+  string password =2;
 }
 
 message FindOrCreateByStudentIdResponse {
