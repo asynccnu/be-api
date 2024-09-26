@@ -8,7 +8,6 @@ import "google/protobuf/any.proto";
 service WebsiteService {
   rpc GetWebsites(GetWebsitesRequest)returns(GetWebsitesResponse);
   rpc SaveWebsite(SaveWebsiteRequest)returns(SaveWebsiteResponse);
-  rpc AddWebsite(AddWebsiteRequest)returns(AddWebsiteResponse);
   rpc DelWebsite(DelWebsiteRequest)returns(DelWebsiteResponse);
 }
 
@@ -17,6 +16,7 @@ message Website {
   int64 id =1;
   string link =2;
   string name =3;
+  string description =4;
 }
 
 message GetWebsitesRequest {}
@@ -26,22 +26,17 @@ message GetWebsitesResponse {
 }
 
 message SaveWebsiteRequest {
-  int64 id =1;
-  string link =2;
-  string name =3;
+  Website website = 1;
 }
 
-message SaveWebsiteResponse {}
-
-message AddWebsiteRequest {
-  string link =1;
-  string name =2;
+message SaveWebsiteResponse {
+  repeated Website websites = 1;
 }
-
-message AddWebsiteResponse {}
 
 message DelWebsiteRequest {
   int64 id=1;
 }
 
-message DelWebsiteResponse {}
+message DelWebsiteResponse {
+  repeated Website websites = 1;
+}

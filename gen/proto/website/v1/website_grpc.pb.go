@@ -21,7 +21,6 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	WebsiteService_GetWebsites_FullMethodName = "/website.v1.WebsiteService/GetWebsites"
 	WebsiteService_SaveWebsite_FullMethodName = "/website.v1.WebsiteService/SaveWebsite"
-	WebsiteService_AddWebsite_FullMethodName  = "/website.v1.WebsiteService/AddWebsite"
 	WebsiteService_DelWebsite_FullMethodName  = "/website.v1.WebsiteService/DelWebsite"
 )
 
@@ -31,7 +30,6 @@ const (
 type WebsiteServiceClient interface {
 	GetWebsites(ctx context.Context, in *GetWebsitesRequest, opts ...grpc.CallOption) (*GetWebsitesResponse, error)
 	SaveWebsite(ctx context.Context, in *SaveWebsiteRequest, opts ...grpc.CallOption) (*SaveWebsiteResponse, error)
-	AddWebsite(ctx context.Context, in *AddWebsiteRequest, opts ...grpc.CallOption) (*AddWebsiteResponse, error)
 	DelWebsite(ctx context.Context, in *DelWebsiteRequest, opts ...grpc.CallOption) (*DelWebsiteResponse, error)
 }
 
@@ -63,16 +61,6 @@ func (c *websiteServiceClient) SaveWebsite(ctx context.Context, in *SaveWebsiteR
 	return out, nil
 }
 
-func (c *websiteServiceClient) AddWebsite(ctx context.Context, in *AddWebsiteRequest, opts ...grpc.CallOption) (*AddWebsiteResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddWebsiteResponse)
-	err := c.cc.Invoke(ctx, WebsiteService_AddWebsite_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *websiteServiceClient) DelWebsite(ctx context.Context, in *DelWebsiteRequest, opts ...grpc.CallOption) (*DelWebsiteResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DelWebsiteResponse)
@@ -89,7 +77,6 @@ func (c *websiteServiceClient) DelWebsite(ctx context.Context, in *DelWebsiteReq
 type WebsiteServiceServer interface {
 	GetWebsites(context.Context, *GetWebsitesRequest) (*GetWebsitesResponse, error)
 	SaveWebsite(context.Context, *SaveWebsiteRequest) (*SaveWebsiteResponse, error)
-	AddWebsite(context.Context, *AddWebsiteRequest) (*AddWebsiteResponse, error)
 	DelWebsite(context.Context, *DelWebsiteRequest) (*DelWebsiteResponse, error)
 	mustEmbedUnimplementedWebsiteServiceServer()
 }
@@ -106,9 +93,6 @@ func (UnimplementedWebsiteServiceServer) GetWebsites(context.Context, *GetWebsit
 }
 func (UnimplementedWebsiteServiceServer) SaveWebsite(context.Context, *SaveWebsiteRequest) (*SaveWebsiteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveWebsite not implemented")
-}
-func (UnimplementedWebsiteServiceServer) AddWebsite(context.Context, *AddWebsiteRequest) (*AddWebsiteResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddWebsite not implemented")
 }
 func (UnimplementedWebsiteServiceServer) DelWebsite(context.Context, *DelWebsiteRequest) (*DelWebsiteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelWebsite not implemented")
@@ -170,24 +154,6 @@ func _WebsiteService_SaveWebsite_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WebsiteService_AddWebsite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddWebsiteRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(WebsiteServiceServer).AddWebsite(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: WebsiteService_AddWebsite_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WebsiteServiceServer).AddWebsite(ctx, req.(*AddWebsiteRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _WebsiteService_DelWebsite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DelWebsiteRequest)
 	if err := dec(in); err != nil {
@@ -220,10 +186,6 @@ var WebsiteService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveWebsite",
 			Handler:    _WebsiteService_SaveWebsite_Handler,
-		},
-		{
-			MethodName: "AddWebsite",
-			Handler:    _WebsiteService_AddWebsite_Handler,
 		},
 		{
 			MethodName: "DelWebsite",
