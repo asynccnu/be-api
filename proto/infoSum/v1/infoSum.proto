@@ -16,7 +16,8 @@ message InfoSum {
   int64 id =1;
   string link =2;
   string name =3;
-  string description =4;
+  string image = 4;
+  string description =5;
 }
 
 message GetInfoSumsRequest {}

@@ -8,7 +8,6 @@ import "google/protobuf/any.proto";
 service DepartmentService {
   rpc GetDepartments(GetDepartmentsRequest)returns(GetDepartmentsResponse);
   rpc SaveDepartment(SaveDepartmentRequest)returns(SaveDepartmentResponse);
-  rpc AddDepartment(AddDepartmentRequest)returns(AddDepartmentResponse);
   rpc DelDepartment(DelDepartmentRequest)returns(DelDepartmentResponse);
 }
 
@@ -18,6 +17,7 @@ message Department {
   string name = 2;
   string phone = 3;
   string place = 4;
+  string  time =5;
 }
 
 message GetDepartmentsRequest {}
@@ -27,21 +27,10 @@ message GetDepartmentsResponse {
 }
 
 message SaveDepartmentRequest {
-  int64 id = 1;
-  string name = 2;
-  string phone = 3;
-  string place = 4;
+  Department department = 1;
 }
 
 message SaveDepartmentResponse {}
-
-message AddDepartmentRequest {
-  string name = 1;
-  string phone = 2;
-  string place = 3;
-}
-
-message AddDepartmentResponse {}
 
 message DelDepartmentRequest {
   int64 id = 1;

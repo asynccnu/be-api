@@ -19,9 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Grade_Grade_FullMethodName   = "/grade.v1.Grade/Grade"
-	Grade_Detail_FullMethodName  = "/grade.v1.Grade/Detail"
-	Grade_Already_FullMethodName = "/grade.v1.Grade/Already"
+	Grade_Grade_FullMethodName = "/grade.v1.Grade/Grade"
 )
 
 // GradeClient is the client API for Grade service.
@@ -31,8 +29,6 @@ const (
 // 查询成绩的接口定义
 type GradeClient interface {
 	Grade(ctx context.Context, in *GradeRequest, opts ...grpc.CallOption) (*GradeResponse, error)
-	Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error)
-	Already(ctx context.Context, in *AlreadyRequest, opts ...grpc.CallOption) (*AlreadyResponse, error)
 }
 
 type gradeClient struct {
@@ -53,26 +49,6 @@ func (c *gradeClient) Grade(ctx context.Context, in *GradeRequest, opts ...grpc.
 	return out, nil
 }
 
-func (c *gradeClient) Detail(ctx context.Context, in *DetailRequest, opts ...grpc.CallOption) (*DetailResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DetailResponse)
-	err := c.cc.Invoke(ctx, Grade_Detail_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gradeClient) Already(ctx context.Context, in *AlreadyRequest, opts ...grpc.CallOption) (*AlreadyResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AlreadyResponse)
-	err := c.cc.Invoke(ctx, Grade_Already_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // GradeServer is the server API for Grade service.
 // All implementations must embed UnimplementedGradeServer
 // for forward compatibility.
@@ -80,8 +56,6 @@ func (c *gradeClient) Already(ctx context.Context, in *AlreadyRequest, opts ...g
 // 查询成绩的接口定义
 type GradeServer interface {
 	Grade(context.Context, *GradeRequest) (*GradeResponse, error)
-	Detail(context.Context, *DetailRequest) (*DetailResponse, error)
-	Already(context.Context, *AlreadyRequest) (*AlreadyResponse, error)
 	mustEmbedUnimplementedGradeServer()
 }
 
@@ -94,12 +68,6 @@ type UnimplementedGradeServer struct{}
 
 func (UnimplementedGradeServer) Grade(context.Context, *GradeRequest) (*GradeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Grade not implemented")
-}
-func (UnimplementedGradeServer) Detail(context.Context, *DetailRequest) (*DetailResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Detail not implemented")
-}
-func (UnimplementedGradeServer) Already(context.Context, *AlreadyRequest) (*AlreadyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Already not implemented")
 }
 func (UnimplementedGradeServer) mustEmbedUnimplementedGradeServer() {}
 func (UnimplementedGradeServer) testEmbeddedByValue()               {}
@@ -140,42 +108,6 @@ func _Grade_Grade_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Grade_Detail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DetailRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GradeServer).Detail(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Grade_Detail_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GradeServer).Detail(ctx, req.(*DetailRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Grade_Already_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AlreadyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GradeServer).Already(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Grade_Already_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GradeServer).Already(ctx, req.(*AlreadyRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Grade_ServiceDesc is the grpc.ServiceDesc for Grade service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -186,14 +118,6 @@ var Grade_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Grade",
 			Handler:    _Grade_Grade_Handler,
-		},
-		{
-			MethodName: "Detail",
-			Handler:    _Grade_Detail_Handler,
-		},
-		{
-			MethodName: "Already",
-			Handler:    _Grade_Already_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

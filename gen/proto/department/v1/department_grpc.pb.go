@@ -21,7 +21,6 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	DepartmentService_GetDepartments_FullMethodName = "/department.v1.DepartmentService/GetDepartments"
 	DepartmentService_SaveDepartment_FullMethodName = "/department.v1.DepartmentService/SaveDepartment"
-	DepartmentService_AddDepartment_FullMethodName  = "/department.v1.DepartmentService/AddDepartment"
 	DepartmentService_DelDepartment_FullMethodName  = "/department.v1.DepartmentService/DelDepartment"
 )
 
@@ -31,7 +30,6 @@ const (
 type DepartmentServiceClient interface {
 	GetDepartments(ctx context.Context, in *GetDepartmentsRequest, opts ...grpc.CallOption) (*GetDepartmentsResponse, error)
 	SaveDepartment(ctx context.Context, in *SaveDepartmentRequest, opts ...grpc.CallOption) (*SaveDepartmentResponse, error)
-	AddDepartment(ctx context.Context, in *AddDepartmentRequest, opts ...grpc.CallOption) (*AddDepartmentResponse, error)
 	DelDepartment(ctx context.Context, in *DelDepartmentRequest, opts ...grpc.CallOption) (*DelDepartmentResponse, error)
 }
 
@@ -63,16 +61,6 @@ func (c *departmentServiceClient) SaveDepartment(ctx context.Context, in *SaveDe
 	return out, nil
 }
 
-func (c *departmentServiceClient) AddDepartment(ctx context.Context, in *AddDepartmentRequest, opts ...grpc.CallOption) (*AddDepartmentResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddDepartmentResponse)
-	err := c.cc.Invoke(ctx, DepartmentService_AddDepartment_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *departmentServiceClient) DelDepartment(ctx context.Context, in *DelDepartmentRequest, opts ...grpc.CallOption) (*DelDepartmentResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DelDepartmentResponse)
@@ -89,7 +77,6 @@ func (c *departmentServiceClient) DelDepartment(ctx context.Context, in *DelDepa
 type DepartmentServiceServer interface {
 	GetDepartments(context.Context, *GetDepartmentsRequest) (*GetDepartmentsResponse, error)
 	SaveDepartment(context.Context, *SaveDepartmentRequest) (*SaveDepartmentResponse, error)
-	AddDepartment(context.Context, *AddDepartmentRequest) (*AddDepartmentResponse, error)
 	DelDepartment(context.Context, *DelDepartmentRequest) (*DelDepartmentResponse, error)
 	mustEmbedUnimplementedDepartmentServiceServer()
 }
@@ -106,9 +93,6 @@ func (UnimplementedDepartmentServiceServer) GetDepartments(context.Context, *Get
 }
 func (UnimplementedDepartmentServiceServer) SaveDepartment(context.Context, *SaveDepartmentRequest) (*SaveDepartmentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveDepartment not implemented")
-}
-func (UnimplementedDepartmentServiceServer) AddDepartment(context.Context, *AddDepartmentRequest) (*AddDepartmentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddDepartment not implemented")
 }
 func (UnimplementedDepartmentServiceServer) DelDepartment(context.Context, *DelDepartmentRequest) (*DelDepartmentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelDepartment not implemented")
@@ -170,24 +154,6 @@ func _DepartmentService_SaveDepartment_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DepartmentService_AddDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddDepartmentRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DepartmentServiceServer).AddDepartment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DepartmentService_AddDepartment_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DepartmentServiceServer).AddDepartment(ctx, req.(*AddDepartmentRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _DepartmentService_DelDepartment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DelDepartmentRequest)
 	if err := dec(in); err != nil {
@@ -220,10 +186,6 @@ var DepartmentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveDepartment",
 			Handler:    _DepartmentService_SaveDepartment_Handler,
-		},
-		{
-			MethodName: "AddDepartment",
-			Handler:    _DepartmentService_AddDepartment_Handler,
 		},
 		{
 			MethodName: "DelDepartment",
