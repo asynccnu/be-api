@@ -47,8 +47,10 @@ message GradeRequestDetail{
 
 // 详细成绩返回体
 message GradeResponseDetail{
-  string RegularGradePercent=1; //平时成绩占比
-  string RegularGrade=2;//平时成绩
-  string FinalGradePercent=3;//期末成绩占比
-  string FinalGrade=4;//期末成绩
+  int32 status_code = 1; // 响应码
+  string description= 2; // 描述
+  string RegularGradePercent=3; //平时成绩占比
+  string RegularGrade=4;//平时成绩
+  string FinalGradePercent=5;//期末成绩占比
+  string FinalGrade=6;//期末成绩
 }
