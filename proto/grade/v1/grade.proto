@@ -35,6 +35,7 @@ message Class{
   string  xnm=11; //学年
   string  xqm=12; //学期名
   string  jxbId=13; //课程Id
+  string jd=14; // 绩点
 }
 
 // 详细成绩请求体
