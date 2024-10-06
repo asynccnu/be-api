@@ -8,7 +8,6 @@ import "google/protobuf/any.proto";
 service BannerService {
   rpc GetBanners(GetBannersRequest)returns(GetBannersResponse);
   rpc SaveBanner(SaveBannerRequest)returns(SaveBannerResponse);
-  rpc AddBanner(AddBannerRequest)returns(AddBannerResponse);
   rpc DelBanner(DelBannerRequest)returns(DelBannerResponse);
 }
 
@@ -32,13 +31,6 @@ message SaveBannerRequest {
 }
 
 message SaveBannerResponse {}
-
-message AddBannerRequest {
-  string webLink =1;
-  string pictureLink =2;
-}
-
-message AddBannerResponse {}
 
 message DelBannerRequest {
   int64 id = 1;

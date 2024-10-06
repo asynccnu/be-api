@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: proto/111/v1/111.proto
+// source: proto/grade/v1/grade.proto
 
 package gradev1
 
@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Grade_Grade_FullMethodName = "/111.v1.Grade/Grade"
+	Grade_GradeAll_FullMethodName    = "/grade.v1.Grade/Grade_all"
+	Grade_GradeDetail_FullMethodName = "/grade.v1.Grade/Grade_detail"
 )
 
 // GradeClient is the client API for Grade service.
@@ -28,7 +29,8 @@ const (
 //
 // 查询成绩的接口定义
 type GradeClient interface {
-	Grade(ctx context.Context, in *GradeRequest, opts ...grpc.CallOption) (*GradeResponse, error)
+	GradeAll(ctx context.Context, in *GradeRequestAll, opts ...grpc.CallOption) (*GradeResponseAll, error)
+	GradeDetail(ctx context.Context, in *GradeRequestDetail, opts ...grpc.CallOption) (*GradeResponseDetail, error)
 }
 
 type gradeClient struct {
@@ -39,10 +41,20 @@ func NewGradeClient(cc grpc.ClientConnInterface) GradeClient {
 	return &gradeClient{cc}
 }
 
-func (c *gradeClient) Grade(ctx context.Context, in *GradeRequest, opts ...grpc.CallOption) (*GradeResponse, error) {
+func (c *gradeClient) GradeAll(ctx context.Context, in *GradeRequestAll, opts ...grpc.CallOption) (*GradeResponseAll, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GradeResponse)
-	err := c.cc.Invoke(ctx, Grade_Grade_FullMethodName, in, out, cOpts...)
+	out := new(GradeResponseAll)
+	err := c.cc.Invoke(ctx, Grade_GradeAll_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gradeClient) GradeDetail(ctx context.Context, in *GradeRequestDetail, opts ...grpc.CallOption) (*GradeResponseDetail, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GradeResponseDetail)
+	err := c.cc.Invoke(ctx, Grade_GradeDetail_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +67,8 @@ func (c *gradeClient) Grade(ctx context.Context, in *GradeRequest, opts ...grpc.
 //
 // 查询成绩的接口定义
 type GradeServer interface {
-	Grade(context.Context, *GradeRequest) (*GradeResponse, error)
+	GradeAll(context.Context, *GradeRequestAll) (*GradeResponseAll, error)
+	GradeDetail(context.Context, *GradeRequestDetail) (*GradeResponseDetail, error)
 	mustEmbedUnimplementedGradeServer()
 }
 
@@ -66,8 +79,11 @@ type GradeServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGradeServer struct{}
 
-func (UnimplementedGradeServer) Grade(context.Context, *GradeRequest) (*GradeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Grade not implemented")
+func (UnimplementedGradeServer) GradeAll(context.Context, *GradeRequestAll) (*GradeResponseAll, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GradeAll not implemented")
+}
+func (UnimplementedGradeServer) GradeDetail(context.Context, *GradeRequestDetail) (*GradeResponseDetail, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GradeDetail not implemented")
 }
 func (UnimplementedGradeServer) mustEmbedUnimplementedGradeServer() {}
 func (UnimplementedGradeServer) testEmbeddedByValue()               {}
@@ -90,20 +106,38 @@ func RegisterGradeServer(s grpc.ServiceRegistrar, srv GradeServer) {
 	s.RegisterService(&Grade_ServiceDesc, srv)
 }
 
-func _Grade_Grade_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GradeRequest)
+func _Grade_GradeAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GradeRequestAll)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GradeServer).Grade(ctx, in)
+		return srv.(GradeServer).GradeAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Grade_Grade_FullMethodName,
+		FullMethod: Grade_GradeAll_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GradeServer).Grade(ctx, req.(*GradeRequest))
+		return srv.(GradeServer).GradeAll(ctx, req.(*GradeRequestAll))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Grade_GradeDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GradeRequestDetail)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GradeServer).GradeDetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Grade_GradeDetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GradeServer).GradeDetail(ctx, req.(*GradeRequestDetail))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,14 +146,18 @@ func _Grade_Grade_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Grade_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "111.v1.Grade",
+	ServiceName: "grade.v1.Grade",
 	HandlerType: (*GradeServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Grade",
-			Handler:    _Grade_Grade_Handler,
+			MethodName: "Grade_all",
+			Handler:    _Grade_GradeAll_Handler,
+		},
+		{
+			MethodName: "Grade_detail",
+			Handler:    _Grade_GradeDetail_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/111/v1/111.proto",
+	Metadata: "proto/grade/v1/grade.proto",
 }

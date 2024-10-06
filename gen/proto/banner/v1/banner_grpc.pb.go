@@ -21,7 +21,6 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	BannerService_GetBanners_FullMethodName = "/banner.v1.BannerService/GetBanners"
 	BannerService_SaveBanner_FullMethodName = "/banner.v1.BannerService/SaveBanner"
-	BannerService_AddBanner_FullMethodName  = "/banner.v1.BannerService/AddBanner"
 	BannerService_DelBanner_FullMethodName  = "/banner.v1.BannerService/DelBanner"
 )
 
@@ -31,7 +30,6 @@ const (
 type BannerServiceClient interface {
 	GetBanners(ctx context.Context, in *GetBannersRequest, opts ...grpc.CallOption) (*GetBannersResponse, error)
 	SaveBanner(ctx context.Context, in *SaveBannerRequest, opts ...grpc.CallOption) (*SaveBannerResponse, error)
-	AddBanner(ctx context.Context, in *AddBannerRequest, opts ...grpc.CallOption) (*AddBannerResponse, error)
 	DelBanner(ctx context.Context, in *DelBannerRequest, opts ...grpc.CallOption) (*DelBannerResponse, error)
 }
 
@@ -63,16 +61,6 @@ func (c *bannerServiceClient) SaveBanner(ctx context.Context, in *SaveBannerRequ
 	return out, nil
 }
 
-func (c *bannerServiceClient) AddBanner(ctx context.Context, in *AddBannerRequest, opts ...grpc.CallOption) (*AddBannerResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddBannerResponse)
-	err := c.cc.Invoke(ctx, BannerService_AddBanner_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *bannerServiceClient) DelBanner(ctx context.Context, in *DelBannerRequest, opts ...grpc.CallOption) (*DelBannerResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(DelBannerResponse)
@@ -89,7 +77,6 @@ func (c *bannerServiceClient) DelBanner(ctx context.Context, in *DelBannerReques
 type BannerServiceServer interface {
 	GetBanners(context.Context, *GetBannersRequest) (*GetBannersResponse, error)
 	SaveBanner(context.Context, *SaveBannerRequest) (*SaveBannerResponse, error)
-	AddBanner(context.Context, *AddBannerRequest) (*AddBannerResponse, error)
 	DelBanner(context.Context, *DelBannerRequest) (*DelBannerResponse, error)
 	mustEmbedUnimplementedBannerServiceServer()
 }
@@ -106,9 +93,6 @@ func (UnimplementedBannerServiceServer) GetBanners(context.Context, *GetBannersR
 }
 func (UnimplementedBannerServiceServer) SaveBanner(context.Context, *SaveBannerRequest) (*SaveBannerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveBanner not implemented")
-}
-func (UnimplementedBannerServiceServer) AddBanner(context.Context, *AddBannerRequest) (*AddBannerResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddBanner not implemented")
 }
 func (UnimplementedBannerServiceServer) DelBanner(context.Context, *DelBannerRequest) (*DelBannerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelBanner not implemented")
@@ -170,24 +154,6 @@ func _BannerService_SaveBanner_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _BannerService_AddBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddBannerRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BannerServiceServer).AddBanner(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: BannerService_AddBanner_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BannerServiceServer).AddBanner(ctx, req.(*AddBannerRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _BannerService_DelBanner_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DelBannerRequest)
 	if err := dec(in); err != nil {
@@ -220,10 +186,6 @@ var BannerService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveBanner",
 			Handler:    _BannerService_SaveBanner_Handler,
-		},
-		{
-			MethodName: "AddBanner",
-			Handler:    _BannerService_AddBanner_Handler,
 		},
 		{
 			MethodName: "DelBanner",
