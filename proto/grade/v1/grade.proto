@@ -41,6 +41,8 @@ message Class{
 message GradeRequestDetail{
   string jxbId=1; //课程标号
   string student_id=2;//学生号
+  string xqm=3; //学期名
+  string xnm=4; //学年名
 }
 
 // 详细成绩返回体
