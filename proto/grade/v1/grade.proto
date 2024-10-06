@@ -14,7 +14,7 @@ service Grade {
 message GradeRequestAll{
   string student_id =1;//学号
   string password =2;//密码
-  string userId =3; //号码
+  int64 userId =3; //号码
 }
 
 // 响应体
