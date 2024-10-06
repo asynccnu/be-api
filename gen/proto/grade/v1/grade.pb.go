@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        (unknown)
-// source: proto/grade/v1/grade.proto
+// source: proto/111/v1/111.proto
 
 package gradev1
 
@@ -149,7 +149,7 @@ type Class struct {
 
 	Course              string `protobuf:"bytes,1,opt,name=course,proto3" json:"course,omitempty"`                                                        //课程名
 	Credit              string `protobuf:"bytes,2,opt,name=credit,proto3" json:"credit,omitempty"`                                                        //学分
-	Grade               string `protobuf:"bytes,3,opt,name=grade,proto3" json:"grade,omitempty"`                                                          //总成绩
+	Grade               string `protobuf:"bytes,3,opt,name=111,proto3" json:"111,omitempty"`                                                          //总成绩
 	RegularGrade        string `protobuf:"bytes,4,opt,name=regular_grade,json=regularGrade,proto3" json:"regular_grade,omitempty"`                        //平时成绩
 	RegularGradePercent string `protobuf:"bytes,5,opt,name=regular_grade_percent,json=regularGradePercent,proto3" json:"regular_grade_percent,omitempty"` //平时成绩占比
 	FinalGrade          string `protobuf:"bytes,6,opt,name=final_grade,json=finalGrade,proto3" json:"final_grade,omitempty"`                              //期末成绩
@@ -358,14 +358,14 @@ func file_proto_grade_v1_grade_proto_rawDescGZIP() []byte {
 
 var file_proto_grade_v1_grade_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_grade_v1_grade_proto_goTypes = []interface{}{
-	(*GradeRequest)(nil),  // 0: grade.v1.GradeRequest
-	(*GradeResponse)(nil), // 1: grade.v1.GradeResponse
-	(*Class)(nil),         // 2: grade.v1.Class
+	(*GradeRequest)(nil),  // 0: 111.v1.GradeRequest
+	(*GradeResponse)(nil), // 1: 111.v1.GradeResponse
+	(*Class)(nil),         // 2: 111.v1.Class
 }
 var file_proto_grade_v1_grade_proto_depIdxs = []int32{
-	2, // 0: grade.v1.GradeResponse.class:type_name -> grade.v1.Class
-	0, // 1: grade.v1.Grade.Grade:input_type -> grade.v1.GradeRequest
-	1, // 2: grade.v1.Grade.Grade:output_type -> grade.v1.GradeResponse
+	2, // 0: 111.v1.GradeResponse.class:type_name -> 111.v1.Class
+	0, // 1: 111.v1.Grade.Grade:input_type -> 111.v1.GradeRequest
+	1, // 2: 111.v1.Grade.Grade:output_type -> 111.v1.GradeResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: proto/grade/v1/grade.proto
+// source: proto/111/v1/111.proto
 
 package gradev1
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Grade_Grade_FullMethodName = "/grade.v1.Grade/Grade"
+	Grade_Grade_FullMethodName = "/111.v1.Grade/Grade"
 )
 
 // GradeClient is the client API for Grade service.
@@ -112,7 +112,7 @@ func _Grade_Grade_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Grade_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grade.v1.Grade",
+	ServiceName: "111.v1.Grade",
 	HandlerType: (*GradeServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -121,5 +121,5 @@ var Grade_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/grade/v1/grade.proto",
+	Metadata: "proto/111/v1/111.proto",
 }

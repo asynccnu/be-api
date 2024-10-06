@@ -41,6 +41,7 @@ message SetRequest {
   string area       = 3;  //区域
   string building   = 4;  //建筑
   string room       = 5;  //房间号
+  string userId     =6;//学生编号
 }
 // 响应体
 message SetResponse{
