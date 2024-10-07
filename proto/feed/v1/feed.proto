@@ -15,7 +15,6 @@ service FeedService {
   rpc PublicMuxiOfficialMSG(PublicMuxiOfficialMSGReq)returns(PublicMuxiOfficialMSGResp);//发布木犀官方消息
   rpc StopMuxiOfficialMSG(StopMuxiOfficialMSGReq)returns(StopMuxiOfficialMSGResp);//停止发布木犀官方消息
   rpc GetToBePublicOfficialMSG(GetToBePublicOfficialMSGReq)returns(GetToBePublicOfficialMSGResp);//获取当前还没发布的消息列表
-
 }
 
 message FeedEvent {
@@ -35,6 +34,7 @@ message GetFeedEventsResp {
   repeated FeedEvent read_events = 1;
   repeated FeedEvent unread_events = 2;
 }
+
 message ReadFeedEventReq{
   int64 id = 1;
 }
@@ -47,7 +47,7 @@ message ReadFeedEventResp{
 
 message ClearFeedEventReq {
   int64 userId = 1;
-  int64 feedId = 2;//如果feedId设置为0表示删除所有的已读部分,如果设置为-1表示删除所有的消息,如果为指定的id号就只删除指定的id的消息
+  int64 feedId = 2;//如果feedId设置为0表示删除所有的已读部分,如果设置为-1表示删除所有的消息,如果为指定的id号就只删除指定的id的消息,原来是想这么写的但是最后没这么写
 }
 
 message ClearFeedEventResp {}
