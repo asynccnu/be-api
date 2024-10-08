@@ -15,6 +15,7 @@ message CheckRequest {
   string area       = 2;  //区域
   string building   = 3;  //建筑
   string room       = 4;  //房间号
+  int64 userId      = 5; //学生号码
 }
 
 // 响应体
@@ -41,7 +42,7 @@ message SetRequest {
   string area       = 3;  //区域
   string building   = 4;  //建筑
   string room       = 5;  //房间号
-  int64 userId     =6;//学生编号
+  int64 userId      = 6;  //学生编号
 }
 // 响应体
 message SetResponse{
