@@ -300,7 +300,7 @@ type ClearFeedEventReq struct {
 	unknownFields protoimpl.UnknownFields
 
 	UserId int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
-	FeedId int64 `protobuf:"varint,2,opt,name=feedId,proto3" json:"feedId,omitempty"` //如果feedId设置为0表示删除所有的已读部分,如果设置为-1表示删除所有的消息,如果为指定的id号就只删除指定的id的消息
+	FeedId int64 `protobuf:"varint,2,opt,name=feedId,proto3" json:"feedId,omitempty"` //如果feedId设置为0表示删除所有的已读部分,如果设置为-1表示删除所有的消息,如果为指定的id号就只删除指定的id的消息,原来是想这么写的但是最后没这么写
 }
 
 func (x *ClearFeedEventReq) Reset() {
