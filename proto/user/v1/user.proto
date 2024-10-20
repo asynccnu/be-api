@@ -14,6 +14,8 @@ message User {
 
 service UserService {
   rpc FindOrCreateByStudentId (FindOrCreateByStudentIdRequest) returns(FindOrCreateByStudentIdResponse);
+  rpc FindOrCreateByUserId (FindOrCreateByUserIdRequest) returns(FindOrCreateByUserIdResponse);
+  rpc FindByStudentId (FindByStudentIdRequest) returns(FindByStudentIdResponse);
   rpc UpdateNonSensitiveInfo (UpdateNonSensitiveInfoRequest) returns (UpdateNonSensitiveInfoResponse);
   rpc GetCookie(GetCookieRequest) returns (GetCookieResponse);
 }
@@ -26,7 +28,18 @@ message FindOrCreateByStudentIdRequest {
 message FindOrCreateByStudentIdResponse {
   User user = 1;
 }
-
+message FindOrCreateByUserIdRequest {
+  int64 userId =1;
+}
+message FindOrCreateByUserIdResponse {
+  User user = 1;
+}
+message FindByStudentIdRequest{
+  string student_id = 1;
+}
+message FindByStudentIdResponse{
+ User user = 1;
+}
 // 昵称和头像
 message UpdateNonSensitiveInfoRequest {
   User user = 1;

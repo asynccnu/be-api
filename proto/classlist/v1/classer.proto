@@ -18,7 +18,7 @@ service Classer {
     rpc RecoverClass(RecoverClassRequest) returns (RecoverClassResponse) ;
     //获取所有课程信息(为其他服务设置的)
     rpc GetAllClassInfo(GetAllClassInfoRequest) returns (GetAllClassInfoResponse) ;
-
+    rpc GetStuIdByJxbId(GetStuIdByJxbIdRequest) returns (GetStuIdByJxbIdResponse);
 }
 
 message GetClassRequest {
@@ -176,3 +176,9 @@ message Class {
     bool thisweek=2;
 }
 
+message GetStuIdByJxbIdRequest{
+    string jxb_id = 1;
+}
+message GetStuIdByJxbIdResponse{
+    repeated string stu_id = 1;
+}

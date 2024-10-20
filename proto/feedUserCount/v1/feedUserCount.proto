@@ -20,12 +20,11 @@ message AddFeedUserCountResp{
 }
 
 message GetFeedUserLevelsReq{
+  string label=1;
 }
 
 message GetFeedUserLevelsResp{
-  repeated int64 high=1;
-  repeated int64 middle=2;
-  repeated int64 low=3;
+  repeated int64 ids=1;
 }
 
 message ChangeFeedUserLevelsReq{
