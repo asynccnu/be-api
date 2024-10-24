@@ -3,7 +3,7 @@ syntax = "proto3";
 package feed.v1;
 
 import "errors/errors.proto";
-option go_package="github.com/asynccnu/be-api/gen/proto/feed/v1;feedv1";
+option go_package="github.com/asynccnu/be-api/gen/proto/feed/classlist;feedv1";
 
 enum ErrorReason {
   // 设置缺省错误码
