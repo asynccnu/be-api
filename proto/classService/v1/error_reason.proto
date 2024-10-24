@@ -4,9 +4,9 @@ package classService.v1;
 
 import "errors/errors.proto";
 
-option go_package = "classService/api/classService/classService;classService";
+option go_package = "v1/api/v1/v1;v1";
 option java_multiple_files = true;
-option java_package = "classService.classService";
+option java_package = "v1.v1";
 option objc_class_prefix = "APIHelloworldV1";
 
 enum ErrorReason {

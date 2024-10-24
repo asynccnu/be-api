@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.34.2
 // 	protoc        v5.26.1
-// source: classService/v1/classService.proto
+// source: v1/v1/v1.proto
 
-package classService
+package v1
 
 import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
@@ -565,18 +565,18 @@ func file_classService_v1_classService_proto_rawDescGZIP() []byte {
 
 var file_classService_v1_classService_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_classService_v1_classService_proto_goTypes = []any{
-	(*SearchRequest)(nil),   // 0: classService.v1.SearchRequest
-	(*SearchReply)(nil),     // 1: classService.v1.SearchReply
-	(*AddClassRequest)(nil), // 2: classService.v1.AddClassRequest
-	(*AddClassReply)(nil),   // 3: classService.v1.AddClassReply
-	(*ClassInfo)(nil),       // 4: classService.v1.ClassInfo
+	(*SearchRequest)(nil),   // 0: v1.v1.SearchRequest
+	(*SearchReply)(nil),     // 1: v1.v1.SearchReply
+	(*AddClassRequest)(nil), // 2: v1.v1.AddClassRequest
+	(*AddClassReply)(nil),   // 3: v1.v1.AddClassReply
+	(*ClassInfo)(nil),       // 4: v1.v1.ClassInfo
 }
 var file_classService_v1_classService_proto_depIdxs = []int32{
-	4, // 0: classService.v1.SearchReply.class_infos:type_name -> classService.v1.ClassInfo
-	0, // 1: classService.v1.ClassService.SearchClass:input_type -> classService.v1.SearchRequest
-	2, // 2: classService.v1.ClassService.AddClass:input_type -> classService.v1.AddClassRequest
-	1, // 3: classService.v1.ClassService.SearchClass:output_type -> classService.v1.SearchReply
-	3, // 4: classService.v1.ClassService.AddClass:output_type -> classService.v1.AddClassReply
+	4, // 0: v1.v1.SearchReply.class_infos:type_name -> v1.v1.ClassInfo
+	0, // 1: v1.v1.ClassService.SearchClass:input_type -> v1.v1.SearchRequest
+	2, // 2: v1.v1.ClassService.AddClass:input_type -> v1.v1.AddClassRequest
+	1, // 3: v1.v1.ClassService.SearchClass:output_type -> v1.v1.SearchReply
+	3, // 4: v1.v1.ClassService.AddClass:output_type -> v1.v1.AddClassReply
 	3, // [3:5] is the sub-list for method output_type
 	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

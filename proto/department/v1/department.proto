@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package department.v1;
-option go_package = "github.com/asynccnu/be-api/gen/proto/department/classlist;departmentv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/department/v1;departmentv1";
 
 import "google/protobuf/any.proto";
 

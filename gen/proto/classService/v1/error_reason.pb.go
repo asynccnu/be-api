@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.34.2
 // 	protoc        v5.26.1
-// source: classService/v1/error_reason.proto
+// source: v1/v1/error_reason.proto
 
-package classService
+package v1
 
 import (
 	_ "github.com/go-kratos/kratos/v2/errors"
@@ -101,7 +101,7 @@ func file_classService_v1_error_reason_proto_rawDescGZIP() []byte {
 
 var file_classService_v1_error_reason_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_classService_v1_error_reason_proto_goTypes = []any{
-	(ErrorReason)(0), // 0: classService.v1.ErrorReason
+	(ErrorReason)(0), // 0: v1.v1.ErrorReason
 }
 var file_classService_v1_error_reason_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

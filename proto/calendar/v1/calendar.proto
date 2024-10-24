@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package calendar.v1;
-option go_package = "github.com/asynccnu/be-api/gen/proto/calendar/classlist;calendarv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/calendar/v1;calendarv1";
 
 import "google/protobuf/any.proto";
 
