@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-http v2.8.0
 // - protoc             v5.26.1
-// source: v1/v1/v1.proto
+// source: classService/v1/classService.proto
 
-package v1
+package classService
 
 import (
 	context "context"
@@ -19,8 +19,8 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationClassServiceAddClass = "/v1.v1.ClassService/AddClass"
-const OperationClassServiceSearchClass = "/v1.v1.ClassService/SearchClass"
+const OperationClassServiceAddClass = "/classService.v1.ClassService/AddClass"
+const OperationClassServiceSearchClass = "/classService.v1.ClassService/SearchClass"
 
 type ClassServiceHTTPServer interface {
 	// AddClass添加课程

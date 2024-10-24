@@ -3,7 +3,7 @@ syntax = "proto3";
 package department.v1;
 import "errors/errors.proto";
 
-option go_package = "github.com/asynccnu/be-api/gen/proto/department/v1;departmentv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/department/classlist;departmentv1";
 
 enum DepartmentErrorReason {
   // 设置缺省错误码

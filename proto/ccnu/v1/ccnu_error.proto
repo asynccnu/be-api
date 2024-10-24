@@ -3,7 +3,7 @@ syntax = "proto3";
 package ccnu.v1;
 import "errors/errors.proto";
 
-option go_package = "proto/ccnu/v1;ccnuv1";
+option go_package = "proto/ccnu/classlist;ccnuv1";
 
 enum CCNUErrorReason {
   // 设置缺省错误码

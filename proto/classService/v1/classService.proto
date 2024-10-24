@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "validate/validate.proto";
 
-option go_package = "v1/api/v1/v1;v1";
+option go_package = "classService/api/classService/classService;classService";
 
 // The greeting service definition.
 service ClassService {

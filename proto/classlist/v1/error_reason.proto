@@ -4,9 +4,9 @@ package helloworld.v1;
 
 import "errors/errors.proto";
 
-option go_package = "class/api/classer/v1;v1";
+option go_package = "class/api/classer/classlist;classlist";
 option java_multiple_files = true;
-option java_package = "classer.v1";
+option java_package = "classer.classlist";
 option objc_class_prefix = "APICLASSERV1";
 
 enum ErrorReason {

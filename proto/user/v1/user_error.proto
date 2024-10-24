@@ -3,7 +3,7 @@ syntax = "proto3";
 package user.v1;
 import "errors/errors.proto";
 
-option go_package="github.com/MuxiKeStack/be-api/gen/proto/user/v1;userv1";
+option go_package="github.com/MuxiKeStack/be-api/gen/proto/user/classlist;userv1";
 
 enum UserErrorReason {
   // 设置缺省错误码

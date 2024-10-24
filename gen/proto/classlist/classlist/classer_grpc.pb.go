@@ -4,7 +4,7 @@
 // - protoc             v5.26.1
 // source: classer/v1/classer.proto
 
-package v1
+package classlist
 
 import (
 	context "context"

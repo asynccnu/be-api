@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package static.v1;
-option go_package = "github.com/MuxiKeStack/be-api/gen/proto/static/v1;staticv1";
+option go_package = "github.com/MuxiKeStack/be-api/gen/proto/static/classlist;staticv1";
 
 import "google/protobuf/any.proto";
 

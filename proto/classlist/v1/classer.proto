@@ -7,7 +7,7 @@ import "google/api/field_behavior.proto";
 import "validate/validate.proto";
 
 
-option go_package = "class/api/classer/v1;v1";
+option go_package = "class/api/classer/classlist;classlist";
 
 service Classer {
     //获取课表

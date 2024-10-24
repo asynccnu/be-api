@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package banner.v1;
-option go_package = "github.com/asynccnu/be-api/gen/proto/feedUserCount/v1;feedUserCountv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/feedUserCount/classlist;feedUserCountv1";
 
 import "google/protobuf/any.proto";
 
