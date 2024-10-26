@@ -54,7 +54,7 @@ message ClearFeedEventResp {}
 
 message ChangeFeedAllowListReq {
   int64 userId = 1;
-  bool score = 2;
+  bool grade = 2;
   bool muxi = 3;
   bool holiday = 4;
   bool air_conditioner=5;
@@ -67,7 +67,7 @@ message GetFeedAllowListReq{
 }
 
 message GetFeedAllowListResp{
-  bool score = 1;
+  bool grade = 1;
   bool muxi = 2;
   bool holiday = 3;
   bool air_conditioner = 4;
