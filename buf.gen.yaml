@@ -1,9 +1,9 @@
-version: v1
+version: classlist
 managed:
   enabled: true
 plugins:
   # 默认用最新版本
-  - plugin: buf.build/protocolbuffers/go:v1.28.1
+  - plugin: buf.build/protocolbuffers/go:classlist.28.1
     out: gen
     opt: paths=source_relative
 

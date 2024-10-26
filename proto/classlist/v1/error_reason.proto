@@ -1,9 +1,13 @@
 syntax = "proto3";
 
-package classer.v1;
+package helloworld.v1;
 
 import "errors/errors.proto";
-option go_package="github.com/asynccnu/be-api/gen/proto/classlist/v1;classlist";
+
+option go_package = "class/api/classer/classlist;classlist";
+option java_multiple_files = true;
+option java_package = "classer.classlist";
+option objc_class_prefix = "APICLASSERV1";
 
 enum ErrorReason {
   // 设置缺省错误码

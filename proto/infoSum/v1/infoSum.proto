@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package infoSum.v1;
-option go_package = "github.com/asynccnu/be-api/gen/proto/infoSum/v1;infoSumv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/infoSum/classlist;infoSumv1";
 
 import "google/protobuf/any.proto";
 
