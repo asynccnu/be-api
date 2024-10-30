@@ -3,7 +3,7 @@ syntax = "proto3";
 package calendar.v1;
 import "errors/errors.proto";
 
-option go_package = "github.com/asynccnu/be-api/gen/proto/calendar/classlist;calendarv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/calendar/v1;calendarv1";
 
 enum CalendarErrorReason {
   // 设置缺省错误码

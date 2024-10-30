@@ -4,10 +4,7 @@ package classService.v1;
 
 import "errors/errors.proto";
 
-option go_package = "classService/api/classService/classService;classService";
-option java_multiple_files = true;
-option java_package = "classService.classService";
-option objc_class_prefix = "APIHelloworldV1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/classService/v1;classServicev1";
 
 enum ErrorReason {
   ES_AddClassFailed = 0[(errors.code) = 450];

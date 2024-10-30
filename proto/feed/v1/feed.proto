@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package feed.v1;
-option go_package="proto/feed/classlist;feedv1";
+option go_package="proto/feed/v1;feedv1";
 
 service FeedService {
   rpc GetFeedEvents (GetFeedEventsReq) returns (GetFeedEventsResp);//获取所有的消息,包括已读和未读两部分

@@ -3,7 +3,7 @@ syntax = "proto3";
 package banner.v1;
 import "errors/errors.proto";
 
-option go_package = "github.com/asynccnu/be-api/gen/proto/banner/classlist;bannerv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/banner/v1;bannerv1";
 
 enum BannerErrorReason {
   // 设置缺省错误码

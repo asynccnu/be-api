@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package api.card.v1;
 
-option go_package = "github.com/asynccnu/be-api/gen/proto/card/classlist;cardv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/card/v1;cardv1";
 
 import "google/protobuf/timestamp.proto";
 

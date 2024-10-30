@@ -3,7 +3,7 @@ syntax = "proto3";
 package infoSum.v1;
 import "errors/errors.proto";
 
-option go_package = "github.com/asynccnu/be-api/gen/proto/infoSum/classlist;infoSumv1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/infoSum/v1;infoSumv1";
 
 enum infoSumErrorReason {
   // 设置缺省错误码

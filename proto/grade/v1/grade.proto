@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package grade.v1;
-option go_package = "github.com/asynccnu/be-api/gen/proto/grade/classlist;gradev1";
+option go_package = "github.com/asynccnu/be-api/gen/proto/grade/v1;gradev1";
 import "google/protobuf/any.proto";
 
 // 查询成绩的接口定义
