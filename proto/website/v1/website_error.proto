@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package website.v1;
+import "errors/errors.proto";
+
+option go_package = "github.com/asynccnu/be-api/gen/proto/website/v1;websitev1";
+
+enum WebsiteErrorReason {
+  // 设置缺省错误码
+  option (errors.default_code) = 500;
+
+  WEBSITE_NOT_FOUND = 0 [(errors.code) = 404];
+}
