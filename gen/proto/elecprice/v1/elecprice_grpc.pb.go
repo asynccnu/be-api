@@ -19,143 +19,143 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ElecPrice_Check_FullMethodName = "/elecprice.v1.ElecPrice/Check"
-	ElecPrice_Set_FullMethodName   = "/elecprice.v1.ElecPrice/Set"
+	ElecpriceService_Check_FullMethodName       = "/elecprice.v1.ElecpriceService/Check"
+	ElecpriceService_SetStandard_FullMethodName = "/elecprice.v1.ElecpriceService/SetStandard"
 )
 
-// ElecPriceClient is the client API for ElecPrice service.
+// ElecpriceServiceClient is the client API for ElecpriceService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // 查询电费的接口定义
-type ElecPriceClient interface {
+type ElecpriceServiceClient interface {
 	Check(ctx context.Context, in *CheckRequest, opts ...grpc.CallOption) (*CheckResponse, error)
-	Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error)
+	SetStandard(ctx context.Context, in *SetStandardRequest, opts ...grpc.CallOption) (*SetStandardResponse, error)
 }
 
-type elecPriceClient struct {
+type elecpriceServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewElecPriceClient(cc grpc.ClientConnInterface) ElecPriceClient {
-	return &elecPriceClient{cc}
+func NewElecpriceServiceClient(cc grpc.ClientConnInterface) ElecpriceServiceClient {
+	return &elecpriceServiceClient{cc}
 }
 
-func (c *elecPriceClient) Check(ctx context.Context, in *CheckRequest, opts ...grpc.CallOption) (*CheckResponse, error) {
+func (c *elecpriceServiceClient) Check(ctx context.Context, in *CheckRequest, opts ...grpc.CallOption) (*CheckResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CheckResponse)
-	err := c.cc.Invoke(ctx, ElecPrice_Check_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ElecpriceService_Check_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *elecPriceClient) Set(ctx context.Context, in *SetRequest, opts ...grpc.CallOption) (*SetResponse, error) {
+func (c *elecpriceServiceClient) SetStandard(ctx context.Context, in *SetStandardRequest, opts ...grpc.CallOption) (*SetStandardResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SetResponse)
-	err := c.cc.Invoke(ctx, ElecPrice_Set_FullMethodName, in, out, cOpts...)
+	out := new(SetStandardResponse)
+	err := c.cc.Invoke(ctx, ElecpriceService_SetStandard_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ElecPriceServer is the server API for ElecPrice service.
-// All implementations must embed UnimplementedElecPriceServer
+// ElecpriceServiceServer is the server API for ElecpriceService service.
+// All implementations must embed UnimplementedElecpriceServiceServer
 // for forward compatibility.
 //
 // 查询电费的接口定义
-type ElecPriceServer interface {
+type ElecpriceServiceServer interface {
 	Check(context.Context, *CheckRequest) (*CheckResponse, error)
-	Set(context.Context, *SetRequest) (*SetResponse, error)
-	mustEmbedUnimplementedElecPriceServer()
+	SetStandard(context.Context, *SetStandardRequest) (*SetStandardResponse, error)
+	mustEmbedUnimplementedElecpriceServiceServer()
 }
 
-// UnimplementedElecPriceServer must be embedded to have
+// UnimplementedElecpriceServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedElecPriceServer struct{}
+type UnimplementedElecpriceServiceServer struct{}
 
-func (UnimplementedElecPriceServer) Check(context.Context, *CheckRequest) (*CheckResponse, error) {
+func (UnimplementedElecpriceServiceServer) Check(context.Context, *CheckRequest) (*CheckResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Check not implemented")
 }
-func (UnimplementedElecPriceServer) Set(context.Context, *SetRequest) (*SetResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
+func (UnimplementedElecpriceServiceServer) SetStandard(context.Context, *SetStandardRequest) (*SetStandardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetStandard not implemented")
 }
-func (UnimplementedElecPriceServer) mustEmbedUnimplementedElecPriceServer() {}
-func (UnimplementedElecPriceServer) testEmbeddedByValue()                   {}
+func (UnimplementedElecpriceServiceServer) mustEmbedUnimplementedElecpriceServiceServer() {}
+func (UnimplementedElecpriceServiceServer) testEmbeddedByValue()                          {}
 
-// UnsafeElecPriceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ElecPriceServer will
+// UnsafeElecpriceServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ElecpriceServiceServer will
 // result in compilation errors.
-type UnsafeElecPriceServer interface {
-	mustEmbedUnimplementedElecPriceServer()
+type UnsafeElecpriceServiceServer interface {
+	mustEmbedUnimplementedElecpriceServiceServer()
 }
 
-func RegisterElecPriceServer(s grpc.ServiceRegistrar, srv ElecPriceServer) {
-	// If the following call pancis, it indicates UnimplementedElecPriceServer was
+func RegisterElecpriceServiceServer(s grpc.ServiceRegistrar, srv ElecpriceServiceServer) {
+	// If the following call pancis, it indicates UnimplementedElecpriceServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&ElecPrice_ServiceDesc, srv)
+	s.RegisterService(&ElecpriceService_ServiceDesc, srv)
 }
 
-func _ElecPrice_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ElecpriceService_Check_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ElecPriceServer).Check(ctx, in)
+		return srv.(ElecpriceServiceServer).Check(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ElecPrice_Check_FullMethodName,
+		FullMethod: ElecpriceService_Check_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ElecPriceServer).Check(ctx, req.(*CheckRequest))
+		return srv.(ElecpriceServiceServer).Check(ctx, req.(*CheckRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ElecPrice_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetRequest)
+func _ElecpriceService_SetStandard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetStandardRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ElecPriceServer).Set(ctx, in)
+		return srv.(ElecpriceServiceServer).SetStandard(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ElecPrice_Set_FullMethodName,
+		FullMethod: ElecpriceService_SetStandard_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ElecPriceServer).Set(ctx, req.(*SetRequest))
+		return srv.(ElecpriceServiceServer).SetStandard(ctx, req.(*SetStandardRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ElecPrice_ServiceDesc is the grpc.ServiceDesc for ElecPrice service.
+// ElecpriceService_ServiceDesc is the grpc.ServiceDesc for ElecpriceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ElecPrice_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "elecprice.v1.ElecPrice",
-	HandlerType: (*ElecPriceServer)(nil),
+var ElecpriceService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "elecprice.v1.ElecpriceService",
+	HandlerType: (*ElecpriceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Check",
-			Handler:    _ElecPrice_Check_Handler,
+			Handler:    _ElecpriceService_Check_Handler,
 		},
 		{
-			MethodName: "Set",
-			Handler:    _ElecPrice_Set_Handler,
+			MethodName: "SetStandard",
+			Handler:    _ElecpriceService_SetStandard_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -20,7 +20,6 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	FeedService_GetFeedEvents_FullMethodName            = "/feed.v1.FeedService/GetFeedEvents"
-	FeedService_GetFailMSG_FullMethodName               = "/feed.v1.FeedService/GetFailMSG"
 	FeedService_ReadFeedEvent_FullMethodName            = "/feed.v1.FeedService/ReadFeedEvent"
 	FeedService_ClearFeedEvent_FullMethodName           = "/feed.v1.FeedService/ClearFeedEvent"
 	FeedService_ChangeFeedAllowList_FullMethodName      = "/feed.v1.FeedService/ChangeFeedAllowList"
@@ -30,6 +29,7 @@ const (
 	FeedService_PublicMuxiOfficialMSG_FullMethodName    = "/feed.v1.FeedService/PublicMuxiOfficialMSG"
 	FeedService_StopMuxiOfficialMSG_FullMethodName      = "/feed.v1.FeedService/StopMuxiOfficialMSG"
 	FeedService_GetToBePublicOfficialMSG_FullMethodName = "/feed.v1.FeedService/GetToBePublicOfficialMSG"
+	FeedService_PublicFeedEvent_FullMethodName          = "/feed.v1.FeedService/PublicFeedEvent"
 )
 
 // FeedServiceClient is the client API for FeedService service.
@@ -37,7 +37,6 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FeedServiceClient interface {
 	GetFeedEvents(ctx context.Context, in *GetFeedEventsReq, opts ...grpc.CallOption) (*GetFeedEventsResp, error)
-	GetFailMSG(ctx context.Context, in *GetFailMSGReq, opts ...grpc.CallOption) (*GetFailMSGResp, error)
 	ReadFeedEvent(ctx context.Context, in *ReadFeedEventReq, opts ...grpc.CallOption) (*ReadFeedEventResp, error)
 	ClearFeedEvent(ctx context.Context, in *ClearFeedEventReq, opts ...grpc.CallOption) (*ClearFeedEventResp, error)
 	ChangeFeedAllowList(ctx context.Context, in *ChangeFeedAllowListReq, opts ...grpc.CallOption) (*ChangeFeedAllowListResp, error)
@@ -47,6 +46,7 @@ type FeedServiceClient interface {
 	PublicMuxiOfficialMSG(ctx context.Context, in *PublicMuxiOfficialMSGReq, opts ...grpc.CallOption) (*PublicMuxiOfficialMSGResp, error)
 	StopMuxiOfficialMSG(ctx context.Context, in *StopMuxiOfficialMSGReq, opts ...grpc.CallOption) (*StopMuxiOfficialMSGResp, error)
 	GetToBePublicOfficialMSG(ctx context.Context, in *GetToBePublicOfficialMSGReq, opts ...grpc.CallOption) (*GetToBePublicOfficialMSGResp, error)
+	PublicFeedEvent(ctx context.Context, in *PublicFeedEventReq, opts ...grpc.CallOption) (*PublicFeedEventResp, error)
 }
 
 type feedServiceClient struct {
@@ -61,16 +61,6 @@ func (c *feedServiceClient) GetFeedEvents(ctx context.Context, in *GetFeedEvents
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetFeedEventsResp)
 	err := c.cc.Invoke(ctx, FeedService_GetFeedEvents_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *feedServiceClient) GetFailMSG(ctx context.Context, in *GetFailMSGReq, opts ...grpc.CallOption) (*GetFailMSGResp, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetFailMSGResp)
-	err := c.cc.Invoke(ctx, FeedService_GetFailMSG_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -167,12 +157,21 @@ func (c *feedServiceClient) GetToBePublicOfficialMSG(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *feedServiceClient) PublicFeedEvent(ctx context.Context, in *PublicFeedEventReq, opts ...grpc.CallOption) (*PublicFeedEventResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PublicFeedEventResp)
+	err := c.cc.Invoke(ctx, FeedService_PublicFeedEvent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // FeedServiceServer is the server API for FeedService service.
 // All implementations must embed UnimplementedFeedServiceServer
 // for forward compatibility.
 type FeedServiceServer interface {
 	GetFeedEvents(context.Context, *GetFeedEventsReq) (*GetFeedEventsResp, error)
-	GetFailMSG(context.Context, *GetFailMSGReq) (*GetFailMSGResp, error)
 	ReadFeedEvent(context.Context, *ReadFeedEventReq) (*ReadFeedEventResp, error)
 	ClearFeedEvent(context.Context, *ClearFeedEventReq) (*ClearFeedEventResp, error)
 	ChangeFeedAllowList(context.Context, *ChangeFeedAllowListReq) (*ChangeFeedAllowListResp, error)
@@ -182,6 +181,7 @@ type FeedServiceServer interface {
 	PublicMuxiOfficialMSG(context.Context, *PublicMuxiOfficialMSGReq) (*PublicMuxiOfficialMSGResp, error)
 	StopMuxiOfficialMSG(context.Context, *StopMuxiOfficialMSGReq) (*StopMuxiOfficialMSGResp, error)
 	GetToBePublicOfficialMSG(context.Context, *GetToBePublicOfficialMSGReq) (*GetToBePublicOfficialMSGResp, error)
+	PublicFeedEvent(context.Context, *PublicFeedEventReq) (*PublicFeedEventResp, error)
 	mustEmbedUnimplementedFeedServiceServer()
 }
 
@@ -194,9 +194,6 @@ type UnimplementedFeedServiceServer struct{}
 
 func (UnimplementedFeedServiceServer) GetFeedEvents(context.Context, *GetFeedEventsReq) (*GetFeedEventsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFeedEvents not implemented")
-}
-func (UnimplementedFeedServiceServer) GetFailMSG(context.Context, *GetFailMSGReq) (*GetFailMSGResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetFailMSG not implemented")
 }
 func (UnimplementedFeedServiceServer) ReadFeedEvent(context.Context, *ReadFeedEventReq) (*ReadFeedEventResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadFeedEvent not implemented")
@@ -224,6 +221,9 @@ func (UnimplementedFeedServiceServer) StopMuxiOfficialMSG(context.Context, *Stop
 }
 func (UnimplementedFeedServiceServer) GetToBePublicOfficialMSG(context.Context, *GetToBePublicOfficialMSGReq) (*GetToBePublicOfficialMSGResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetToBePublicOfficialMSG not implemented")
+}
+func (UnimplementedFeedServiceServer) PublicFeedEvent(context.Context, *PublicFeedEventReq) (*PublicFeedEventResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PublicFeedEvent not implemented")
 }
 func (UnimplementedFeedServiceServer) mustEmbedUnimplementedFeedServiceServer() {}
 func (UnimplementedFeedServiceServer) testEmbeddedByValue()                     {}
@@ -260,24 +260,6 @@ func _FeedService_GetFeedEvents_Handler(srv interface{}, ctx context.Context, de
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(FeedServiceServer).GetFeedEvents(ctx, req.(*GetFeedEventsReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FeedService_GetFailMSG_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetFailMSGReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FeedServiceServer).GetFailMSG(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: FeedService_GetFailMSG_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FeedServiceServer).GetFailMSG(ctx, req.(*GetFailMSGReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -444,6 +426,24 @@ func _FeedService_GetToBePublicOfficialMSG_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _FeedService_PublicFeedEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublicFeedEventReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(FeedServiceServer).PublicFeedEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: FeedService_PublicFeedEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(FeedServiceServer).PublicFeedEvent(ctx, req.(*PublicFeedEventReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // FeedService_ServiceDesc is the grpc.ServiceDesc for FeedService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -454,10 +454,6 @@ var FeedService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFeedEvents",
 			Handler:    _FeedService_GetFeedEvents_Handler,
-		},
-		{
-			MethodName: "GetFailMSG",
-			Handler:    _FeedService_GetFailMSG_Handler,
 		},
 		{
 			MethodName: "ReadFeedEvent",
@@ -494,6 +490,10 @@ var FeedService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetToBePublicOfficialMSG",
 			Handler:    _FeedService_GetToBePublicOfficialMSG_Handler,
+		},
+		{
+			MethodName: "PublicFeedEvent",
+			Handler:    _FeedService_PublicFeedEvent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

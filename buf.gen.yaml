@@ -1,13 +1,13 @@
 version: v1
 managed:
-  enabled: true
+  enabled: false # 禁用托管模式
 plugins:
   # 默认用最新版本
-  - plugin: buf.build/protocolbuffers/go:v1.28.1
+  - plugin: go
     out: gen
     opt: paths=source_relative
 
-  - plugin: buf.build/grpc/go
+  - plugin: go-grpc
     # protoc-gen-go-grpc 插件
     out: gen
     opt:

@@ -5,7 +5,6 @@ option go_package="proto/feed/v1;feedv1";
 
 service FeedService {
   rpc GetFeedEvents (GetFeedEventsReq) returns (GetFeedEventsResp);//获取所有的消息,包括已读和未读两部分
-  rpc GetFailMSG(GetFailMSGReq)returns(GetFailMSGResp);//用来获取当前用户发送失败的消息
   rpc ReadFeedEvent(ReadFeedEventReq)returns(ReadFeedEventResp);//用来更新信息的已读取状态
   rpc ClearFeedEvent (ClearFeedEventReq) returns (ClearFeedEventResp);//清除当前的消息,如果包括已读和未读两部分
   rpc ChangeFeedAllowList (ChangeFeedAllowListReq)returns(ChangeFeedAllowListResp);//更改当前的推送的消息数量
@@ -15,19 +14,28 @@ service FeedService {
   rpc PublicMuxiOfficialMSG(PublicMuxiOfficialMSGReq)returns(PublicMuxiOfficialMSGResp);//发布木犀官方消息
   rpc StopMuxiOfficialMSG(StopMuxiOfficialMSGReq)returns(StopMuxiOfficialMSGResp);//停止发布木犀官方消息
   rpc GetToBePublicOfficialMSG(GetToBePublicOfficialMSGReq)returns(GetToBePublicOfficialMSGResp);//获取当前还没发布的消息列表
+  rpc PublicFeedEvent(PublicFeedEventReq)returns(PublicFeedEventResp);//用于发布feed消息
 }
 
+message PublicFeedEventReq {
+   string studentId =1;//单人推送时提供的学号
+  bool isAll =2;//是否推送给全体成员,默认为推送给单人
+   FeedEvent event = 3;
+}
+
+
+message PublicFeedEventResp{}
 message FeedEvent {
   int64 id = 1;
   string type = 2;
   string title = 3;
   string content = 4;
   map<string, string> ExtendFields=5;
-  string create_at = 6;//创建时间
+  int64 create_at = 6;//创建时间
 }
 
 message GetFeedEventsReq {
-  int64 userId = 1;
+  string studentId = 1;
 }
 
 message GetFeedEventsResp {
@@ -36,77 +44,69 @@ message GetFeedEventsResp {
 }
 
 message ReadFeedEventReq{
-  int64 id = 1;
+  int64 feedId = 1;
 }
 
-message ReadFeedEventResp{
-  //两种方案
-  // 1.返回完整的新列表
-  // 2.让前端伪更新,不返回。这里用第二种
-}
+message ReadFeedEventResp{}
 
 message ClearFeedEventReq {
-  int64 userId = 1;
-  int64 feedId = 2;//如果feedId设置为0表示删除所有的已读部分,如果设置为-1表示删除所有的消息,如果为指定的id号就只删除指定的id的消息,原来是想这么写的但是最后没这么写
+  string studentId = 1;
+  int64 feedId = 2; //feedEventIndex的id,事实上不是实际存储的feed的消息内容的id
+  string status =3;
 }
 
 message ClearFeedEventResp {}
 
 message ChangeFeedAllowListReq {
-  int64 userId = 1;
-  bool grade = 2;
-  bool muxi = 3;
-  bool holiday = 4;
-  bool air_conditioner=5;
-  bool light=6;
+  AllowList allowList =2;
 }
 
 message ChangeFeedAllowListResp {}
+
 message GetFeedAllowListReq{
-  int64 userId =1;
+  string studentId =1;
 }
 
 message GetFeedAllowListResp{
-  bool grade = 1;
-  bool muxi = 2;
-  bool holiday = 3;
-  bool air_conditioner = 4;
-  bool light= 5;
+  AllowList allowList =1;
 }
+
+message AllowList{
+  string studentId = 1;
+  bool grade = 2;
+  bool muxi = 3;
+  bool holiday = 4;
+  bool air_conditioner = 5;
+  bool light= 6;
+}
+
+
 message RemoveFeedTokenReq{
-  int64 userId =1;
+  string studentId =1;
   string token = 2;
 }
 
 message RemoveFeedTokenResp{}
 
 message SaveFeedTokenReq{
-  int64 userId = 1;
+  string studentId = 1;
   string token = 2;
 }
 
 message SaveFeedTokenResp{}
 
 message PublicMuxiOfficialMSGReq{
-  string title =1;
-  string content=2;
-  map<string, string> extendFields=3;//额外字段,如果需要附带的话
-  int64 laterTime = 4;//设定为多少时间之后发送
+  MuxiOfficialMSG muxiOfficialMSG =1;
 }
 
-message PublicMuxiOfficialMSGResp{
-  string title =1;
-  string content=2;
-  map<string, string> extendFields=3;
-  string publicTime =4;
-  string id=5;
-}
+
+message PublicMuxiOfficialMSGResp{}
 
 message MuxiOfficialMSG{
   string title =1;
   string content=2;
   map<string, string> extendFields=3;
-  string publicTime =4;
+  int64 publicTime =4;
   string id=5;
 }
 
@@ -115,11 +115,8 @@ message StopMuxiOfficialMSGReq{
 }
 
 message StopMuxiOfficialMSGResp{}
+
 message GetToBePublicOfficialMSGReq{}
 message GetToBePublicOfficialMSGResp{
   repeated MuxiOfficialMSG msgList=1;
 }
-message GetFailMSGReq{
-  int64 userId = 1;
-}
-message GetFailMSGResp{}

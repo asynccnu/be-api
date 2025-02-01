@@ -19,21 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_FindOrCreateByStudentId_FullMethodName = "/user.v1.UserService/FindOrCreateByStudentId"
-	UserService_FindOrCreateByUserId_FullMethodName    = "/user.v1.UserService/FindOrCreateByUserId"
-	UserService_FindByStudentId_FullMethodName         = "/user.v1.UserService/FindByStudentId"
-	UserService_UpdateNonSensitiveInfo_FullMethodName  = "/user.v1.UserService/UpdateNonSensitiveInfo"
-	UserService_GetCookie_FullMethodName               = "/user.v1.UserService/GetCookie"
+	UserService_SaveUser_FullMethodName  = "/user.v1.UserService/SaveUser"
+	UserService_GetCookie_FullMethodName = "/user.v1.UserService/GetCookie"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	FindOrCreateByStudentId(ctx context.Context, in *FindOrCreateByStudentIdRequest, opts ...grpc.CallOption) (*FindOrCreateByStudentIdResponse, error)
-	FindOrCreateByUserId(ctx context.Context, in *FindOrCreateByUserIdRequest, opts ...grpc.CallOption) (*FindOrCreateByUserIdResponse, error)
-	FindByStudentId(ctx context.Context, in *FindByStudentIdRequest, opts ...grpc.CallOption) (*FindByStudentIdResponse, error)
-	UpdateNonSensitiveInfo(ctx context.Context, in *UpdateNonSensitiveInfoRequest, opts ...grpc.CallOption) (*UpdateNonSensitiveInfoResponse, error)
+	SaveUser(ctx context.Context, in *SaveUserReq, opts ...grpc.CallOption) (*SaveUserResp, error)
 	GetCookie(ctx context.Context, in *GetCookieRequest, opts ...grpc.CallOption) (*GetCookieResponse, error)
 }
 
@@ -45,40 +39,10 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) FindOrCreateByStudentId(ctx context.Context, in *FindOrCreateByStudentIdRequest, opts ...grpc.CallOption) (*FindOrCreateByStudentIdResponse, error) {
+func (c *userServiceClient) SaveUser(ctx context.Context, in *SaveUserReq, opts ...grpc.CallOption) (*SaveUserResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FindOrCreateByStudentIdResponse)
-	err := c.cc.Invoke(ctx, UserService_FindOrCreateByStudentId_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) FindOrCreateByUserId(ctx context.Context, in *FindOrCreateByUserIdRequest, opts ...grpc.CallOption) (*FindOrCreateByUserIdResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FindOrCreateByUserIdResponse)
-	err := c.cc.Invoke(ctx, UserService_FindOrCreateByUserId_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) FindByStudentId(ctx context.Context, in *FindByStudentIdRequest, opts ...grpc.CallOption) (*FindByStudentIdResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(FindByStudentIdResponse)
-	err := c.cc.Invoke(ctx, UserService_FindByStudentId_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) UpdateNonSensitiveInfo(ctx context.Context, in *UpdateNonSensitiveInfoRequest, opts ...grpc.CallOption) (*UpdateNonSensitiveInfoResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(UpdateNonSensitiveInfoResponse)
-	err := c.cc.Invoke(ctx, UserService_UpdateNonSensitiveInfo_FullMethodName, in, out, cOpts...)
+	out := new(SaveUserResp)
+	err := c.cc.Invoke(ctx, UserService_SaveUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,10 +63,7 @@ func (c *userServiceClient) GetCookie(ctx context.Context, in *GetCookieRequest,
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
-	FindOrCreateByStudentId(context.Context, *FindOrCreateByStudentIdRequest) (*FindOrCreateByStudentIdResponse, error)
-	FindOrCreateByUserId(context.Context, *FindOrCreateByUserIdRequest) (*FindOrCreateByUserIdResponse, error)
-	FindByStudentId(context.Context, *FindByStudentIdRequest) (*FindByStudentIdResponse, error)
-	UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error)
+	SaveUser(context.Context, *SaveUserReq) (*SaveUserResp, error)
 	GetCookie(context.Context, *GetCookieRequest) (*GetCookieResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
@@ -114,17 +75,8 @@ type UserServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserServiceServer struct{}
 
-func (UnimplementedUserServiceServer) FindOrCreateByStudentId(context.Context, *FindOrCreateByStudentIdRequest) (*FindOrCreateByStudentIdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindOrCreateByStudentId not implemented")
-}
-func (UnimplementedUserServiceServer) FindOrCreateByUserId(context.Context, *FindOrCreateByUserIdRequest) (*FindOrCreateByUserIdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindOrCreateByUserId not implemented")
-}
-func (UnimplementedUserServiceServer) FindByStudentId(context.Context, *FindByStudentIdRequest) (*FindByStudentIdResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindByStudentId not implemented")
-}
-func (UnimplementedUserServiceServer) UpdateNonSensitiveInfo(context.Context, *UpdateNonSensitiveInfoRequest) (*UpdateNonSensitiveInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateNonSensitiveInfo not implemented")
+func (UnimplementedUserServiceServer) SaveUser(context.Context, *SaveUserReq) (*SaveUserResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveUser not implemented")
 }
 func (UnimplementedUserServiceServer) GetCookie(context.Context, *GetCookieRequest) (*GetCookieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCookie not implemented")
@@ -150,74 +102,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_FindOrCreateByStudentId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindOrCreateByStudentIdRequest)
+func _UserService_SaveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).FindOrCreateByStudentId(ctx, in)
+		return srv.(UserServiceServer).SaveUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_FindOrCreateByStudentId_FullMethodName,
+		FullMethod: UserService_SaveUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).FindOrCreateByStudentId(ctx, req.(*FindOrCreateByStudentIdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_FindOrCreateByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindOrCreateByUserIdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).FindOrCreateByUserId(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_FindOrCreateByUserId_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).FindOrCreateByUserId(ctx, req.(*FindOrCreateByUserIdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_FindByStudentId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindByStudentIdRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).FindByStudentId(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_FindByStudentId_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).FindByStudentId(ctx, req.(*FindByStudentIdRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_UpdateNonSensitiveInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateNonSensitiveInfoRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).UpdateNonSensitiveInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_UpdateNonSensitiveInfo_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).UpdateNonSensitiveInfo(ctx, req.(*UpdateNonSensitiveInfoRequest))
+		return srv.(UserServiceServer).SaveUser(ctx, req.(*SaveUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -248,20 +146,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "FindOrCreateByStudentId",
-			Handler:    _UserService_FindOrCreateByStudentId_Handler,
-		},
-		{
-			MethodName: "FindOrCreateByUserId",
-			Handler:    _UserService_FindOrCreateByUserId_Handler,
-		},
-		{
-			MethodName: "FindByStudentId",
-			Handler:    _UserService_FindByStudentId_Handler,
-		},
-		{
-			MethodName: "UpdateNonSensitiveInfo",
-			Handler:    _UserService_UpdateNonSensitiveInfo_Handler,
+			MethodName: "SaveUser",
+			Handler:    _UserService_SaveUser_Handler,
 		},
 		{
 			MethodName: "GetCookie",

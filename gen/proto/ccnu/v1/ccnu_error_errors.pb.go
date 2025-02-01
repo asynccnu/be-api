@@ -23,14 +23,26 @@ func ErrorInvalidSidOrPwd(format string, args ...interface{}) *errors.Error {
 	return errors.New(401, CCNUErrorReason_INVALID_SID_OR_PWD.String(), fmt.Sprintf(format, args...))
 }
 
-func IsNetworkToXkError(err error) bool {
+func IsCcnuserverError(err error) bool {
 	if err == nil {
 		return false
 	}
 	e := errors.FromError(err)
-	return e.Reason == CCNUErrorReason_NETWORK_TO_XK_ERROR.String() && e.Code == 500
+	return e.Reason == CCNUErrorReason_CCNUSERVER_ERROR.String() && e.Code == 501
 }
 
-func ErrorNetworkToXkError(format string, args ...interface{}) *errors.Error {
-	return errors.New(500, CCNUErrorReason_NETWORK_TO_XK_ERROR.String(), fmt.Sprintf(format, args...))
+func ErrorCcnuserverError(format string, args ...interface{}) *errors.Error {
+	return errors.New(501, CCNUErrorReason_CCNUSERVER_ERROR.String(), fmt.Sprintf(format, args...))
+}
+
+func IsSystemError(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == CCNUErrorReason_SYSTEM_ERROR.String() && e.Code == 502
+}
+
+func ErrorSystemError(format string, args ...interface{}) *errors.Error {
+	return errors.New(502, CCNUErrorReason_SYSTEM_ERROR.String(), fmt.Sprintf(format, args...))
 }
