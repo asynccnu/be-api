@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.26.1
-// source: proto/classlist/v1/classer.proto
+// source: classer.proto
 
 package classerv1
 
@@ -439,5 +439,5 @@ var Classer_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/classlist/v1/classer.proto",
+	Metadata: "classer.proto",
 }

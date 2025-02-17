@@ -37,6 +37,9 @@ message GetClassRequest {
     string semester=3;
     //学年
     string year=4 ;
+
+    //是否直接从学校官网直接爬取
+    bool refresh = 5;
 }
 message GetClassResponse {
     //课表
