@@ -190,8 +190,8 @@ message  ClassInfo {
 message Class {
     //课程信息
     ClassInfo info =1;
-    //是否是本周
-    bool thisweek=2;
+//    //是否是本周
+//    bool thisweek=2;
 }
 
 message  GetSchoolDayReq {}
