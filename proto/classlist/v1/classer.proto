@@ -126,13 +126,13 @@ message GetAllClassInfoRequest {
     string semester=2;
     //避免一次性获取太多class[每次只获取100个]
     //最后一个课程的时间戳，时区为UTC
-    // "2023-09-03T01:01:01"
+    // "2023-09-03T01:01:01.000000"
     string cursor =3;
 }
 message GetAllClassInfoResponse {
     repeated ClassInfo class_infos = 1;
     //最后一个课程的时间戳，时区为UTC
-    // "2023-09-03T01:01:01"
+    // "2023-09-03T01:01:01.000000"
     string lastTime = 2;
 }
 message GetRecycleBinClassRequest{
