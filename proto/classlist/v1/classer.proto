@@ -29,17 +29,17 @@ service Classer {
 }
 
 message GetClassRequest {
-    //周几的课表
-    int64 week=1 ;
+//    //周几的课表
+//    int64 week=1 ;
     //学号
-    string stu_id=2;
+    string stu_id=1;
     // 学期
-    string semester=3;
+    string semester=2;
     //学年
-    string year=4 ;
+    string year=3;
 
     //是否直接从学校官网直接爬取
-    bool refresh = 5;
+    bool refresh = 4;
 }
 message GetClassResponse {
     //课表
