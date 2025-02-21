@@ -43,15 +43,15 @@ type ClasserClient interface {
 	// 更新课程
 	UpdateClass(ctx context.Context, in *UpdateClassRequest, opts ...grpc.CallOption) (*UpdateClassResponse, error)
 	// 获取回收站的课程(回收站的课程只能保存2个月)
-	GetRecycleBinClassInfos(ctx context.Context, in *classerv1.GetRecycleBinClassRequest, opts ...grpc.CallOption) (*classerv1.GetRecycleBinClassResponse, error)
+	GetRecycleBinClassInfos(ctx context.Context, in *GetRecycleBinClassRequest, opts ...grpc.CallOption) (*GetRecycleBinClassResponse, error)
 	// 恢复课程
-	RecoverClass(ctx context.Context, in *classerv1.RecoverClassRequest, opts ...grpc.CallOption) (*classerv1.RecoverClassResponse, error)
+	RecoverClass(ctx context.Context, in *RecoverClassRequest, opts ...grpc.CallOption) (*RecoverClassResponse, error)
 	// 获取所有课程信息(为其他服务设置的)
-	GetAllClassInfo(ctx context.Context, in *GetAllClassInfoRequest, opts ...grpc.CallOption) (*classerv1.GetAllClassInfoResponse, error)
+	GetAllClassInfo(ctx context.Context, in *GetAllClassInfoRequest, opts ...grpc.CallOption) (*GetAllClassInfoResponse, error)
 	// 获取教学班中的所有学生ID
-	GetStuIdByJxbId(ctx context.Context, in *classerv1.GetStuIdByJxbIdRequest, opts ...grpc.CallOption) (*classerv1.GetStuIdByJxbIdResponse, error)
+	GetStuIdByJxbId(ctx context.Context, in *GetStuIdByJxbIdRequest, opts ...grpc.CallOption) (*GetStuIdByJxbIdResponse, error)
 	// 获取相关日期
-	GetSchoolDay(ctx context.Context, in *classerv1.GetSchoolDayReq, opts ...grpc.CallOption) (*classerv1.GetSchoolDayResp, error)
+	GetSchoolDay(ctx context.Context, in *GetSchoolDayReq, opts ...grpc.CallOption) (*GetSchoolDayResp, error)
 }
 
 type classerClient struct {
@@ -102,9 +102,9 @@ func (c *classerClient) UpdateClass(ctx context.Context, in *UpdateClassRequest,
 	return out, nil
 }
 
-func (c *classerClient) GetRecycleBinClassInfos(ctx context.Context, in *classerv1.GetRecycleBinClassRequest, opts ...grpc.CallOption) (*classerv1.GetRecycleBinClassResponse, error) {
+func (c *classerClient) GetRecycleBinClassInfos(ctx context.Context, in *GetRecycleBinClassRequest, opts ...grpc.CallOption) (*GetRecycleBinClassResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(classerv1.GetRecycleBinClassResponse)
+	out := new(GetRecycleBinClassResponse)
 	err := c.cc.Invoke(ctx, Classer_GetRecycleBinClassInfos_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -112,9 +112,9 @@ func (c *classerClient) GetRecycleBinClassInfos(ctx context.Context, in *classer
 	return out, nil
 }
 
-func (c *classerClient) RecoverClass(ctx context.Context, in *classerv1.RecoverClassRequest, opts ...grpc.CallOption) (*classerv1.RecoverClassResponse, error) {
+func (c *classerClient) RecoverClass(ctx context.Context, in *RecoverClassRequest, opts ...grpc.CallOption) (*RecoverClassResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(classerv1.RecoverClassResponse)
+	out := new(RecoverClassResponse)
 	err := c.cc.Invoke(ctx, Classer_RecoverClass_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -122,9 +122,9 @@ func (c *classerClient) RecoverClass(ctx context.Context, in *classerv1.RecoverC
 	return out, nil
 }
 
-func (c *classerClient) GetAllClassInfo(ctx context.Context, in *GetAllClassInfoRequest, opts ...grpc.CallOption) (*classerv1.GetAllClassInfoResponse, error) {
+func (c *classerClient) GetAllClassInfo(ctx context.Context, in *GetAllClassInfoRequest, opts ...grpc.CallOption) (*GetAllClassInfoResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(classerv1.GetAllClassInfoResponse)
+	out := new(GetAllClassInfoResponse)
 	err := c.cc.Invoke(ctx, Classer_GetAllClassInfo_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -132,9 +132,9 @@ func (c *classerClient) GetAllClassInfo(ctx context.Context, in *GetAllClassInfo
 	return out, nil
 }
 
-func (c *classerClient) GetStuIdByJxbId(ctx context.Context, in *classerv1.GetStuIdByJxbIdRequest, opts ...grpc.CallOption) (*classerv1.GetStuIdByJxbIdResponse, error) {
+func (c *classerClient) GetStuIdByJxbId(ctx context.Context, in *GetStuIdByJxbIdRequest, opts ...grpc.CallOption) (*GetStuIdByJxbIdResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(classerv1.GetStuIdByJxbIdResponse)
+	out := new(GetStuIdByJxbIdResponse)
 	err := c.cc.Invoke(ctx, Classer_GetStuIdByJxbId_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -142,9 +142,9 @@ func (c *classerClient) GetStuIdByJxbId(ctx context.Context, in *classerv1.GetSt
 	return out, nil
 }
 
-func (c *classerClient) GetSchoolDay(ctx context.Context, in *classerv1.GetSchoolDayReq, opts ...grpc.CallOption) (*classerv1.GetSchoolDayResp, error) {
+func (c *classerClient) GetSchoolDay(ctx context.Context, in *GetSchoolDayReq, opts ...grpc.CallOption) (*GetSchoolDayResp, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(classerv1.GetSchoolDayResp)
+	out := new(GetSchoolDayResp)
 	err := c.cc.Invoke(ctx, Classer_GetSchoolDay_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -165,15 +165,15 @@ type ClasserServer interface {
 	// 更新课程
 	UpdateClass(context.Context, *UpdateClassRequest) (*UpdateClassResponse, error)
 	// 获取回收站的课程(回收站的课程只能保存2个月)
-	GetRecycleBinClassInfos(context.Context, *classerv1.GetRecycleBinClassRequest) (*classerv1.GetRecycleBinClassResponse, error)
+	GetRecycleBinClassInfos(context.Context, *GetRecycleBinClassRequest) (*GetRecycleBinClassResponse, error)
 	// 恢复课程
-	RecoverClass(context.Context, *classerv1.RecoverClassRequest) (*classerv1.RecoverClassResponse, error)
+	RecoverClass(context.Context, *RecoverClassRequest) (*RecoverClassResponse, error)
 	// 获取所有课程信息(为其他服务设置的)
-	GetAllClassInfo(context.Context, *GetAllClassInfoRequest) (*classerv1.GetAllClassInfoResponse, error)
+	GetAllClassInfo(context.Context, *GetAllClassInfoRequest) (*GetAllClassInfoResponse, error)
 	// 获取教学班中的所有学生ID
-	GetStuIdByJxbId(context.Context, *classerv1.GetStuIdByJxbIdRequest) (*classerv1.GetStuIdByJxbIdResponse, error)
+	GetStuIdByJxbId(context.Context, *GetStuIdByJxbIdRequest) (*GetStuIdByJxbIdResponse, error)
 	// 获取相关日期
-	GetSchoolDay(context.Context, *classerv1.GetSchoolDayReq) (*classerv1.GetSchoolDayResp, error)
+	GetSchoolDay(context.Context, *GetSchoolDayReq) (*GetSchoolDayResp, error)
 	mustEmbedUnimplementedClasserServer()
 }
 
@@ -196,19 +196,19 @@ func (UnimplementedClasserServer) DeleteClass(context.Context, *DeleteClassReque
 func (UnimplementedClasserServer) UpdateClass(context.Context, *UpdateClassRequest) (*UpdateClassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateClass not implemented")
 }
-func (UnimplementedClasserServer) GetRecycleBinClassInfos(context.Context, *classerv1.GetRecycleBinClassRequest) (*classerv1.GetRecycleBinClassResponse, error) {
+func (UnimplementedClasserServer) GetRecycleBinClassInfos(context.Context, *GetRecycleBinClassRequest) (*GetRecycleBinClassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRecycleBinClassInfos not implemented")
 }
-func (UnimplementedClasserServer) RecoverClass(context.Context, *classerv1.RecoverClassRequest) (*classerv1.RecoverClassResponse, error) {
+func (UnimplementedClasserServer) RecoverClass(context.Context, *RecoverClassRequest) (*RecoverClassResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecoverClass not implemented")
 }
-func (UnimplementedClasserServer) GetAllClassInfo(context.Context, *GetAllClassInfoRequest) (*classerv1.GetAllClassInfoResponse, error) {
+func (UnimplementedClasserServer) GetAllClassInfo(context.Context, *GetAllClassInfoRequest) (*GetAllClassInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllClassInfo not implemented")
 }
-func (UnimplementedClasserServer) GetStuIdByJxbId(context.Context, *classerv1.GetStuIdByJxbIdRequest) (*classerv1.GetStuIdByJxbIdResponse, error) {
+func (UnimplementedClasserServer) GetStuIdByJxbId(context.Context, *GetStuIdByJxbIdRequest) (*GetStuIdByJxbIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStuIdByJxbId not implemented")
 }
-func (UnimplementedClasserServer) GetSchoolDay(context.Context, *classerv1.GetSchoolDayReq) (*classerv1.GetSchoolDayResp, error) {
+func (UnimplementedClasserServer) GetSchoolDay(context.Context, *GetSchoolDayReq) (*GetSchoolDayResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchoolDay not implemented")
 }
 func (UnimplementedClasserServer) mustEmbedUnimplementedClasserServer() {}
@@ -305,7 +305,7 @@ func _Classer_UpdateClass_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 func _Classer_GetRecycleBinClassInfos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(classerv1.GetRecycleBinClassRequest)
+	in := new(GetRecycleBinClassRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -317,13 +317,13 @@ func _Classer_GetRecycleBinClassInfos_Handler(srv interface{}, ctx context.Conte
 		FullMethod: Classer_GetRecycleBinClassInfos_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ClasserServer).GetRecycleBinClassInfos(ctx, req.(*classerv1.GetRecycleBinClassRequest))
+		return srv.(ClasserServer).GetRecycleBinClassInfos(ctx, req.(*GetRecycleBinClassRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Classer_RecoverClass_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(classerv1.RecoverClassRequest)
+	in := new(RecoverClassRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -335,7 +335,7 @@ func _Classer_RecoverClass_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: Classer_RecoverClass_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ClasserServer).RecoverClass(ctx, req.(*classerv1.RecoverClassRequest))
+		return srv.(ClasserServer).RecoverClass(ctx, req.(*RecoverClassRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -359,7 +359,7 @@ func _Classer_GetAllClassInfo_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _Classer_GetStuIdByJxbId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(classerv1.GetStuIdByJxbIdRequest)
+	in := new(GetStuIdByJxbIdRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -371,13 +371,13 @@ func _Classer_GetStuIdByJxbId_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: Classer_GetStuIdByJxbId_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ClasserServer).GetStuIdByJxbId(ctx, req.(*classerv1.GetStuIdByJxbIdRequest))
+		return srv.(ClasserServer).GetStuIdByJxbId(ctx, req.(*GetStuIdByJxbIdRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Classer_GetSchoolDay_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(classerv1.GetSchoolDayReq)
+	in := new(GetSchoolDayReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -389,7 +389,7 @@ func _Classer_GetSchoolDay_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: Classer_GetSchoolDay_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ClasserServer).GetSchoolDay(ctx, req.(*classerv1.GetSchoolDayReq))
+		return srv.(ClasserServer).GetSchoolDay(ctx, req.(*GetSchoolDayReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
