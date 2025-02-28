@@ -19,12 +19,13 @@ service FeedService {
 
 message PublicFeedEventReq {
    string studentId =1;//单人推送时提供的学号
-  bool isAll =2;//是否推送给全体成员,默认为推送给单人
+   bool isAll =2;//是否推送给全体成员,默认为推送给单人
    FeedEvent event = 3;
 }
 
 
 message PublicFeedEventResp{}
+
 message FeedEvent {
   int64 id = 1;
   string type = 2;
@@ -34,18 +35,25 @@ message FeedEvent {
   int64 created_at = 6;//创建时间
 }
 
+message FeedEventVO {
+  int64 id = 1;
+  string type = 2;
+  string title = 3;
+  string content = 4;
+  bool read =5;
+  map<string, string> ExtendFields=6;
+  int64 created_at = 7;//创建时间
+}
+
 message GetFeedEventsReq {
   string studentId = 1;
 }
 
 message GetFeedEventsResp {
-  map<string, FeedEventList> feedEvents = 1;  // 按类型分组
+  repeated FeedEventVO feedEvents=1;
 }
 
-message FeedEventList{
-  repeated FeedEvent read = 1;
-  repeated FeedEvent unread = 2;
-}
+
 message ReadFeedEventReq{
   int64 feedId = 1;
 }
