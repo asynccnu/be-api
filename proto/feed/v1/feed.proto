@@ -87,8 +87,7 @@ message AllowList{
   bool grade = 2;
   bool muxi = 3;
   bool holiday = 4;
-  bool air_conditioner = 5;
-  bool light= 6;
+  bool energy = 5;
 }
 
 
