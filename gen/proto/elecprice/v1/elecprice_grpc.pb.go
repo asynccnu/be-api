@@ -66,10 +66,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ElecpriceService_GetAIDandName_FullMethodName = "/elecprice.v1.ElecpriceService/GetAIDandName"
-	ElecpriceService_GetRoomInfo_FullMethodName   = "/elecprice.v1.ElecpriceService/GetRoomInfo"
-	ElecpriceService_GetPrice_FullMethodName      = "/elecprice.v1.ElecpriceService/GetPrice"
-	ElecpriceService_SetStandard_FullMethodName   = "/elecprice.v1.ElecpriceService/SetStandard"
+	ElecpriceService_GetAIDandName_FullMethodName   = "/elecprice.v1.ElecpriceService/GetAIDandName"
+	ElecpriceService_GetRoomInfo_FullMethodName     = "/elecprice.v1.ElecpriceService/GetRoomInfo"
+	ElecpriceService_GetPrice_FullMethodName        = "/elecprice.v1.ElecpriceService/GetPrice"
+	ElecpriceService_SetStandard_FullMethodName     = "/elecprice.v1.ElecpriceService/SetStandard"
+	ElecpriceService_GetStandardList_FullMethodName = "/elecprice.v1.ElecpriceService/GetStandardList"
+	ElecpriceService_CancelStandard_FullMethodName  = "/elecprice.v1.ElecpriceService/CancelStandard"
 )
 
 // ElecpriceServiceClient is the client API for ElecpriceService service.
@@ -82,6 +84,8 @@ type ElecpriceServiceClient interface {
 	GetRoomInfo(ctx context.Context, in *GetRoomInfoRequest, opts ...grpc.CallOption) (*GetRoomInfoResponse, error)
 	GetPrice(ctx context.Context, in *GetPriceRequest, opts ...grpc.CallOption) (*GetPriceResponse, error)
 	SetStandard(ctx context.Context, in *SetStandardRequest, opts ...grpc.CallOption) (*SetStandardResponse, error)
+	GetStandardList(ctx context.Context, in *GetStandardListRequest, opts ...grpc.CallOption) (*GetStandardListResponse, error)
+	CancelStandard(ctx context.Context, in *CancelStandardRequest, opts ...grpc.CallOption) (*CancelStandardResponse, error)
 }
 
 type elecpriceServiceClient struct {
@@ -132,6 +136,26 @@ func (c *elecpriceServiceClient) SetStandard(ctx context.Context, in *SetStandar
 	return out, nil
 }
 
+func (c *elecpriceServiceClient) GetStandardList(ctx context.Context, in *GetStandardListRequest, opts ...grpc.CallOption) (*GetStandardListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetStandardListResponse)
+	err := c.cc.Invoke(ctx, ElecpriceService_GetStandardList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *elecpriceServiceClient) CancelStandard(ctx context.Context, in *CancelStandardRequest, opts ...grpc.CallOption) (*CancelStandardResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CancelStandardResponse)
+	err := c.cc.Invoke(ctx, ElecpriceService_CancelStandard_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ElecpriceServiceServer is the server API for ElecpriceService service.
 // All implementations must embed UnimplementedElecpriceServiceServer
 // for forward compatibility.
@@ -142,6 +166,8 @@ type ElecpriceServiceServer interface {
 	GetRoomInfo(context.Context, *GetRoomInfoRequest) (*GetRoomInfoResponse, error)
 	GetPrice(context.Context, *GetPriceRequest) (*GetPriceResponse, error)
 	SetStandard(context.Context, *SetStandardRequest) (*SetStandardResponse, error)
+	GetStandardList(context.Context, *GetStandardListRequest) (*GetStandardListResponse, error)
+	CancelStandard(context.Context, *CancelStandardRequest) (*CancelStandardResponse, error)
 	mustEmbedUnimplementedElecpriceServiceServer()
 }
 
@@ -163,6 +189,12 @@ func (UnimplementedElecpriceServiceServer) GetPrice(context.Context, *GetPriceRe
 }
 func (UnimplementedElecpriceServiceServer) SetStandard(context.Context, *SetStandardRequest) (*SetStandardResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetStandard not implemented")
+}
+func (UnimplementedElecpriceServiceServer) GetStandardList(context.Context, *GetStandardListRequest) (*GetStandardListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetStandardList not implemented")
+}
+func (UnimplementedElecpriceServiceServer) CancelStandard(context.Context, *CancelStandardRequest) (*CancelStandardResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelStandard not implemented")
 }
 func (UnimplementedElecpriceServiceServer) mustEmbedUnimplementedElecpriceServiceServer() {}
 func (UnimplementedElecpriceServiceServer) testEmbeddedByValue()                          {}
@@ -257,6 +289,42 @@ func _ElecpriceService_SetStandard_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ElecpriceService_GetStandardList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetStandardListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ElecpriceServiceServer).GetStandardList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ElecpriceService_GetStandardList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ElecpriceServiceServer).GetStandardList(ctx, req.(*GetStandardListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ElecpriceService_CancelStandard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelStandardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ElecpriceServiceServer).CancelStandard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ElecpriceService_CancelStandard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ElecpriceServiceServer).CancelStandard(ctx, req.(*CancelStandardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ElecpriceService_ServiceDesc is the grpc.ServiceDesc for ElecpriceService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -279,6 +347,14 @@ var ElecpriceService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetStandard",
 			Handler:    _ElecpriceService_SetStandard_Handler,
+		},
+		{
+			MethodName: "GetStandardList",
+			Handler:    _ElecpriceService_GetStandardList_Handler,
+		},
+		{
+			MethodName: "CancelStandard",
+			Handler:    _ElecpriceService_CancelStandard_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

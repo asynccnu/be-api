@@ -57,6 +57,8 @@ service ElecpriceService {
   rpc GetPrice (GetPriceRequest) returns (GetPriceResponse);
 
   rpc SetStandard (SetStandardRequest) returns (SetStandardResponse);
+  rpc GetStandardList (GetStandardListRequest) returns (GetStandardListResponse);
+  rpc CancelStandard (CancelStandardRequest) returns (CancelStandardResponse);
 }
 
 message GetAIDandNameRequest {
@@ -85,35 +87,43 @@ message GetRoomInfoResponse {
 }
 
 message GetPriceRequest {
-  string RoomLightID = 1;
-  string RoomAircID = 2;
+  string room_id = 1;
 }
 
 message GetPriceResponse {
   message Price {
-    string LightingRemainMoney = 1; // 剩余照明电费
-    string LightingYesterdayUseValue = 2; // 昨日花费照明电量
-    string LightingYesterdayUseMoney = 3; // 昨日花费照明电费
-    string AirRemainMoney = 4; // 昨日空调电费
-    string AirYesterdayUseValue = 5; // 昨日花费空调电量
-    string AirYesterdayUseMoney = 6; // 昨日花费空调电费
+    string RemainMoney = 1; // 剩余电费
+    string YesterdayUseValue = 2; // 昨日花费电量
+    string YesterdayUseMoney = 3; // 昨日花费电费
   }
   Price price = 1;
 }
 
-// 请求体
-message SetStandardRequest {
-  message IDs{
-    string RoomLightID = 1;
-    string RoomAircID = 2;
-  }
-
-  string studentId = 1;
-  int64 money       = 2;  //金额
-  IDs ids = 3;
+//有一个id对应两个状态和一个状态
+message Standard {
+  int64 limit = 1;
+  string room_id = 2;
+  string room_name = 3;
 }
 
+message SetStandardRequest {
+  string studentId = 1;
+  Standard standard = 2;
+}
 
-
-// 响应体
 message SetStandardResponse{}
+
+message GetStandardListRequest {
+  string studentId = 1;
+}
+
+message GetStandardListResponse {
+  repeated  Standard standards = 1;
+}
+
+message CancelStandardRequest {
+  string studentId = 1;
+  string room_id = 2;
+}
+
+message CancelStandardResponse{}
