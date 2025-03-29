@@ -52,7 +52,7 @@ import "google/protobuf/any.proto";
 
 // 查询电费的接口定义
 service ElecpriceService {
-  rpc GetAIDandName (GetAIDandNameRequest) returns (GetAIDandNameResponse);
+  rpc GetArchitecture (GetArchitectureRequest) returns (GetArchitectureResponse);
   rpc GetRoomInfo (GetRoomInfoRequest) returns (GetRoomInfoResponse);
   rpc GetPrice (GetPriceRequest) returns (GetPriceResponse);
 
@@ -61,14 +61,16 @@ service ElecpriceService {
   rpc CancelStandard (CancelStandardRequest) returns (CancelStandardResponse);
 }
 
-message GetAIDandNameRequest {
+message GetArchitectureRequest {
   string AreaName = 1;
 }
 
-message GetAIDandNameResponse {
+message GetArchitectureResponse {
   message Architecture {
     string ArchitectureID = 1;
     string ArchitectureName = 2;
+    string BaseFloor = 3;
+    string TopFloor = 4;
   }
   repeated Architecture ArchitectureList = 1;
 }
