@@ -15,6 +15,7 @@ message QueryFreeClassroomReq {
   int32 day = 4; //哪一天
   repeated int32 sections = 5; //哪几节课
   string wherePrefix = 6; //查询的地点前缀，比如南湖1楼，就是 "n1"，7号教学楼2楼就是"72"
+  string stuID = 7; //学号
 }
 message QueryFreeClassroomResp {
   repeated ClassroomAvailableStat stat = 1;
