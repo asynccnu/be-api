@@ -17,7 +17,6 @@ message  SaveUserResp {}
 
 message GetCookieRequest {
   string studentId = 1;
-  bool force =2;
 }
 
 message GetCookieResponse {

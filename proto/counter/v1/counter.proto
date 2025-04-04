@@ -30,8 +30,8 @@ message GetCounterLevelsResp{
 
 message ChangeCounterLevelsReq{
   repeated string studentIds =1;
-  bool isReduce=2;//如果是ture表示降低等级
-  int64 step =3;//表示降低几个等级,一般写成一个等级
+  bool isReduce=2;//如果是ture表示降低等级，1,3,7表示其等级
+  int64 step =3;//表示降低几个等级,
 }
 
 message ChangeCounterLevelsResp{}

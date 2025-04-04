@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ClassService_SearchClass_FullMethodName = "/classService.v1.ClassService/SearchClass"
-	ClassService_AddClass_FullMethodName    = "/classService.v1.ClassService/AddClass"
+	ClassService_SearchClass_FullMethodName        = "/classService.v1.ClassService/SearchClass"
+	ClassService_AddClass_FullMethodName           = "/classService.v1.ClassService/AddClass"
+	ClassService_QueryFreeClassroom_FullMethodName = "/classService.v1.ClassService/QueryFreeClassroom"
 )
 
 // ClassServiceClient is the client API for ClassService service.
@@ -33,6 +34,7 @@ type ClassServiceClient interface {
 	SearchClass(ctx context.Context, in *SearchRequest, opts ...grpc.CallOption) (*SearchReply, error)
 	//添加课程
 	AddClass(ctx context.Context, in *AddClassRequest, opts ...grpc.CallOption) (*AddClassReply, error)
+	QueryFreeClassroom(ctx context.Context, in *QueryFreeClassroomReq, opts ...grpc.CallOption) (*QueryFreeClassroomResp, error)
 }
 
 type classServiceClient struct {
@@ -63,6 +65,16 @@ func (c *classServiceClient) AddClass(ctx context.Context, in *AddClassRequest, 
 	return out, nil
 }
 
+func (c *classServiceClient) QueryFreeClassroom(ctx context.Context, in *QueryFreeClassroomReq, opts ...grpc.CallOption) (*QueryFreeClassroomResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(QueryFreeClassroomResp)
+	err := c.cc.Invoke(ctx, ClassService_QueryFreeClassroom_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ClassServiceServer is the server API for ClassService service.
 // All implementations must embed UnimplementedClassServiceServer
 // for forward compatibility.
@@ -73,6 +85,7 @@ type ClassServiceServer interface {
 	SearchClass(context.Context, *SearchRequest) (*SearchReply, error)
 	//添加课程
 	AddClass(context.Context, *AddClassRequest) (*AddClassReply, error)
+	QueryFreeClassroom(context.Context, *QueryFreeClassroomReq) (*QueryFreeClassroomResp, error)
 	mustEmbedUnimplementedClassServiceServer()
 }
 
@@ -88,6 +101,9 @@ func (UnimplementedClassServiceServer) SearchClass(context.Context, *SearchReque
 }
 func (UnimplementedClassServiceServer) AddClass(context.Context, *AddClassRequest) (*AddClassReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddClass not implemented")
+}
+func (UnimplementedClassServiceServer) QueryFreeClassroom(context.Context, *QueryFreeClassroomReq) (*QueryFreeClassroomResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryFreeClassroom not implemented")
 }
 func (UnimplementedClassServiceServer) mustEmbedUnimplementedClassServiceServer() {}
 func (UnimplementedClassServiceServer) testEmbeddedByValue()                      {}
@@ -146,6 +162,24 @@ func _ClassService_AddClass_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ClassService_QueryFreeClassroom_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryFreeClassroomReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ClassServiceServer).QueryFreeClassroom(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ClassService_QueryFreeClassroom_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ClassServiceServer).QueryFreeClassroom(ctx, req.(*QueryFreeClassroomReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ClassService_ServiceDesc is the grpc.ServiceDesc for ClassService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -160,6 +194,10 @@ var ClassService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddClass",
 			Handler:    _ClassService_AddClass_Handler,
+		},
+		{
+			MethodName: "QueryFreeClassroom",
+			Handler:    _ClassService_QueryFreeClassroom_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -66,7 +66,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ElecpriceService_GetAIDandName_FullMethodName   = "/elecprice.v1.ElecpriceService/GetAIDandName"
+	ElecpriceService_GetArchitecture_FullMethodName = "/elecprice.v1.ElecpriceService/GetArchitecture"
 	ElecpriceService_GetRoomInfo_FullMethodName     = "/elecprice.v1.ElecpriceService/GetRoomInfo"
 	ElecpriceService_GetPrice_FullMethodName        = "/elecprice.v1.ElecpriceService/GetPrice"
 	ElecpriceService_SetStandard_FullMethodName     = "/elecprice.v1.ElecpriceService/SetStandard"
@@ -80,7 +80,7 @@ const (
 //
 // 查询电费的接口定义
 type ElecpriceServiceClient interface {
-	GetAIDandName(ctx context.Context, in *GetAIDandNameRequest, opts ...grpc.CallOption) (*GetAIDandNameResponse, error)
+	GetArchitecture(ctx context.Context, in *GetArchitectureRequest, opts ...grpc.CallOption) (*GetArchitectureResponse, error)
 	GetRoomInfo(ctx context.Context, in *GetRoomInfoRequest, opts ...grpc.CallOption) (*GetRoomInfoResponse, error)
 	GetPrice(ctx context.Context, in *GetPriceRequest, opts ...grpc.CallOption) (*GetPriceResponse, error)
 	SetStandard(ctx context.Context, in *SetStandardRequest, opts ...grpc.CallOption) (*SetStandardResponse, error)
@@ -96,10 +96,10 @@ func NewElecpriceServiceClient(cc grpc.ClientConnInterface) ElecpriceServiceClie
 	return &elecpriceServiceClient{cc}
 }
 
-func (c *elecpriceServiceClient) GetAIDandName(ctx context.Context, in *GetAIDandNameRequest, opts ...grpc.CallOption) (*GetAIDandNameResponse, error) {
+func (c *elecpriceServiceClient) GetArchitecture(ctx context.Context, in *GetArchitectureRequest, opts ...grpc.CallOption) (*GetArchitectureResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetAIDandNameResponse)
-	err := c.cc.Invoke(ctx, ElecpriceService_GetAIDandName_FullMethodName, in, out, cOpts...)
+	out := new(GetArchitectureResponse)
+	err := c.cc.Invoke(ctx, ElecpriceService_GetArchitecture_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +162,7 @@ func (c *elecpriceServiceClient) CancelStandard(ctx context.Context, in *CancelS
 //
 // 查询电费的接口定义
 type ElecpriceServiceServer interface {
-	GetAIDandName(context.Context, *GetAIDandNameRequest) (*GetAIDandNameResponse, error)
+	GetArchitecture(context.Context, *GetArchitectureRequest) (*GetArchitectureResponse, error)
 	GetRoomInfo(context.Context, *GetRoomInfoRequest) (*GetRoomInfoResponse, error)
 	GetPrice(context.Context, *GetPriceRequest) (*GetPriceResponse, error)
 	SetStandard(context.Context, *SetStandardRequest) (*SetStandardResponse, error)
@@ -178,8 +178,8 @@ type ElecpriceServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedElecpriceServiceServer struct{}
 
-func (UnimplementedElecpriceServiceServer) GetAIDandName(context.Context, *GetAIDandNameRequest) (*GetAIDandNameResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAIDandName not implemented")
+func (UnimplementedElecpriceServiceServer) GetArchitecture(context.Context, *GetArchitectureRequest) (*GetArchitectureResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetArchitecture not implemented")
 }
 func (UnimplementedElecpriceServiceServer) GetRoomInfo(context.Context, *GetRoomInfoRequest) (*GetRoomInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoomInfo not implemented")
@@ -217,20 +217,20 @@ func RegisterElecpriceServiceServer(s grpc.ServiceRegistrar, srv ElecpriceServic
 	s.RegisterService(&ElecpriceService_ServiceDesc, srv)
 }
 
-func _ElecpriceService_GetAIDandName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAIDandNameRequest)
+func _ElecpriceService_GetArchitecture_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetArchitectureRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ElecpriceServiceServer).GetAIDandName(ctx, in)
+		return srv.(ElecpriceServiceServer).GetArchitecture(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ElecpriceService_GetAIDandName_FullMethodName,
+		FullMethod: ElecpriceService_GetArchitecture_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ElecpriceServiceServer).GetAIDandName(ctx, req.(*GetAIDandNameRequest))
+		return srv.(ElecpriceServiceServer).GetArchitecture(ctx, req.(*GetArchitectureRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -333,8 +333,8 @@ var ElecpriceService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ElecpriceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAIDandName",
-			Handler:    _ElecpriceService_GetAIDandName_Handler,
+			MethodName: "GetArchitecture",
+			Handler:    _ElecpriceService_GetArchitecture_Handler,
 		},
 		{
 			MethodName: "GetRoomInfo",
